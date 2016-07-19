@@ -4,13 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
-    <!-- <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css"> -->
     <script src="script/jquery-1.8.1.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="./CSS/style.css">
-   <!--  <script src="//js.arcgis.com/3.7/"></script> -->
    <link rel="stylesheet" type="text/css" href="./CSS/esri/css/esri.css">
    <script src="https://js.arcgis.com/3.17/"></script>
-   <!-- <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css"> -->
    <script type="text/javascript" src="./script/GetJson.js"></script>
    </head>
   <body>
@@ -21,18 +18,31 @@
     </span> -->
     <div id="map_wrapper">
       <div id="map_container">
-
-        <div id="map">
+        <div class="topbar">
+          <div class="menu">
+              <div class="menu_btn"  onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+              </div>
+          </div>
+        </div>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="＃">a</a>
+          <a href="＃">b</a>
+          <a href="＃">c</a>
         </div>
 
-        <div id="map_panel"> 
-        	<div style="position: absolute; height: 60px; top: 0px; width: 250px ">
-    			<div class="roundedOne">
-      				<input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
-      				<label for="GetTemp"></label>
-    			</div>
-    			<span style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
-    		</div>
+        <div class="map_and_panel">
+          <div id="map"></div>
+            <div id="map_panel"> 
+        	     <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
+    			     <div class="roundedOne">
+      				  <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
+      				  <label for="GetTemp"></label>
+    			     </div>
+    			     <span style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
+    		      </div>
 
     		<div style="height: 60px; position: absolute; top: 60px; width: 250px">
     			<div class="roundedOne">
@@ -48,8 +58,10 @@
       				<label for="GetWindSpeed"></label>
     			</div>
     			<span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
-    	 	</div>
+    	 	 </div>
         </div>
+      </div>
+
       </div>
     </div>
 <!--     <div id="map"></div> --> 
@@ -70,6 +82,24 @@
 
           document.getElementById(TagName).style.display = "block";
           //evt.currentTarget.className += "active";
+        }
+
+        function myFunction(x){
+          x.classList.toggle("change");
+          document.getElementById("myDropdown").classList.toggle("show")
+      }
+
+        window.onclick = function(event){
+          if(!event.target.matches('.menu_btn')){
+          var dropdowns = document.getElementByClassName('dropdown-content');
+          var i;
+          for(i=0;i<dropdowns.length;i++){
+            var openDropDown = dropdowns[i];
+          if(openDropDown.classList.contains("show")){
+            openDropDown.classList.remove("show");
+            }
+          }
+        }
         }
   </script>
 

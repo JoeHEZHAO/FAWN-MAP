@@ -37,11 +37,10 @@
       var template = new PopupTemplate({
           title: "<ul class='tab'> <li><a href='#' class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Temp</a></li>" +
            "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>StationName</a></li>" +
-           "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;windSpeed&#39;)'> windSpeed</a><li></ul>" +
-           "<div id='TEMP' class='tabcontent'><h3>Latitude: {YCoord} <br/></h3></div>" +
+           "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;windSpeed&#39;)'> windSpeed</a><li></ul>",
+          description: "<div id='TEMP' class='tabcontent'><h3>Latitude: {YCoord} <br/></h3></div>" +
            "<div id='Station' class='tabcontent'><h3>Longitude: {XCoord} <br/></h3></div>" +
            "<div id='windSpeed' class='tabcontent'><h3>Plant Name:{Plant}</h3></div>",
-          //description: "Latitude: {YCoord} <br/>" + "Longitude: {XCoord} <br/> Plant Name:{Plant}",
           fieldInfos:[],
           mediaInfos:[]
       });
@@ -185,21 +184,21 @@
         	}
         });
 
-        function openTag(evt, TagName){
-        	var i, tablecontent, tablinks;
-        	tablecontent = document.getElementByClassName("tablecontent");
-			for ( i = 0; i < tablecontent.length; i++) {
-        		tablecontent[i].style.display = "none";
-        	}
+   //      function openTag(evt, TagName){
+   //      	var i, tablecontent, tablinks;
+   //      	tablecontent = document.getElementByClassName("tablecontent");
+			// for ( i = 0; i < tablecontent.length; i++) {
+   //      		tablecontent[i].style.display = "none";
+   //      	}
 
-        	tablinks = document.getElementByClassName("tablinks")
-        	for ( i = 0; i < tablinks.length; i++) {
-        		tablinks[i].className = tablinks[i].className.replace(" active", "");
-        	}
-        	console.log("sad");
-        	document.getElementById(TagName).style.display = "block";
-        	evt.currentTarget.className += "active";
-        }
+   //      	tablinks = document.getElementByClassName("tablinks")
+   //      	for ( i = 0; i < tablinks.length; i++) {
+   //      		tablinks[i].className = tablinks[i].className.replace(" active", "");
+   //      	}
+   //      	console.log("sad");
+   //      	document.getElementById(TagName).style.display = "block";
+   //      	evt.currentTarget.className += "active";
+   //      }
 
 
       });

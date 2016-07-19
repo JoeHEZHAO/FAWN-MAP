@@ -1,6 +1,6 @@
 
 html, body, {
-        height: 100%; width: 100%; margin: 0; padding: 0; 
+        height: 100%; width: 100%; margin: 0; padding: 20,20,20,20; 
       }
 
 #map_wrapper {
@@ -14,9 +14,13 @@ html, body, {
     bottom: 0;
 }
 
+.map_and_panel {
+    display: inline;
+}
+
 #map_panel {
     position: absolute;
-    top: 0;
+    top: 15%;
     right: 0;
     bottom: 0;
     margin: 0;
@@ -33,7 +37,7 @@ html, body, {
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 #map {
@@ -43,7 +47,7 @@ html, body, {
     bottom: 0;
     left: 0;
     height: 100%;
-    width: 80%;
+    width: 79.88%;
 }
 
 /* SQUARED FOUR */
@@ -235,3 +239,83 @@ ul.tab li a:focus, .active {background-color: #ccc;}
     border: 1px solid #ccc;
     border-top: none;
 }
+
+
+
+/* top bar related css start*/
+.topbar{
+    width: 100%;
+    height: 15%;
+    position: relative;
+    background-color: grey;
+}
+
+.topbar .menu{
+    position: relative;
+    display: inline-block;
+}
+
+.topbar .menu_btn{
+    
+    cursor: pointer;
+}
+
+.topbar .menu_btn div{
+    width: 35px;
+    height: 5px;
+    background-color: #50DE55;
+    margin: 6px 0;
+}
+
+.topbar .bar1, .bar2, .bar3{
+    width: 35px;
+    height:5px;
+    background-color: #333;
+    margin:6px 0;
+    transition:0.3s;
+}
+
+/* Rotate first bar */
+.topbar .change .bar1{
+    -webkit-transform: rotate(-45deg) translate(-8px, 8px);
+    transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+/* Fade out the second bar */
+.topbar .change .bar2{
+    opacity: 0;
+}
+
+/* Rotate the last bar */
+.topbar .change .bar3{
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    tansform: rotate(45deg) translate(-8px, -8px);
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0 rgba(0,0,0,0.2);
+    top: 42px;
+    right: 0px;
+    z-index: 2;
+}
+
+.dropdown-content a{
+    color: black;
+    text-decoration: none;
+    padding: 12px 16px;
+    display:block;
+}
+
+.dropdown-content a:hover{
+    background-color: #f1f1f1;
+}
+
+.show{
+    display:block;
+}
+
+/*end of topbar*/
