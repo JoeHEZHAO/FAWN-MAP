@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"pa",
+				"padding-right"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"bcak",
+				"background-color"
+			],
+			[
 				"tabl",
 				"tablinks"
 			],
@@ -260,34 +280,10 @@
 	"buffers":
 	[
 		{
-			"file": "index.html",
+			"file": "/Users/zhaohe/htdocs/map/script/GetJson.js",
 			"settings":
 			{
-				"buffer_size": 2896,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.sublime-workspace",
-			"settings":
-			{
-				"buffer_size": 9238,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 23,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test.html",
-			"settings":
-			{
-				"buffer_size": 2601,
+				"buffer_size": 8149,
 				"line_ending": "Unix"
 			}
 		}
@@ -324,11 +320,15 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/zhaohe/htdocs/map",
+		"/Users/zhaohe/htdocs/map/backup_file",
 		"/Users/zhaohe/htdocs/map/CSS",
 		"/Users/zhaohe/htdocs/map/script"
 	],
 	"file_history":
 	[
+		"/Users/zhaohe/htdocs/map/map.sublime-project",
+		"/Users/zhaohe/htdocs/map/index.sublime-workspace",
 		"/Users/zhaohe/htdocs/map/index.html",
 		"/Users/zhaohe/htdocs/map/READ.md",
 		"/private/var/folders/w7/m142spsn1352r1pw776n8b_h0000gn/T/caeb8ae5-930b-4703-bdb3-622346ee7b42/h/cnswww-fawn/test.fawn.ifas.ufl.edu/htdocs_testing/maintenance/tables.js",
@@ -425,6 +425,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"z-index",
 			"$.post",
 			".post",
 			"Directory",
@@ -462,16 +463,16 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "index.html",
-					"semi_transient": false,
+					"file": "/Users/zhaohe/htdocs/map/script/GetJson.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 2896,
+						"buffer_size": 8149,
 						"regions":
 						{
 						},
@@ -484,94 +485,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "index.sublime-workspace",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9238,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 23,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "test.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
