@@ -1,6 +1,6 @@
 
 html, body, {
-        height: 100%; width: 100%; margin: 0; padding: 20,20,20,20; 
+        height: 100%; width: 100%; margin: 0; padding: 20,20,20,20;
       }
 
 #map_wrapper {
@@ -20,10 +20,10 @@ html, body, {
     top: 60px;
     width: 100%;
     height: 100%;
-
+    transition: 0.3s;
 }
 
-#map_panel {
+.map_panel {
     position: absolute;
     top: 0px;
     right: 0;
@@ -35,6 +35,8 @@ html, body, {
     border-left: 1px solid #999;
     background-color: #3498db;
     display: inline;
+    transition: 0.3s;
+    z-index: 2;
 }
 
 #map_container {
@@ -46,18 +48,19 @@ html, body, {
     z-index: 1;
 }
 
-#map {
-    
+.map {
+
     top: 0;
     bottom: 0;
     left: 0;
     height: 100%;
     width: 80%;
+    transition: 0.3s;
 }
 
 /* SQUARED FOUR */
 .squaredFour {
-    width: 20px;    
+    width: 20px;
     margin: 20px auto;
     position: relative;
 }
@@ -207,46 +210,6 @@ html, body, {
 }
 
 
-/* Style the list */
-ul.tab {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-}
-
-/* Float the list items side by side */
-ul.tab li {float: left;}
-
-/* Style the links inside the list items */
-ul.tab li a {
-    display: inline-block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-}
-
-/* Change background color of links on hover */
-ul.tab li a:hover {background-color: #ddd;}
-
-/* Create an active/current tablink class */
-ul.tab li a:focus, .active {background-color: #ccc;}
-
-/* Style the tab content */
-.tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-}
-
-
-
 /* top bar related css start*/
 .topbar{
     width: 100%;
@@ -264,7 +227,7 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 .topbar .menu_btn{
-    
+
     cursor: pointer;
 }
 
@@ -301,14 +264,18 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 .dropdown-content{
-    display: none;
+    display: block;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    /*min-width: 160px;*/
     box-shadow: 0px 8px 16px 0 rgba(0,0,0,0.2);
-    top: 50px;
+    top: 60px;
     right: 0px;
-    z-index: 2;
+    z-index: 3;
+    height: 200px;
+    width: 0px;
+    transition: 0.5s;
+    height: 100%;
 }
 
 .dropdown-content a{
@@ -323,7 +290,132 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 .show{
-    display:block;
+    width: 20%;
 }
 
+.shrink
+{
+  margin-right: 200px;
+}
+.map_change{
+  width: 824px;
+}
+.panel_change{
+  right: 200px;
+}
+
+
 /*end of topbar*/
+
+
+
+/* css for side menu tabs*/
+.tabs{
+    margin-left: 0px;
+    width: 100%;
+    height: 100%;ï
+}
+
+.tabs ul{
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    display: table;
+    table-layout: fixed;
+}
+
+.tabs ul li{
+    /*float: left;*/
+    display: table-cell;
+    width: auto;
+    text-align: center;
+}
+
+.tabs ul li a{
+    display:inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition:0.3s;
+    font-size: 17px;
+}
+
+.tabs ul li a:hover{
+    background-color: #ddd;
+}
+
+.tabs ul li a:focus, .active{
+    background-color: #ccc;
+}
+
+.side_menu_tabcontent{
+    display:none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: 0;
+  /*  width: 400px;
+    height: 300px;*/
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    background-size: cover;
+}
+
+.tabcontent h3, p{
+    background-color: rgba(255,255,255,0.5);
+    padding:8px;
+}
+
+#London{
+    background-image: url("http://www.imagewa.com/PhotoPreview/300/300_79251.jpg");
+}
+
+#Paris{
+    background-image: url("http://img04.tooopen.com/images/20121006/tooopen_201210061532105550.jpg");
+}
+
+#Tokyo{
+    background-image: url("http://img.epochtimes.com.tw/upload/images/2013/05/01/52317_medium.jpg");
+}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
