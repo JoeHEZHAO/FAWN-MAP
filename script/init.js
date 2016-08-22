@@ -35,9 +35,10 @@
         });
 
       var template = new PopupTemplate({
-          title: "<ul class='tab'> <li><a href='#' class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Temp</a></li>" +
-           "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>StationName</a></li>" +
-           "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;windSpeed&#39;)'> windSpeed</a><li></ul>",
+          title:"<p>StationName:{StationName}</p><br><h3>StationID: {StationID}</h3><h3>longtitude:{Longitude}  Latitude:{Latitude}</h3>",
+          // title: "<ul class='tab'> <li><a href='#' class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Temp</a></li>" +
+          //  "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>StationName</a></li>" +
+          //  "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;windSpeed&#39;)'> windSpeed</a><li></ul>",
           description: "<div id='TEMP' class='tabcontent'><h3>Latitude: {YCoord} <br/></h3></div>" +
            "<div id='Station' class='tabcontent'><h3>Longitude: {XCoord} <br/></h3></div>" +
            "<div id='windSpeed' class='tabcontent'><h3>Plant Name:{Plant}</h3></div>",
@@ -98,26 +99,21 @@
         //get data from json
       $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
           for (var i = 0; i < data.stnsWxData.length ;i++){
-            gl_temp.add(GetTemp(
-              data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
-            gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName));
-            gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
+            // gl_temp.add(GetTemp(
+              // data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
+            gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+            // gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
             }
       })
 
         popup.resize(400,300);
 
-        function GetStation(x,y,z)
+        function GetStation(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
         {
-          var p = new Point(x,y);
+          var p = new Point(lng,lat);
           var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          var attr = {"XCoord":x,"YCoord":y,"Plant":z};
-  			// infoTemplate.setTitle("${Xcoord}");
-  			// infoTemplate.setContent("<B>2000 POPULATION: </B>${Xcoord}<BR/>"
-     //     	+ "<B>2000 POPULATION PER SQ. MI.: </B>${Xcoord}<BR/>"
-     //     	+ "<B>2007 POPULATION: </B>${Xcoord}<BR/>"
-     //     	+ "<B>2007 POPULATION PER SQ. MI.: </B>${Xcoord}");
-  			//g.setInfoTemplate(infoTemplate);
+          var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
+          "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
           var g = new Graphic(p,s,attr);
           return g;
         }
