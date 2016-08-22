@@ -148,20 +148,20 @@
         //popup.set("Date", "07/11/2016");
 
         // checkbox changing
-        var GetTempLyrToggle = dom.byId("GetTemp");
         var GetStationLyrToggle = dom.byId("GetStation");
+        var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
 
-        on(GetTempLyrToggle, "change", function(){
-          // console.log(GetTempLyrToggle.checked);
-          gl_temp.visible = GetTempLyrToggle.checked;
-          if(gl_temp.visible == false){
-            map.removeLayer(gl_temp);
-          }
-          else{
-            map.addLayer(gl_temp);
-          }
-        });
+        // on(GetTempLyrToggle, "change", function(){
+        //   // console.log(GetTempLyrToggle.checked);
+        //   gl_temp.visible = GetTempLyrToggle.checked;
+        //   if(gl_temp.visible == false){
+        //     map.removeLayer(gl_temp);
+        //   }
+        //   else{
+        //     map.addLayer(gl_temp);
+        //   }
+        // });
 
         on(GetStationLyrToggle, "change", function(){
             gl_station.visible = GetStationLyrToggle.checked;
@@ -172,17 +172,17 @@
             }
         });
 
-        on(GetWindSpeedLyrToggle, "change", function(){
-        	gl_windspeed.visible = GetWindSpeedLyrToggle.checked;
-        	if (gl_windspeed.visible == false) 
-        	{
-        		map.removeLayer(gl_windspeed);
-        	}
-        	else
-        	{
-        		map.addLayer(gl_windspeed);
-        	}
-        });
+        // on(GetWindSpeedLyrToggle, "change", function(){
+        // 	gl_windspeed.visible = GetWindSpeedLyrToggle.checked;
+        // 	if (gl_windspeed.visible == false) 
+        // 	{
+        // 		map.removeLayer(gl_windspeed);
+        // 	}
+        // 	else
+        // 	{
+        // 		map.addLayer(gl_windspeed);
+        // 	}
+        // });
 
    //      function openTag(evt, TagName){
    //      	var i, tablecontent, tablinks;

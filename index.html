@@ -5,10 +5,13 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <script src="script/jquery-1.8.1.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="./CSS/style.css">
-    <link rel="stylesheet" type="text/css" href="./CSS/esri/css/esri.css">
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script type="text/javascript" src="https://js.arcgis.com/3.17/"></script>
-    <script type="text/javascript" src="./script/GetJson.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="./CSS/esri/css/esri.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./CSS/style.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
+    <script type="text/javascript" src="./script/init.js"></script>
   </head>
   <body>
 
@@ -27,12 +30,18 @@
         <div id="myDropdown" class="dropdown-content">
         <div class="tabs">
       <ul>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'London')">London</a></li>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'Paris')">Paris</a></li>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</a></li>
+        <li>
+            <a href="#" class="tablinks" onclick="openCity(event, 'London')">Main</a>
+        </li>
+        <li>
+          <a href="#" class="tablinks" onclick="openCity(event, 'Paris')">Weather</a>
+        </li>
+        <li>
+          <a href="#" class="tablinks" onclick="openCity(event, 'Tokyo')">Radar</a>
+        </li>
       </ul>
 
-      <div id="London" class="side_menu_tabcontent">
+<!--       <div id="London" class="side_menu_tabcontent">
         <h3>London</h3>
         <p>London is the capital city of England.
 
@@ -49,6 +58,21 @@
         <p>Tokyo is the capital of Japan.
 
         Tokyo (東京 Tōkyō?, "Eastern Capital") (Japanese: [toːkjoː] ( listen), English /ˈtoʊki.oʊ/), officially Tokyo Metropolis (東京都 Tōkyō-to),[4] is one of the 47 prefectures of Japan,[5] and is both the capital and most populous city of Japan. The Greater Tokyo Area is the most populous metropolitan area in the world.[6] It is the seat of the Emperor of Japan and the Japanese government. Tokyo is in the Kantō region on the southeastern side of the main island Honshu and includes the Izu Islands and Ogasawara Islands.[7] Formerly known as Edo, it has been the de facto seat of government since 1603 when Shogun Tokugawa Ieyasu made the city his headquarters. It officially became the capital after Emperor Meiji moved his seat to the city from the old capital of Kyoto in 1868; at that time Edo was renamed Tokyo. Tokyo Metropolis was formed in 1943 from the merger of the former Tokyo Prefecture (東京府 Tōkyō-fu) and the city of Tokyo (東京市 Tōkyō-shi).</p>
+      </div> -->
+      
+<!--       <div id="London" class="side_menu_tabcontent">
+        <ul class="side_menu_tabcontent ul">
+            <li class="side_menu_tabcontent ul li">Sign Up</li>
+            <li class="side_menu_tabcontent ul li">Settings</li>
+            <li class="side_menu_tabcontent ul li">Maps and Rader</li>
+        </ul>
+      </div> -->
+      <div id="London" class="side_menu_tabcontent">
+        <ul>
+            <li>Sign Up</li>
+            <li>Settings</li>
+            <li>Maps and Rader</li>
+        </ul>
       </div>
 
 
@@ -56,14 +80,45 @@
         </div>
 
         <div class="map_and_panel" id="map_and_panel">
-          <div id="map" class="map"></div>
-          <div id="map_panel" class="map_panel">
+          <div id="draggable" class="ui-widget-content">
+            <div id="map_panel" class="map_panel">
+<!--          <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
+                  <div class="roundedOne">
+                    <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
+                      <label for="GetTemp"></label>
+                   </div>
+                   <span id="TempatureLayer" style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
+              </div> -->
+
+        <div style="height: 60px; position: absolute; top: 0px; width: 250px">
+          <div class="roundedOne">
+              <input type="checkbox" id="GetStation" value="Station Layer" unchecked>
+              <label for="GetStation"></label>
+            </div>
+            <span style="position: absolute; left: 69px; top: 25px;">Station Layer</span>
+        </div>
+
+<!--    <div style="height: 60px; position: absolute; top: 120px; width:250px">
+          <div class="roundedOne">
+              <input type="checkbox" id="GetWindSpeed" value="WindSpeed Layer" unchecked>
+              <label for="GetWindSpeed"></label>
+          </div>
+          <span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
+        </div> -->
+        </div>          
+
+        </div>
+
+          <div id="map" class="map">
+          </div>
+
+<!--           <div id="map_panel" class="map_panel">
         	     <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
     			     <div class="roundedOne">
       				  <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
       				  <label for="GetTemp"></label>
     			     </div>
-    			     <span style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
+    			     <span id="TempatureLayer" style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
     		      </div>
 
     		<div style="height: 60px; position: absolute; top: 60px; width: 250px">
@@ -81,13 +136,19 @@
     			</div>
     			<span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
     	 	 </div>
-        </div>
+        </div> -->
+
       </div>
+
+
 
       </div>
     </div>
 <!--     <div id="map"></div> -->
   <script type="text/javascript">
+
+  //document.getElementById("TempatureLayer").addEventListener("click", addDate);
+
     function openTag(evt, TagName){
           var i, tablecontent, tablinks;
 
@@ -144,6 +205,22 @@
       document.getElementById(cityName).style.display= "block";
       evt.currentTarget.className += " active";
     }
+
+    function closePopup(){
+      document.getElementsByClassName("esriPopupWrapper")[0].classList.toggle("closePopup");  // must be array!!! 
+    }
+
+    // function addDate(){
+    //   var time  = new Date();
+    //   document.write(time);
+    // }
+
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $("#draggable").draggable();
+    })
   </script>
 
   </body>
