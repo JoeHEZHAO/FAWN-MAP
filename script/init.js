@@ -39,13 +39,15 @@
           description:  
           // two tags: current, graph
             "<ul class='tab'> <li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
-            "<li><a class='tablinks' onclick='openTag(event, &#39;graph&#39;)'>Graph</a></li></ul>" 
+            // "<li><a class='tablinks' onclick='openTag(event, &#39;graph&#39;)' onclick='addChart()'>Graph</a></li></ul>" 
+             "<li><a class='tablinks' onclick='addChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" 
           + 
           // Current Div content
           "<div id='current' class='tabcontent'> <span>County: {County}</span> <span style='float:right'>windSpeed: {WindSpeed}</span><br><br><span>Temperature: {Temperature}</span> <span style='float:right'>Elevation: {Elevation}</span><br><br>" + "<span>Facility: {Facility}</span><br><br><span>Date: {Date}</span></div>" +
 
           // Graph div conent
-            "<div id='graph' class='tabcontent'><h3>Longitude: {Longitude} <br/></h3></div>",
+            "<div id='graph' class='tabcontent' style='overflow:hidden'></div>",
+            // "<div id='graph' class='tabcontent' onclick='addChart()'>" + "<script type='text/javascript'>google.charts.load('current', {'packages':['corechart']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = new google.visualization.DataTable();data.addColumn('string', 'Topping');data.addColumn('number', 'Slices');data.addRows([['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]);var options = {'title':'How Much Pizza I Ate Last Night','width':400,'height':300};var chart = new google.visualization.PieChart(document.getElementById('graph'));chart.draw(data, options);}</script>"+ "</div>",
           fieldInfos:[],
           mediaInfos:[]
       });
