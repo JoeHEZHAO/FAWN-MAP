@@ -308,6 +308,7 @@ html, body, {
 
 .show{
     width: 20%;
+    max-width: 350px;
 }
 
 .closePopup{

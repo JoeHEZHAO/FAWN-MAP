@@ -81,17 +81,17 @@
 
       <div id="Weather" class="side_menu_tabcontent">
         <ul>
-            <li>Sign Up</li>
-            <li>Settings</li>
-            <li>Maps and Rader</li>
+            <li>Server</li>
+            <li>Photo</li>
+            <li>News </li>
         </ul>
       </div>
 
       <div id="Radar" class="side_menu_tabcontent">
         <ul>
-            <li>Sign Up</li>
-            <li>Settings</li>
-            <li>Maps and Rader</li>
+            <li>Activities</li>
+            <li>Webcams</li>
+            <li>Satellite</li>
         </ul>
       </div>
 
@@ -239,8 +239,10 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-        $("#draggable").draggable();
-    })
+        $("#draggable").draggable({
+          containment: "parent"
+        });
+    });
   </script>
 
   </body>
