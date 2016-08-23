@@ -35,12 +35,17 @@
         });
 
       var template = new PopupTemplate({
-          title:"<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude}  lat:{Latitude}</span></h4></div>",
+          title:"<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude} ／ lat:{Latitude}</span></h4></div>",
           description:  
-            "<ul class='tab'> <li><a class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Current</a></li>" +
-            "<li><a class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>Graph</a></li></ul>" 
-          + "<div id='TEMP' class='tabcontent'><h3>Latitude: {Temperature} <br/></h3></div>" +
-            "<div id='Station' class='tabcontent'><h3>Longitude: {Longitude} <br/></h3></div>",
+          // two tags: current, graph
+            "<ul class='tab'> <li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
+            "<li><a class='tablinks' onclick='openTag(event, &#39;graph&#39;)'>Graph</a></li></ul>" 
+          + 
+          // Current Div content
+          "<div id='current' class='tabcontent'> <span>County: {County}</span> <span style='float:right'>windSpeed: {WindSpeed}</span><br><br><span>Temperature: {Temperature}</span> <span style='float:right'>Elevation: {Elevation}</span><br><br>" + "<span>Facility: {Facility}</span><br><br><span>Date: {Date}</span></div>" +
+
+          // Graph div conent
+            "<div id='graph' class='tabcontent'><h3>Longitude: {Longitude} <br/></h3></div>",
           fieldInfos:[],
           mediaInfos:[]
       });

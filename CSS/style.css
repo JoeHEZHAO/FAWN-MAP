@@ -404,11 +404,6 @@ html, body, {
     font-family: "verb","Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 }     
 
-.tabcontent h3, p{
-    background-color: rgba(255,255,255,0.5);
-    padding:8px;
-}
-
 #London{
     background-image: url("http://www.imagewa.com/PhotoPreview/300/300_79251.jpg");
 }
@@ -456,6 +451,12 @@ ul.tab li a:focus, .active {background-color: #ccc;}
     border: 1px solid #ccc;
     border-top: none;
 }
+
+.tabcontent h3, p{
+    /*background-color: rgba(255,255,255,1);*/
+    padding:8px;
+}
+
 
 #draggable { 
 width: 195px; 
