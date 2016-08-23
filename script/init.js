@@ -35,27 +35,15 @@
         });
 
       var template = new PopupTemplate({
-          title:"<p>StationName:{StationName}</p><br><h3>StationID: {StationID}</h3><h3>longtitude:{Longitude}  Latitude:{Latitude}</h3>",
-          // title: "<ul class='tab'> <li><a href='#' class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Temp</a></li>" +
-          //  "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>StationName</a></li>" +
-          //  "<li><a href='#' class='tablinks' onclick='openTag(event, &#39;windSpeed&#39;)'> windSpeed</a><li></ul>",
-          description: "<div id='TEMP' class='tabcontent'><h3>Latitude: {YCoord} <br/></h3></div>" +
-           "<div id='Station' class='tabcontent'><h3>Longitude: {XCoord} <br/></h3></div>" +
-           "<div id='windSpeed' class='tabcontent'><h3>Plant Name:{Plant}</h3></div>",
+          title:"<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude}  lat:{Latitude}</span></h4></div>",
+          description:  
+            "<ul class='tab'> <li><a class='tablinks' onclick='openTag(event,&#39;TEMP&#39;)'>Current</a></li>" +
+            "<li><a class='tablinks' onclick='openTag(event, &#39;Station&#39;)'>Graph</a></li></ul>" 
+          + "<div id='TEMP' class='tabcontent'><h3>Latitude: {Temperature} <br/></h3></div>" +
+            "<div id='Station' class='tabcontent'><h3>Longitude: {Longitude} <br/></h3></div>",
           fieldInfos:[],
           mediaInfos:[]
       });
-
-       // var template = new PopupTemplate({
-       //    title: "<ul class='tab'> <li><a href='#' class='tablinks'>Temp</a></li>" +
-       //     "<li><a href='#' class='tablinks'>StationName</a></li>" +
-       //     "<li><a href='#' class='tablinks'> windSpeed</a><li></ul>"+ 
-       //     "<div id='TEMP' class='tabcontent'><h3>I am testing</h3></div>" +
-       //     "<div id='Station' class='tabcontent'><h3>I am testing</h3></div>" +
-       //     "<div id='windSpeed' class='tabcontent'><h3>I am testing</h3></div>",
-       //    description: "Latitude: {YCoord} <br/>" + "Longitude: {XCoord} <br/> Plant Name:{Plant}",
-       //    fieldInfos:[],
-       //    mediaInfos:[]});
 
     var template_temp = new PopupTemplate({
         title: "Fawn Weather Temperature Info",
@@ -85,16 +73,6 @@
   		infoTemplate: template_windspeed,
         outFields: ["*"]
   	});
-
-  		// testing point
-  		// var myPoint = {"geometry":{"x":-81.379234,"y":28.53833,
-    // 	"spatialReference":{"wkid":4326}},"attributes":{"XCoord":-104.4140625,
-    // 	"YCoord":69.2578125,"Plant":"Mesa Mint"},"symbol":{"color":[255,0,0,128],
-    // 	"size":12,"angle":0,"xoffset":0,"yoffset":0,"type":"esriSMS",
-    // 	"style":"esriSMSSquare","outline":{"color":[0,0,0,255],"width":1,
-    // 	"type":"esriSLS","style":"esriSLSSolid"}}};
-  		// var gra = new Graphic(myPoint);
-  		// gl_temp.add(gra);
 
         //get data from json
       $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){

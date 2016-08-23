@@ -18,7 +18,7 @@ html, body, {
     display: inline;
     position: absolute;
     right: 0px;
-    top: 60px;
+    top: 58px;
     width: 100%;
     height: 100%;
     transition: 0.3s;
@@ -214,35 +214,48 @@ html, body, {
 
 
 /* top bar related css start*/
-.topbar{
+.topbar_back{
     width: 100%;
     height: 58px;
     position: relative;
-    background-color: grey;
-    border-bottom: 2px solid #1E2023;
+    background-color: #1E2023;
+    /*border-bottom: 2px solid #1E2023;*/
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABlgAAAAGCAIAAAAgxgSnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjg1MjNFQjZGMzUyNjExRTNBREI5QjQ1QzI5RDVFNjU1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjg1MjNFQjcwMzUyNjExRTNBREI5QjQ1QzI5RDVFNjU1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODUyM0VCNkQzNTI2MTFFM0FEQjlCNDVDMjlENUU2NTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ODUyM0VCNkUzNTI2MTFFM0FEQjlCNDVDMjlENUU2NTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7jbu7JAAAA0klEQVR42uzYvUoDQRQG0JnJEjb+NYZtDdioRZ7B1nfwGX0RW9MEgnamCDYhxmx0R/QpdplzuMXUH5fL8FWL2V2AgeiOIZ3XJzcX09vu9HIfcxd+pELv5f+ZNeHqLOyWf28YhOr7+TB92jarz3YcWnnQ/2sbQ67S6KueL0YPr3k+yZsQolzouxhjite7w/vL+m35EVK0tgxiceuY7yfd47ht9sdtm/1wGZAkAgAAAABKoAgDAAAAoAiKMAAAAACKoAgDAAAAoAiKMAAAAACK8CvAACh9L68oX5USAAAAAElFTkSuQmCC");
+    background-size: 100% 3px;
 }
 
-.topbar .menu{
+.topbar{
+    width: 100%;
+    height: 55px;
     position: relative;
+    background-color: #1E2023;
+    /*border-bottom: 2px solid #1E2023;*/
+}
+
+.topbar_back .menu{
+    position: absolute;
     display: inline-block;
-    float: right;
+    /*float: right;*/
     padding-right: 20px;
     padding-top: 10px;
+    z-index: 3;
+    right: 0px;
+    top: 2%;
 }
 
-.topbar .menu_btn{
+.topbar_back .menu_btn{
 
     cursor: pointer;
 }
 
-.topbar .menu_btn div{
+.topbar_back .menu_btn div{
     width: 35px;
     height: 5px;
     background-color: #50DE55;
     margin: 6px 0;
 }
 
-.topbar .bar1, .bar2, .bar3{
+.topbar_back .bar1, .bar2, .bar3{
     width: 35px;
     height:5px;
     background-color: #333;
@@ -251,18 +264,18 @@ html, body, {
 }
 
 /* Rotate first bar */
-.topbar .change .bar1{
+.topbar_back .change .bar1{
     -webkit-transform: rotate(-45deg) translate(-8px, 8px);
     transform: rotate(-45deg) translate(-8px, 8px);
 }
 
 /* Fade out the second bar */
-.topbar .change .bar2{
+.topbar_back .change .bar2{
     opacity: 0;
 }
 
 /* Rotate the last bar */
-.topbar .change .bar3{
+.topbar_back .change .bar3{
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     tansform: rotate(45deg) translate(-8px, -8px);
 }
@@ -273,7 +286,7 @@ html, body, {
     background-color: #f9f9f9;
     /*min-width: 160px;*/
     box-shadow: 0px 8px 16px 0 rgba(0,0,0,0.2);
-    top: 60px;
+    top: 58px;
     right: 0px;
     z-index: 3;
     height: 200px;
@@ -320,6 +333,7 @@ html, body, {
 /* css for side menu tabs*/
 .tabs{
     margin-left: 0px;
+    max-width: 350px;
     width: 100%;
     height: 100%;ï
 }
@@ -330,7 +344,7 @@ html, body, {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     background-color: #f1f1f1;
     display: table;
     table-layout: fixed;
@@ -344,7 +358,7 @@ html, body, {
 }
 
 .tabs ul li a{
-    display:inline-block;
+    display:block;
     color: black;
     text-align: center;
     padding: 14px 16px;
@@ -364,7 +378,7 @@ html, body, {
 .side_menu_tabcontent{
     display:none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+/*    border: 1px solid #ccc;*/
     border-top: 0;
   /*  width: 400px;
     height: 300px;*/
@@ -450,6 +464,23 @@ z-index: 2;
 top: 4%;
 left: 80%;
 background:rgba(255,255,255,0.2);
+}
+
+.header .title{
+    background-color: #F7F7F7;
+}
+
+.header .title h1{
+    margin: 0px;
+    font-weight: bold;
+    /*font-size: 2em;*/
+    background-color: #F7F7F7;
+}
+
+.header .title h4{
+    margin: 0px;
+    background-color: #F7F7F7;
+    font-style: italic;
 }
 
 
