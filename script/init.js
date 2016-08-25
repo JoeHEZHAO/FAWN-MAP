@@ -67,17 +67,17 @@
         mediaInfos:[]});
 
     gl_attr = new GraphicsLayer({
-      outFields:["*"],
-      infoTemplate: template_temp,
+      infoTemplate: template,
+       outFields:["*"],
     });
 
   	var gl_temp = new GraphicsLayer({
-  		infoTemplate: template_temp,
+  		// infoTemplate: template_temp,
         outFields: ["*"]
   			  		});
 
   	var gl_station = new GraphicsLayer({
-  		infoTemplate: template,
+  		// infoTemplate: template,
         outFields: ["*"]
   	});
 
@@ -106,21 +106,21 @@
         {
           var p = new Point(lng,lat);
           //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          //var t = new TextSymbol(stnName).setColor("red");
+          var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
           var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
           "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
-          var g = new Graphic(p,attr);
+          var g = new Graphic(p,t,attr);
           return g;
         }
 
         function GetStation(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
         {
           var p = new Point(lng,lat);
-          var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          var s = new SimpleMarkerSymbol().setSize(13).setColor("purple");
           var t = new TextSymbol(stnName).setColor("red");
-          var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
-          "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
-          var g = new Graphic(p,t,attr);
+          // var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
+          // "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
+          var g = new Graphic(p,s);
           return g;
         }
 
@@ -138,9 +138,9 @@
           //var infoTemplate = new InfoTemplate("Locations","Latitude: ${latitude} <br/>Longitude: ${longtitude} <br/>");
           var p = new Point(x,y);
           var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          //var t = new TextSymbol(n + " " + z + "\xB0").setColor("red");
+          var t = new TextSymbol(n + " " + z + "\xB0").setColor("red");
           //var attr = {"XCoord":x,"YCoord":y,"Plant":n, "TEMP":z};
-          var g = new Graphic(p,s,attr);
+          var g = new Graphic(p,t);
           return g;
         };
 
@@ -155,15 +155,36 @@
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
 
+        // on(GetTempLyrToggle, "change", function(){
+        //   // console.log(GetTempLyrToggle.checked);
+        //   gl_temp.visible = GetTempLyrToggle.checked;
+        //   if(gl_temp.visible == false){
+        //     map.removeLayer(gl_temp);
+        //   }
+        //   else{
+        //     map.addLayer(gl_temp);
+        //   }
+        // });
+
         on(GetTempLyrToggle, "change", function(){
-          // console.log(GetTempLyrToggle.checked);
-          gl_temp.visible = GetTempLyrToggle.checked;
-          if(gl_temp.visible == false){
-            map.removeLayer(gl_temp);
-          }
-          else{
-            map.addLayer(gl_temp);
-          }
+          //console.log(GetTempLyrToggle.checked);
+          //console.log(gl_attr.graphics[0].attributes["Longitude"]);
+          //console.log("yes");
+            gl_attr.visible = GetTempLyrToggle.checked;
+            if (gl_attr.visible == true) {
+            var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+            var i = 0;
+              while(gl_attr.graphics[i] != null){
+                gl_attr.graphics[i].setSymbol(tempSymbol);
+                i++;
+              }
+            }else{
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+            }
         });
 
         on(GetStationLyrToggle, "change", function(){
