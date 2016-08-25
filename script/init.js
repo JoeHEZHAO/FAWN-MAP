@@ -66,6 +66,11 @@
         fieldInfos:[],
         mediaInfos:[]});
 
+    gl_attr = new GraphicsLayer({
+      outFields:["*"],
+      infoTemplate: template_temp,
+    });
+
   	var gl_temp = new GraphicsLayer({
   		infoTemplate: template_temp,
         outFields: ["*"]
@@ -84,22 +89,38 @@
         //get data from json
       $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
           for (var i = 0; i < data.stnsWxData.length ;i++){
-            // gl_temp.add(GetTemp(
-              // data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
+            gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+
+            gl_temp.add(GetTemp(
+              data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
+
             gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+
             // gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
             }
       })
 
         popup.resize(400,300);
 
+        function addAttr(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
+        {
+          var p = new Point(lng,lat);
+          //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          //var t = new TextSymbol(stnName).setColor("red");
+          var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
+          "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
+          var g = new Graphic(p,attr);
+          return g;
+        }
+
         function GetStation(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
         {
           var p = new Point(lng,lat);
           var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          var t = new TextSymbol(stnName).setColor("red");
           var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
           "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
-          var g = new Graphic(p,s,attr);
+          var g = new Graphic(p,t,attr);
           return g;
         }
 
@@ -118,11 +139,12 @@
           var p = new Point(x,y);
           var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
           //var t = new TextSymbol(n + " " + z + "\xB0").setColor("red");
-          var attr = {"XCoord":x,"YCoord":y,"Plant":n, "TEMP":z};
+          //var attr = {"XCoord":x,"YCoord":y,"Plant":n, "TEMP":z};
           var g = new Graphic(p,s,attr);
           return g;
         };
 
+        map.addLayer(gl_attr);
         //map.addLayer(gl_temp);
         //map.addLayer(gl_station);
         // map.addLayer(gl_windspeed);
@@ -133,16 +155,16 @@
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
 
-        // on(GetTempLyrToggle, "change", function(){
-        //   // console.log(GetTempLyrToggle.checked);
-        //   gl_temp.visible = GetTempLyrToggle.checked;
-        //   if(gl_temp.visible == false){
-        //     map.removeLayer(gl_temp);
-        //   }
-        //   else{
-        //     map.addLayer(gl_temp);
-        //   }
-        // });
+        on(GetTempLyrToggle, "change", function(){
+          // console.log(GetTempLyrToggle.checked);
+          gl_temp.visible = GetTempLyrToggle.checked;
+          if(gl_temp.visible == false){
+            map.removeLayer(gl_temp);
+          }
+          else{
+            map.addLayer(gl_temp);
+          }
+        });
 
         on(GetStationLyrToggle, "change", function(){
             gl_station.visible = GetStationLyrToggle.checked;
