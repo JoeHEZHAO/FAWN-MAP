@@ -7,12 +7,15 @@
     <script src="script/jquery-1.8.1.min.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script type="text/javascript" src="https://js.arcgis.com/3.17/"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript"
+        src="http://www.dojotoolkit-fr.org/wp-content/uploads/dojo-adapter.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="./CSS/esri/css/esri.css"> -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="./CSS/style.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
-    <script type="text/javascript" src="./script/init.js"></script>
+  
   </head>
   <body>
 
@@ -45,6 +48,8 @@
           <a href="#" class="tablinks" onclick="openCity(event, 'Radar')">Radar</a>
         </li>
       </ul>
+
+      <!-- checkboxes on side_menu_col start-->
 
       <div id="Main" class="side_menu_tabcontent">
 
@@ -176,9 +181,45 @@
       </div>
     </div>
 <!--     <div id="map"></div> -->
-  <script type="text/javascript">
-
+<script type="text/javascript">
   //document.getElementById("TempatureLayer").addEventListener("click", addDate);
+
+
+  // function addBarChart(evt,TagName){
+
+  //   var i, tablecontent, tablinks;
+
+  //         tablecontent = document.getElementsByClassName("tabcontent");
+  //         for ( i = 0; i < tablecontent.length; i++) {
+  //           //console.log("asd");
+  //           tablecontent[i].style.display = "none";
+  //         }
+  //         tablinks = document.getElementsByClassName("tablinks")
+  //         for ( i = 0; i < tablinks.length; i++) {
+  //           //console.log("asd");
+  //           tablinks[i].className = tablinks[i].className.replace(" active", "");
+  //         }
+
+  //     document.getElementById(TagName).style.display = "block";
+  //     evt.currentTarget.className += "active";
+      
+  //     var chart = new Highcharts.Chart({
+  //         chart: {
+  //             renderTo: 'graph'
+  //         },
+
+  //         xAxis: {
+  //             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+  //                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  //         },
+
+  //         series: [{
+  //             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+  //         }]
+
+  //     });
+  // }
+
 
     function openTag(evt, TagName){
           var i, tablecontent, tablinks;
@@ -244,59 +285,61 @@
     //   document.write(time);
     // }
 
-    function addChart(evt,TagName){
+  //   function addChart(evt,TagName){
 
-      var i, tablecontent, tablinks;
+  //     var i, tablecontent, tablinks;
 
-          tablecontent = document.getElementsByClassName("tabcontent");
-          for ( i = 0; i < tablecontent.length; i++) {
-            //console.log("asd");
-            tablecontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks")
-          for ( i = 0; i < tablinks.length; i++) {
-            //console.log("asd");
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
+  //         tablecontent = document.getElementsByClassName("tabcontent");
+  //         for ( i = 0; i < tablecontent.length; i++) {
+  //           //console.log("asd");
+  //           tablecontent[i].style.display = "none";
+  //         }
+  //         tablinks = document.getElementsByClassName("tablinks")
+  //         for ( i = 0; i < tablinks.length; i++) {
+  //           //console.log("asd");
+  //           tablinks[i].className = tablinks[i].className.replace(" active", "");
+  //         }
 
-      document.getElementById(TagName).style.display = "block";
-      evt.currentTarget.className += "active";
+  //     document.getElementById(TagName).style.display = "block";
+  //     evt.currentTarget.className += "active";
 
-      google.charts.load('current', {'packages':['corechart']});
+  //     google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+  //     // Set a callback to run when the Google Visualization API is loaded.
+  //     google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
+  //     Callback that creates and populates a data table,
+  //     instantiates the pie chart, passes in the data and
+  //     draws it.
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+  //     // Don't need google chart
+  //     function drawChart() {
 
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
+  //       // Create the data table.
+  //       var data = new google.visualization.DataTable();
+  //       data.addColumn('string', 'Topping');
+  //       data.addColumn('number', 'Slices');
+  //       data.addRows([
+  //         ['Mushrooms', 3],
+  //         ['Onions', 1],
+  //         ['Olives', 1],
+  //         ['Zucchini', 1],
+  //         ['Pepperoni', 2]
+  //       ]);
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('graph'));
-        chart.draw(data, options);
-      }
-  }
+  //       // Set chart options
+  //       var options = {'title':'How Much Pizza I Ate Last Night',
+  //                      'width':400,
+  //                      'height':300};
 
+  //       // Instantiate and draw our chart, passing in some options.
+  //       var chart = new google.visualization.PieChart(document.getElementById('graph'));
+  //       chart.draw(data, options);
+  //     }
+
+
+  // }
   </script>
-
   <script type="text/javascript">
     $(document).ready(function() {
         $("#draggable").draggable({
@@ -304,6 +347,8 @@
         });
     });
   </script>
+  <script type="text/javascript" src="./script/init.js"></script>
+  <!-- <script type="text/javascript" src="./script/graph.js"></script> -->
 
   </body>
 </html>

@@ -1,4 +1,4 @@
-      var map;
+  // var map;
       require([
         "esri/map", 
       	"dojo/dom-construct",
@@ -15,9 +15,11 @@
         "esri/layers/GraphicsLayer",
         "dojo/dom",
         "dojo/on",
+        "dojo/ready",
+        "dojo/query",
         "dojo/domReady!"
       ], function(
-        Map, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, FeatureLayer, Point, SimpleMarkerSymbol,TextSymbol, Graphic, GraphicsLayer,dom,on
+        Map, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, FeatureLayer, Point, SimpleMarkerSymbol,TextSymbol, Graphic, GraphicsLayer,dom,on,ready,query
       ) {
         //var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
         var popup = new Popup({
@@ -27,26 +29,29 @@
          }, domConstruct.create("div"));
 
         // create map and layers
-        map = new Map("map", {
+        var map = new Map("map", {
           basemap: "streets",
           center: [-81.379234,28.53833],
           zoom: 8,
           infoWindow: popup
         });
-
       var template = new PopupTemplate({
           title:"<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude} ／ lat:{Latitude}</span></h4></div>",
           description:  
           // two tags: current, graph
-            "<ul class='tab'> <li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
+            "<ul class='tab'>" + 
+            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             // "<li><a class='tablinks' onclick='openTag(event, &#39;graph&#39;)' onclick='addChart()'>Graph</a></li></ul>" 
-             "<li><a class='tablinks' onclick='addChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" 
+            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" 
+            
+            // "<li><a id='graph1' class='tablinks'>Graph</a></li></ul>" 
+            // + "<script type='text/javascript' src='./script/graph.js'></script>"
           + 
           // Current Div content
           "<div id='current' class='tabcontent'> <span>County: {County}</span> <span style='float:right'>windSpeed: {WindSpeed}</span><br><br><span>Temperature: {Temperature}</span> <span style='float:right'>Elevation: {Elevation}</span><br><br>" + "<span>Facility: {Facility}</span><br><br><span>Date: {Date}</span></div>" +
 
           // Graph div conent
-            "<div id='graph' class='tabcontent' style='overflow:hidden'></div>",
+            "<div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
             // "<div id='graph' class='tabcontent' onclick='addChart()'>" + "<script type='text/javascript'>google.charts.load('current', {'packages':['corechart']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = new google.visualization.DataTable();data.addColumn('string', 'Topping');data.addColumn('number', 'Slices');data.addRows([['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]);var options = {'title':'How Much Pizza I Ate Last Night','width':400,'height':300};var chart = new google.visualization.PieChart(document.getElementById('graph'));chart.draw(data, options);}</script>"+ "</div>",
           fieldInfos:[],
           mediaInfos:[]
@@ -89,6 +94,7 @@
         //get data from json
       $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
           for (var i = 0; i < data.stnsWxData.length ;i++){
+
             gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
 
             gl_temp.add(GetTemp(
@@ -154,6 +160,7 @@
         var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
+        var graphDiv = dom.byId("graph1");
 
         // on(GetTempLyrToggle, "change", function(){
         //   // console.log(GetTempLyrToggle.checked);
@@ -188,13 +195,69 @@
         });
 
         on(GetStationLyrToggle, "change", function(){
-            gl_station.visible = GetStationLyrToggle.checked;
-            if (gl_station.visible == false) {
-              map.removeLayer(gl_station);
+            gl_attr.visible = GetStationLyrToggle.checked;
+            if (gl_attr.visible == true) {
+            var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+            var i = 0;
+              while(gl_attr.graphics[i] != null){
+                gl_attr.graphics[i].setSymbol(tempSymbol);
+                i++;
+              }
             }else{
-              map.addLayer(gl_station);
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
             }
         });
+
+  //   on(graphDiv, "click", function(){
+  //     // var i, tablecontent, tablinks;
+
+  //     // tablecontent = document.getElementsByClassName("tabcontent");
+  //     // for ( i = 0; i < tablecontent.length; i++) {
+  //     //       //console.log("asd");
+  //     //   tablecontent[i].style.display = "none";
+  //     // }
+  //     // tablinks = document.getElementsByClassName("tablinks")
+  //     // for ( i = 0; i < tablinks.length; i++) {
+  //     //       //console.log("asd");
+  //     //   tablinks[i].className = tablinks[i].className.replace(" active", "");
+  //     // }
+
+  //     // // document.getElementById(TagName).style.display = "block";
+  //     // document.getElementById("graph").style.display = "block";
+  //     // // e.currentTarget.className += "active";
+      
+  //     // var chart = new Highcharts.Chart({
+  //     //     chart: {
+  //     //         renderTo: 'graph'
+  //     //     },
+
+  //     //     xAxis: {
+  //     //         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+  //     //             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  //     //     },
+
+  //     //     series: [{
+  //     //         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+  //     //     }]
+
+  //     // });
+  //     var x = document.getElementById("map");
+  //     x.innerHTML = "hello world";
+
+  // });
+
+// $(document).ready(function() {
+  // $("#GetTemp").click(function() {
+  //   // $("#map").text("hello world");
+  //   $("#map").html("<b>Hello world!</b>");
+  // })
+   // })
+
+  
 
         // on(GetWindSpeedLyrToggle, "change", function(){
         // 	gl_windspeed.visible = GetWindSpeedLyrToggle.checked;
@@ -208,21 +271,116 @@
         // 	}
         // });
 
-   //      function openTag(evt, TagName){
-   //      	var i, tablecontent, tablinks;
-   //      	tablecontent = document.getElementByClassName("tablecontent");
-			// for ( i = 0; i < tablecontent.length; i++) {
-   //      		tablecontent[i].style.display = "none";
-   //      	}
 
-   //      	tablinks = document.getElementByClassName("tablinks")
-   //      	for ( i = 0; i < tablinks.length; i++) {
-   //      		tablinks[i].className = tablinks[i].className.replace(" active", "");
-   //      	}
-   //      	console.log("sad");
-   //      	document.getElementById(TagName).style.display = "block";
-   //      	evt.currentTarget.className += "active";
-   //      }
+   // solution number 1
+addBarChart = function(evt,TagName){
 
+    var i, tablecontent, tablinks;
+
+          tablecontent = document.getElementsByClassName("tabcontent");
+          for ( i = 0; i < tablecontent.length; i++) {
+            //console.log("asd");
+            tablecontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks")
+          for ( i = 0; i < tablinks.length; i++) {
+            //console.log("asd");
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+
+      document.getElementById(TagName).style.display = "block";
+      evt.currentTarget.className += "active";
+      
+      var chart = new Highcharts.Chart({
+          chart: {
+              renderTo: 'graph'
+          },
+
+          xAxis: {
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+
+          series: [{
+              data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+          }]
 
       });
+  }
+
+  // solution nubmer 2
+//   ready(function() {
+//         var click_graph = dojo.query(".tablinks")[1];
+//         on(click_graph, "click", addBarChart);
+
+//     function addBarChart(evt){
+//           var i, tablecontent, tablinks;
+
+//           tablecontent = document.getElementsByClassName("tabcontent");
+//           for ( i = 0; i < tablecontent.length; i++) {
+//             //console.log("asd");
+//             tablecontent[i].style.display = "none";
+//           }
+//           tablinks = document.getElementsByClassName("tablinks")
+//           for ( i = 0; i < tablinks.length; i++) {
+//             //console.log("asd");
+//             tablinks[i].className = tablinks[i].className.replace(" active", "");
+//           }
+
+//       document.getElementById("graph").style.display = "block";
+//       evt.currentTarget.className += "active";
+      
+//       var chart = new Highcharts.Chart({
+//           chart: {
+//               renderTo: 'graph'
+//           },
+
+//           xAxis: {
+//               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+//                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+//           },
+
+//           series: [{
+//               data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+//           }]
+
+//       });
+//         }
+
+//     });
+})
+
+  // function addBarChart(evt,TagName){
+
+  //   var i, tablecontent, tablinks;
+
+  //         tablecontent = document.getElementsByClassName("tabcontent");
+  //         for ( i = 0; i < tablecontent.length; i++) {
+  //           //console.log("asd");
+  //           tablecontent[i].style.display = "none";
+  //         }
+  //         tablinks = document.getElementsByClassName("tablinks")
+  //         for ( i = 0; i < tablinks.length; i++) {
+  //           //console.log("asd");
+  //           tablinks[i].className = tablinks[i].className.replace(" active", "");
+  //         }
+
+  //     document.getElementById(TagName).style.display = "block";
+  //     evt.currentTarget.className += "active";
+      
+  //     var chart = new Highcharts.Chart({
+  //         chart: {
+  //             renderTo: 'graph'
+  //         },
+
+  //         xAxis: {
+  //             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+  //                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  //         },
+
+  //         series: [{
+  //             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+  //         }]
+
+  //     });
+  // }
