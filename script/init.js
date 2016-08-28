@@ -55,6 +55,30 @@
             // "<div id='graph' class='tabcontent' onclick='addChart()'>" + "<script type='text/javascript'>google.charts.load('current', {'packages':['corechart']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = new google.visualization.DataTable();data.addColumn('string', 'Topping');data.addColumn('number', 'Slices');data.addRows([['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]);var options = {'title':'How Much Pizza I Ate Last Night','width':400,'height':300};var chart = new google.visualization.PieChart(document.getElementById('graph'));chart.draw(data, options);}</script>"+ "</div>",
           fieldInfos:[],
           mediaInfos:[]
+
+// fieldInfos: [
+//       { fieldName: "AGE_UNDER5", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_5_17", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_18_21", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_22_29", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_30_39", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_40_49", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_50_64", visible: true, format: { places: 0 } },
+//       { fieldName: "AGE_65_UP", visible: true, format: { places: 0 } }
+//     ],
+
+//     mediaInfos: [
+//       {
+//         type: "piechart",
+//         value: { 
+//           fields: [ 
+//             "AGE_UNDER5", "AGE_5_17", "AGE_18_21", "AGE_22_29", 
+//             "AGE_30_39", "AGE_40_49", "AGE_50_64", "AGE_65_UP" 
+//           ] 
+//         }
+//       }
+//     ]
+
       });
 
     var template_temp = new PopupTemplate({
@@ -87,7 +111,7 @@
   	});
 
   	var gl_windspeed = new GraphicsLayer({
-  		infoTemplate: template_windspeed,
+  		// infoTemplate: template_windspeed,
         outFields: ["*"]
   	});
 
@@ -106,7 +130,7 @@
             }
       })
 
-        popup.resize(400,300);
+        popup.resize(450,350);
 
         function addAttr(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
         {
@@ -192,6 +216,25 @@
                 b++;
               }
             }
+
+
+          //   var chart = new Highcharts.Chart({
+          //     chart: {
+          //         renderTo: 'map',
+          //         // width: 300,
+          //         // height: 250
+          //     },
+
+          //     xAxis: {
+          //         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+          //             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          //     },
+
+          //     series: [{
+          //         data: [gl_attr.graphics[0].attributes["Longitude"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+          //     }]
+
+          // });
         });
 
         on(GetStationLyrToggle, "change", function(){
@@ -273,40 +316,47 @@
 
 
    // solution number 1
-addBarChart = function(evt,TagName){
+// addBarChart = function(evt,TagName){
 
-    var i, tablecontent, tablinks;
+//     var i, tablecontent, tablinks;
 
-          tablecontent = document.getElementsByClassName("tabcontent");
-          for ( i = 0; i < tablecontent.length; i++) {
-            //console.log("asd");
-            tablecontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks")
-          for ( i = 0; i < tablinks.length; i++) {
-            //console.log("asd");
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
+//           tablecontent = document.getElementsByClassName("tabcontent");
+//           for ( i = 0; i < tablecontent.length; i++) {
+//             //console.log("asd");
+//             tablecontent[i].style.display = "none";
+//           }
+//           tablinks = document.getElementsByClassName("tablinks")
+//           for ( i = 0; i < tablinks.length; i++) {
+//             //console.log("asd");
+//             tablinks[i].className = tablinks[i].className.replace(" active", "");
+//           }
 
-      document.getElementById(TagName).style.display = "block";
-      evt.currentTarget.className += "active";
+//         $(document).ready(function() {
+//             var x = document.getElementsByClassName("esriPopupWrapper")[0];
+//             x.draggable({
+//               containment: "parent"
+//             });
+//         })
+
+//       document.getElementById(TagName).style.display = "block";
+//       evt.currentTarget.className += "active";
       
-      var chart = new Highcharts.Chart({
-          chart: {
-              renderTo: 'graph'
-          },
+//       var chart = new Highcharts.Chart({
+//           chart: {
+//               renderTo: 'graph'
+//           },
 
-          xAxis: {
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-          },
+//           xAxis: {
+//               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+//                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+//           },
 
-          series: [{
-              data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-          }]
+//           series: [{
+//               data: [gl_attr.graphics[0].attributes["Longitude"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+//           }]
 
-      });
-  }
+//       });
+//   }
 
   // solution nubmer 2
 //   ready(function() {
