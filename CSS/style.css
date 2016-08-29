@@ -498,6 +498,28 @@ background:rgba(255,255,255,0.2);
     cursor: pointer;
 }
 
+.esriPopup .pointer.bottomLeft{
+    bottom: 9px;
+}
+
+.esriPopup .pointer, .esriPopup .outerPointer {
+    position: relative;
+}
+
+.esriPopup .outerPointer.left{
+    position: relative;
+}
+
+/*.esriPopup .outerPointer.left{
+     position: relative;
+}
+
+.esriPopup .pointer{
+    position: relative;
+}*/
+.esriPopup .esriPopupWrapper{
+    
+}
 
 
 

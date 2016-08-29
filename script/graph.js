@@ -1,6 +1,5 @@
 $(document).ready(function() {
     addBarChart = function(evt,TagName){
-
         var i, tablecontent, tablinks;
 
               tablecontent = document.getElementsByClassName("tabcontent");
@@ -14,15 +13,38 @@ $(document).ready(function() {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
               }
 
-          // var x = document.getElementsByClassName("esriPopupWrapper")[0];
-          //     x.draggable({
-          //       containment: "parent"
-          //     });
+              // $(".esriPopupWrapper").css({"resize":"both"});
 
           $(".esriPopupWrapper").draggable({
               // containment:"parent"
-          })
-            
+
+              //once starting drag, the div disappear
+                start: function() {
+                // $(".esriPopup .outerPointer.left").remove();
+                // $(".esriPopup .pointer.bottom").remove();
+                $(".esriPopup .pointer").remove();
+                $(".esriPopup .outerPointer").remove();
+                // $(".esriPopupWrapper").css({"bottom": "null"});
+                },
+          });
+
+          // divs inside does not have effect, try to figure it out.
+          // $(".esriPopupWrapper").resizable({
+
+          // })
+
+          // $(".esriPopupWrapper").resizable();
+
+
+          // $(".esriPopup .outerPointer.left").remove();
+
+          // $(".esriPopup .pointer.bottomLeft").css({"bottom": "9px", "position": "relative"});
+          // // works !!
+          // $(".esriPopup .pointer.bottom").css({"bottom": "9px", "position": "relative"});
+          // $(".esriPopup .outerPointer.left").css({"position": "relative"});
+
+
+
           document.getElementById(TagName).style.display = "block";
           evt.currentTarget.className += "active";
           
