@@ -50,7 +50,7 @@
 
         // PopupTemplate generate function
       var popupTemplateGenerate = {
-          title : "<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{lng} ／ lat:{lat}</span></h4></div>",
+          title : "<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{stnID}</span> <span style='float:right; font:initial'>lng:{lng} ／ lat:{lat}</span></h4></div>",
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" + 
@@ -68,7 +68,7 @@
               }
               // console.log(this.descriptionContent);
 
-              return this.json = {title: this.title, description: this.descriptionStart + this.descriptionContent + this.descriptionEnd};
+              return this.json = { title: this.title, description: this.descriptionStart + this.descriptionContent + this.descriptionEnd };
           }
       }
 
@@ -173,7 +173,8 @@
             // for(var j in data.stnsWxData[i]){
             //   gl_attr.add(addAttr())
             // }
-            gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+            // gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+            gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
 
             gl_temp.add(GetTemp(
               data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
@@ -203,13 +204,15 @@
         //   return g;
         // }
 
-        function addAttr(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
+        function addAttr(lng,lat,json)
         {
           var p = new Point(lng,lat);
           //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
           var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
-          var attr = {"lng":lng,"lat":lat,"stnName":stnName,
-          "stnID":stnID, "temp2mF":temp2mF, "windSpeed10mMph":windSpeed10mMph, "county":county, "elevation_feet":elevation_feet,"facility":facility,"dateTimes":dateTimes};
+          // var attr = {"lng":lng,"lat":lat,"stnName":stnName,
+          // "stnID":stnID, "temp2mF":temp2mF, "windSpeed10mMph":windSpeed10mMph, "county":county, "elevation_feet":elevation_feet,"facility":facility,"dateTimes":dateTimes};
+          // var g = new Graphic(p,t,attr);
+          var attr = json;
           var g = new Graphic(p,t,attr);
           return g;
         }
