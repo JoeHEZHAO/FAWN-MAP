@@ -13,6 +13,7 @@ $(document).ready(function() {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
               }
 
+              // console.log(gl_attr.graphics[0].attributes);
               // $(".esriPopupWrapper").css({"resize":"both"});
 
           // $(".esriPopupWrapper").draggable({
@@ -44,7 +45,7 @@ $(document).ready(function() {
           // $(".esriPopup .outerPointer.left").css({"position": "relative"});
 
 
-
+          // console.log(nameArray); 
           document.getElementById(TagName).style.display = "block";
           evt.currentTarget.className += "active";
           
@@ -62,7 +63,7 @@ $(document).ready(function() {
               },
 
               series: [{
-                  data: [gl_attr.graphics[0].attributes["Longitude"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                  data: [gl_attr.graphics[0].attributes["lng"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
               }]
 
           });
