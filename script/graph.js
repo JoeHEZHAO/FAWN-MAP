@@ -15,18 +15,18 @@ $(document).ready(function() {
 
               // $(".esriPopupWrapper").css({"resize":"both"});
 
-          $(".esriPopupWrapper").draggable({
-              // containment:"parent"
+          // $(".esriPopupWrapper").draggable({
+          //     // containment:"parent"
 
-              //once starting drag, the div disappear
-                start: function() {
-                // $(".esriPopup .outerPointer.left").remove();
-                // $(".esriPopup .pointer.bottom").remove();
-                $(".esriPopup .pointer").remove();
-                $(".esriPopup .outerPointer").remove();
-                // $(".esriPopupWrapper").css({"bottom": "null"});
-                },
-          });
+          //     //once starting drag, the div disappear
+          //       start: function() {
+          //       // $(".esriPopup .outerPointer.left").remove();
+          //       // $(".esriPopup .pointer.bottom").remove();
+          //       $(".esriPopup .pointer").remove();
+          //       $(".esriPopup .outerPointer").remove();
+          //       // $(".esriPopupWrapper").css({"bottom": "null"});
+          //       },
+          // });
 
           // divs inside does not have effect, try to figure it out.
           // $(".esriPopupWrapper").resizable({

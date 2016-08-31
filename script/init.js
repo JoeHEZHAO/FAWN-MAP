@@ -1,4 +1,4 @@
-  // var map;
+    var map;
       require([
         "esri/map", 
       	"dojo/dom-construct",
@@ -35,7 +35,26 @@
           zoom: 8,
           infoWindow: popup
         });
-      var template = new PopupTemplate({
+
+        // PopupTemplate generate function
+      var popupTemplateGenerate = {
+          title : "<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude} ／ lat:{Latitude}</span></h4></div>",
+          descriptionStart : "<ul class='tab'>" + 
+            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
+            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" + 
+            "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
+
+          descriptionEnd: "</div><div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
+
+          descriptionContent : '',
+          json : { },
+          setContent : function(descripContent){
+            this.descriptionContent = descripContent;
+               return this.json = {title: this.title, description: this.descriptionStart + this.descriptionContent + this.descriptionEnd};
+          }
+      }
+
+      var json = {
           title:"<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{StationID}</span> <span style='float:right; font:initial'>lng:{Longitude} ／ lat:{Latitude}</span></h4></div>",
           description:  
           // two tags: current, graph
@@ -47,39 +66,39 @@
             // "<li><a id='graph1' class='tablinks'>Graph</a></li></ul>" 
             // + "<script type='text/javascript' src='./script/graph.js'></script>"
           + 
-          // Current Div content
-          "<div id='current' class='tabcontent'> <span>County: {County}</span> <span style='float:right'>windSpeed: {WindSpeed}</span><br><br><span>Temperature: {Temperature}</span> <span style='float:right'>Elevation: {Elevation}</span><br><br>" + "<span>Facility: {Facility}</span><br><br><span>Date: {Date}</span></div>" +
+          // Current Div content start
+          "<div id='current' class='tabcontent' style='background-color: white; display: block'>" +
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>County:</span><span style='float:right; color: #999'>{County}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>windSpeed:</span><span style='float:right; color: #999'>{WindSpeed}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Temperature:</span> <span style='float:right; color: #999'>{Temperature}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Elevation:</span> <span style='float:right; color: #999'>{Elevation}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Facility:</span> <span style='float:right; color: #999'>{Facility}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Date:</span> <span style='float:right; color: #999'>{Date}</span><br><br></div>" + 
+          // "<div style='border-bottom: 1px dotted #e9e9e9'><span> </span> <span style='float:right'> </span><br><br></div>" + 
+          // "<div style='border-bottom: 1px dotted #e9e9e9'><span> </span> <span style='float:right'> </span><br><br></div>" + 
+          // "<div style='border-bottom: 1px dotted #e9e9e9'><span> </span> <span style='float:right'> </span><br><br></div>" +  
+          // "<div style='border-bottom: 1px dotted #e9e9e9'> <span> </span><br><br></div>" + 
+          // Current Div end
+          "</div>" +
 
-          // Graph div conent
+
+          // Graph div conent start
             "<div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
-            // "<div id='graph' class='tabcontent' onclick='addChart()'>" + "<script type='text/javascript'>google.charts.load('current', {'packages':['corechart']});google.charts.setOnLoadCallback(drawChart);function drawChart() {var data = new google.visualization.DataTable();data.addColumn('string', 'Topping');data.addColumn('number', 'Slices');data.addRows([['Mushrooms', 3],['Onions', 1],['Olives', 1],['Zucchini', 1],['Pepperoni', 2]]);var options = {'title':'How Much Pizza I Ate Last Night','width':400,'height':300};var chart = new google.visualization.PieChart(document.getElementById('graph'));chart.draw(data, options);}</script>"+ "</div>",
           fieldInfos:[],
           mediaInfos:[]
+      }
 
-// fieldInfos: [
-//       { fieldName: "AGE_UNDER5", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_5_17", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_18_21", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_22_29", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_30_39", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_40_49", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_50_64", visible: true, format: { places: 0 } },
-//       { fieldName: "AGE_65_UP", visible: true, format: { places: 0 } }
-//     ],
+      // clearly will overlay the old one, so won't work
+      // json.description = "<div style='border-bottom: 1px dotted #e9e9e9'><span> sadasd</span> <span style='float:right'> asdas</span><br><br></div>";
 
-//     mediaInfos: [
-//       {
-//         type: "piechart",
-//         value: { 
-//           fields: [ 
-//             "AGE_UNDER5", "AGE_5_17", "AGE_18_21", "AGE_22_29", 
-//             "AGE_30_39", "AGE_40_49", "AGE_50_64", "AGE_65_UP" 
-//           ] 
-//         }
-//       }
-//     ]
+    // var template = new PopupTemplate(json);
+    var template = new PopupTemplate(popupTemplateGenerate.setContent("<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>County:</span><span style='float:right; color: #999'>{County}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>windSpeed:</span><span style='float:right; color: #999'>{WindSpeed}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Temperature:</span> <span style='float:right; color: #999'>{Temperature}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Elevation:</span> <span style='float:right; color: #999'>{Elevation}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Facility:</span> <span style='float:right; color: #999'>{Facility}</span><br><br></div>" + 
+          "<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>Date:</span> <span style='float:right; color: #999'>{Date}</span><br><br></div>"));
 
-      });
 
     var template_temp = new PopupTemplate({
         title: "Fawn Weather Temperature Info",
@@ -115,10 +134,21 @@
         outFields: ["*"]
   	});
 
-        //get data from json
-      $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
-          for (var i = 0; i < data.stnsWxData.length ;i++){
+    var attrName = {
+        json: { },
+        getJSON : function(data){
+          this.json = data;
+        }
+    };
+    var nameArray = [];
 
+    //get data from json
+    $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
+        for(var i in data.stnsWxData[0]){
+          nameArray.push(i);
+        }
+
+          for (var i = 0; i < data.stnsWxData.length ;i++){
             gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
 
             gl_temp.add(GetTemp(
@@ -127,8 +157,12 @@
             gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
 
             // gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
-            }
-      })
+          }
+        console.log(nameArray); 
+    })
+
+    console.log(nameArray); 
+  
 
         popup.resize(450,350);
 
@@ -398,6 +432,8 @@
 //         }
 
 //     });
+
+
 })
 
   // function addBarChart(evt,TagName){
