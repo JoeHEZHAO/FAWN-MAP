@@ -30,6 +30,16 @@
       'temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
 
 
+    // var loadDataGenerateLayer = {
+    //       getDataCreateLayer : function(url, graphLayer){
+    //           $.getJSON(url, function(data){
+    //               for (var i = 0; i < data.stnsWxData.length ;i++){
+    //                 graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+    //               }
+    //         })
+    //       }
+    // };
+
 
 
 
@@ -50,7 +60,7 @@
 
         // PopupTemplate generate function
       var popupTemplateGenerate = {
-          title : "<div class='title'><h1>StationName:  {StationName}</h1><br><h4>StationID: <span style='color:blue'>{stnID}</span> <span style='float:right; font:initial'>lng:{lng} ／ lat:{lat}</span></h4></div>",
+          title : "<div class='title'><h1>StationName:  {stnName}</h1><br><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" + 
@@ -163,28 +173,35 @@
     nameArray = [];
 
     //get data from json
-    $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
+    // $.getJSON("http://fawn.ifas.ufl.edu/controller.php/latestmapjson/", function(data){
           
-          for(var i in data.stnsWxData[0]){
-            nameArray.push(i);
-          }
+    //       for(var i in data.stnsWxData[0]){
+    //         nameArray.push(i);
+    //       }
 
-          for (var i = 0; i < data.stnsWxData.length ;i++){
-            // for(var j in data.stnsWxData[i]){
-            //   gl_attr.add(addAttr())
-            // }
-            // gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
-            gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+    //       for (var i = 0; i < data.stnsWxData.length ;i++){
+    //         // for(var j in data.stnsWxData[i]){
+    //         //   gl_attr.add(addAttr())
+    //         // }
+    //         // gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+    //         gl_attr.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
 
-            gl_temp.add(GetTemp(
-              data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
+    //         gl_temp.add(GetTemp(
+    //           data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].temp2mF, data.stnsWxData[i].stnName));
 
-            gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
+    //         gl_station.add(GetStation(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].stnName, data.stnsWxData[i].stnID, data.stnsWxData[i].temp2mF,data.stnsWxData[i].windSpeed10mMph,data.stnsWxData[i].county, data.stnsWxData[i].elevation_feet, data.stnsWxData[i].facility, data.stnsWxData[i].dateTimes));
 
-            // gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
-          }
-        // console.log(nameArray); 
-    })
+    //         // gl_windspeed.add(GetWindSpeed(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i].windSpeed10mMph));
+    //       }
+    //     // console.log(nameArray); 
+    // })
+    // var aa = new loadDataGenerateLayer()
+
+    
+    loadDataGenerateLayer.getDataCreateLayer(url6, gl_attr);
+
+
+
 
     // console.log(nameArray); 
 
@@ -209,44 +226,41 @@
           var p = new Point(lng,lat);
           //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
           var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
-          // var attr = {"lng":lng,"lat":lat,"stnName":stnName,
-          // "stnID":stnID, "temp2mF":temp2mF, "windSpeed10mMph":windSpeed10mMph, "county":county, "elevation_feet":elevation_feet,"facility":facility,"dateTimes":dateTimes};
-          // var g = new Graphic(p,t,attr);
           var attr = json;
           var g = new Graphic(p,t,attr);
           return g;
         }
 
-        function GetStation(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
-        {
-          var p = new Point(lng,lat);
-          var s = new SimpleMarkerSymbol().setSize(13).setColor("purple");
-          var t = new TextSymbol(stnName).setColor("red");
-          // var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
-          // "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
-          var g = new Graphic(p,s);
-          return g;
-        }
+        // function GetStation(lng,lat,stnName,stnID,temp2mF,windSpeed10mMph,county,elevation_feet,facility,dateTimes)
+        // {
+        //   var p = new Point(lng,lat);
+        //   var s = new SimpleMarkerSymbol().setSize(13).setColor("purple");
+        //   var t = new TextSymbol(stnName).setColor("red");
+        //   // var attr = {"Longitude":lng,"Latitude":lat,"StationName":stnName,
+        //   // "StationID":stnID, "Temperature":temp2mF, "WindSpeed":windSpeed10mMph, "County":county, "Elevation":elevation_feet,"Facility":facility,"Date":dateTimes};
+        //   var g = new Graphic(p,s);
+        //   return g;
+        // }
 
-        function GetWindSpeed(x,y,z){
-          var p = new Point(x,y);
-          var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          //var t = new TextSymbol("windSpeed: " + z + "10mMph").setColor("red");
-          var attr = {"XCoord":x,"YCoord":y, "windSpeed": z};
-          var g = new Graphic(p,s,attr);
-          return g;
-        }
+        // function GetWindSpeed(x,y,z){
+        //   var p = new Point(x,y);
+        //   var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+        //   //var t = new TextSymbol("windSpeed: " + z + "10mMph").setColor("red");
+        //   var attr = {"XCoord":x,"YCoord":y, "windSpeed": z};
+        //   var g = new Graphic(p,s,attr);
+        //   return g;
+        // }
 
-        function GetTemp(x,y,z,n){
-          var attr = {'longtitude': x, 'latitude': y};
-          //var infoTemplate = new InfoTemplate("Locations","Latitude: ${latitude} <br/>Longitude: ${longtitude} <br/>");
-          var p = new Point(x,y);
-          var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          var t = new TextSymbol(n + " " + z + "\xB0").setColor("red");
-          //var attr = {"XCoord":x,"YCoord":y,"Plant":n, "TEMP":z};
-          var g = new Graphic(p,t);
-          return g;
-        };
+        // function GetTemp(x,y,z,n){
+        //   var attr = {'longtitude': x, 'latitude': y};
+        //   //var infoTemplate = new InfoTemplate("Locations","Latitude: ${latitude} <br/>Longitude: ${longtitude} <br/>");
+        //   var p = new Point(x,y);
+        //   var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+        //   var t = new TextSymbol(n + " " + z + "\xB0").setColor("red");
+        //   //var attr = {"XCoord":x,"YCoord":y,"Plant":n, "TEMP":z};
+        //   var g = new Graphic(p,t);
+        //   return g;
+        // };
 
         map.addLayer(gl_attr);
         //map.addLayer(gl_temp);
