@@ -44,7 +44,10 @@
           title : "<div class='title'><h1>StationName:  {stnName}</h1><br><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
-            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;)'>Graph</a></li></ul>" + 
+            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 
+            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Prediction</a></li>" +
+            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Toolkit</a></li>" +
+            "</ul>" + 
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
           descriptionEnd: "</div><div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",

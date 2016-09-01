@@ -435,7 +435,14 @@ ul.tab {
 }
 
 /* Float the list items side by side */
-ul.tab li {float: left;}
+ul.tab li {
+    float: left;
+/*    border-left: 1px solid #D7D7D7;*/
+}
+
+/*ul.tab li:hover{
+    color: #FF8833;
+}*/
 
 /* Style the links inside the list items */
 ul.tab li a {
@@ -446,10 +453,16 @@ ul.tab li a {
     text-decoration: none;
     /*transition: 0.3s;*/
     font-size: 17px;
+/*    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: #15AADC;*/
 }
 
 /* Change background color of links on hover */
-ul.tab li a:hover {background-color: #ddd;}
+ul.tab li a:hover {
+    background-color: #ddd;
+    color: #FF8833;
+    cursor: pointer;}
 
 /* Create an active/current tablink class */
 ul.tab li a:focus, .active {background-color: #ccc;}

@@ -1,7 +1,8 @@
 $(document).ready(function() {
-    addBarChart = function(evt,TagName){
-        var i, tablecontent, tablinks;
+    addBarChart = function(evt,TagName, stdID){
 
+        // close other tag and open graph
+        var i, tablecontent, tablinks;
               tablecontent = document.getElementsByClassName("tabcontent");
               for ( i = 0; i < tablecontent.length; i++) {
                 //console.log("asd");
@@ -12,9 +13,9 @@ $(document).ready(function() {
                 //console.log("asd");
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
               }
+        document.getElementById(TagName).style.display = "block";
+        evt.currentTarget.className += "active";
 
-              // console.log(gl_attr.graphics[0].attributes);
-              // $(".esriPopupWrapper").css({"resize":"both"});
 
           // $(".esriPopupWrapper").draggable({
           //     // containment:"parent"
@@ -43,18 +44,45 @@ $(document).ready(function() {
           // // works !!
           // $(".esriPopup .pointer.bottom").css({"bottom": "9px", "position": "relative"});
           // $(".esriPopup .outerPointer.left").css({"position": "relative"});
+          // console.log(url5_1 + stdID + url5_2);
 
 
-          // console.log(nameArray); 
-          document.getElementById(TagName).style.display = "block";
-          evt.currentTarget.className += "active";
+      // this url is not json, see url6 can work, so the problem lies on url5;
+      console.log(stdID);
+
+      $.getJSON(url4 + stdID, function(data){
+        console.log(data);
+      });
           
           var chart = new Highcharts.Chart({
               chart: {
                   renderTo: 'graph',
                   reflow: true,
-                  // width: 300,
                   height: 200
+              },
+
+              rangeSelector : {
+                  buttons : [ {
+                    type : 'minute',
+                    count : 240,
+                    text : '4h'
+                  }, {
+                    type : 'day',
+                    count : 0.5,
+                    text : '12h'
+                  }, {
+                    type : 'day',
+                    count : 1,
+                    text : '24h'
+                  }, {
+                    type : 'day',
+                    count : 3,
+                    text : '3d'
+                  }, {
+                    type : 'day',
+                    count : 7,
+                    text : '7d'
+                  } ],
               },
 
               xAxis: {
@@ -67,6 +95,9 @@ $(document).ready(function() {
               }]
 
           });
+
+
+          
       }
 
 })
