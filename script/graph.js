@@ -49,12 +49,24 @@ $(document).ready(function() {
 
       // this url is not json, see url6 can work, so the problem lies on url5;
       console.log(stdID);
-
+      var temp = [];
+      var date = [];
       $.getJSON(url4 + stdID, function(data){
-        console.log(data);
-      });
-          
-          var chart = new Highcharts.Chart({
+        // temp.push(data.temp2fts[0][1]);
+        // console.log(temp);
+        // console.log(Date.parse("1472149800000"));
+        // var d = new Date(1472287500000);
+        // console.log(d);
+
+        for (var i = 0; i < data.temp2fts.length; i++){
+          temp.push(data.temp2fts[i][1]);
+          // var d = new Date(data.temp2fts[i][0]);
+          date.push(new Date(data.temp2fts[i][0]));
+          console.log(temp);
+        }
+
+
+        var chart = new Highcharts.Chart({
               chart: {
                   renderTo: 'graph',
                   reflow: true,
@@ -85,17 +97,25 @@ $(document).ready(function() {
                   } ],
               },
 
+              // xAxis: {
+              //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+              //         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+              // },
               xAxis: {
-                  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                  // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                  //     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                  categories : date
               },
 
+              // series: [{
+              //     data: [gl_attr.graphics[0].attributes["lng"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6]
+              // }]
               series: [{
-                  data: [gl_attr.graphics[0].attributes["lng"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                  data: temp
               }]
-
           });
-
+      });
+          // console.log(temp);
 
           
       }
