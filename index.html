@@ -14,12 +14,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="./CSS/style.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
-<!--     <style type="text/css">
-      .esriPopup .esriPopupWrapper {
-        resize: both;
-      }
-    </style> -->
-  
   </head>
   <body>
 
@@ -42,14 +36,14 @@
         <div class="tabs">
       <ul>
         <li>
-            <a href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</a>
+            <a href="#" class="tablinks" onclick="openMenu(event, 'Main')">Main</a>
             <!-- <span href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</span> -->
         </li>
         <li>
-          <a href="#" class="tablinks" onclick="openCity(event, 'Weather')">Weather</a>
+          <a href="#" class="tablinks" onclick="openMenu(event, 'Weather')">Weather</a>
         </li>
         <li>
-          <a href="#" class="tablinks" onclick="openCity(event, 'Radar')">Radar</a>
+          <a href="#" class="tablinks" onclick="openMenu(event, 'Radar')">Radar</a>
         </li>
       </ul>
 
@@ -115,248 +109,29 @@
         </div>
         </div>
 
-        <div class="map_and_panel" id="map_and_panel">
+          <!-- start map and panel  -->
+      <div class="map_and_panel" id="map_and_panel">
 
-        <!-- start draggable window -->
-          <div id="draggable" class="ui-widget-content">
+            <!-- start draggable window -->
+        <div id="draggable" class="ui-widget-content">
             <div id="map_panel" class="map_panel">
-<!--          <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
-                  <div class="roundedOne">
-                    <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
-                      <label for="GetTemp"></label>
-                   </div>
-                   <span id="TempatureLayer" style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
-              </div> -->
-
-<!--         <div style="height: 60px; position: absolute; top: 0px; width: 250px">
-          <div class="roundedOne">
-              <input type="checkbox" id="GetStation_test" value="Station Layer" unchecked>
-              <label for="GetStation_test"></label>
-            </div>
-            <span style="position: absolute; left: 69px; top: 25px;">Station Layer</span>
-        </div> -->
-
-<!--    <div style="height: 60px; position: absolute; top: 120px; width:250px">
-          <div class="roundedOne">
-              <input type="checkbox" id="GetWindSpeed" value="WindSpeed Layer" unchecked>
-              <label for="GetWindSpeed"></label>
-          </div>
-          <span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
-        </div> -->
-        </div>          
-
+            </div>          
         </div>
+            <!-- end draggable window -->
 
-        <!-- end draggable window -->
-
-          <div id="map" class="map">
-          </div>
-
-<!--           <div id="map_panel" class="map_panel">
-        	     <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
-    			     <div class="roundedOne">
-      				  <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
-      				  <label for="GetTemp"></label>
-    			     </div>
-    			     <span id="TempatureLayer" style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
-    		      </div>
-
-    		<div style="height: 60px; position: absolute; top: 60px; width: 250px">
-    			<div class="roundedOne">
-      				<input type="checkbox" id="GetStation" value="Station Layer" unchecked>
-      				<label for="GetStation"></label>
-      			</div>
-      			<span style="position: absolute; left: 69px; top: 25px;">Station Layer</span>
-    		</div>
-
-    		<div style="height: 60px; position: absolute; top: 120px; width:250px">
-     			<div class="roundedOne">
-      				<input type="checkbox" id="GetWindSpeed" value="WindSpeed Layer" unchecked>
-      				<label for="GetWindSpeed"></label>
-    			</div>
-    			<span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
-    	 	 </div>
-        </div> -->
-
+          <div id="map" class="map"></div>
       </div>
-
+          <!-- end map and panel -->
 
 
       </div>
     </div>
 <!--     <div id="map"></div> -->
-<script type="text/javascript">
-  //document.getElementById("TempatureLayer").addEventListener("click", addDate);
 
-
-  // function addBarChart(evt,TagName){
-
-  //   var i, tablecontent, tablinks;
-
-  //         tablecontent = document.getElementsByClassName("tabcontent");
-  //         for ( i = 0; i < tablecontent.length; i++) {
-  //           //console.log("asd");
-  //           tablecontent[i].style.display = "none";
-  //         }
-  //         tablinks = document.getElementsByClassName("tablinks")
-  //         for ( i = 0; i < tablinks.length; i++) {
-  //           //console.log("asd");
-  //           tablinks[i].className = tablinks[i].className.replace(" active", "");
-  //         }
-
-  //     document.getElementById(TagName).style.display = "block";
-  //     evt.currentTarget.className += "active";
-      
-  //     var chart = new Highcharts.Chart({
-  //         chart: {
-  //             renderTo: 'graph'
-  //         },
-
-  //         xAxis: {
-  //             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-  //                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  //         },
-
-  //         series: [{
-  //             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-  //         }]
-
-  //     });
-  // }
-
-
-    function openTag(evt, TagName){
-          var i, tablecontent, tablinks;
-
-          tablecontent = document.getElementsByClassName("tabcontent");
-          for ( i = 0; i < tablecontent.length; i++) {
-            //console.log("asd");
-            tablecontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks")
-          for ( i = 0; i < tablinks.length; i++) {
-            //console.log("asd");
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(TagName).style.display = "block";
-          evt.currentTarget.className += "active";
-  }
-
-      function myFunction(x){
-          x.classList.toggle("change");
-          document.getElementById("myDropdown").classList.toggle("show")
-          //document.getElementById("map").classList.toggle("map_change");
-          //document.getElementById("map_panel").classList.toggle("panel_change");
-          document.getElementById("map_and_panel").classList.toggle("map_change");
-      }
-
-        // window.onclick = function(event){
-        //   if(!event.target.matches('.menu_btn')){
-        //   var dropdowns = document.getElementsByClassName('dropdown-content');
-        //   var i;
-        //   for(i=0;i<dropdowns.length;i++){
-        //     var openDropDown = dropdowns[i];
-        //   if(openDropDown.classList.contains("show")){
-        //     openDropDown.classList.remove("show");
-        //     }
-        //   }
-        // }
-        // }
-
-
-    function openCity(evt, cityName){
-      var i, tabcontent, tablinks;
-
-      tabcontent = document.getElementsByClassName("side_menu_tabcontent");
-      for(i=0; i < tabcontent.length;i++){
-        tabcontent[i].style.display="none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-     for(i=0;i<tablinks.length;i++){
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-
-      document.getElementById(cityName).style.display= "block";
-      evt.currentTarget.className += " active";
-    }
-
-    // function closePopup(){
-    //   document.getElementsByClassName("esriPopupWrapper")[0].classList.toggle("closePopup");  // must be array!!! 
-    // }
-
-    // function addDate(){
-    //   var time  = new Date();
-    //   document.write(time);
-    // }
-
-  //   function addChart(evt,TagName){
-
-  //     var i, tablecontent, tablinks;
-
-  //         tablecontent = document.getElementsByClassName("tabcontent");
-  //         for ( i = 0; i < tablecontent.length; i++) {
-  //           //console.log("asd");
-  //           tablecontent[i].style.display = "none";
-  //         }
-  //         tablinks = document.getElementsByClassName("tablinks")
-  //         for ( i = 0; i < tablinks.length; i++) {
-  //           //console.log("asd");
-  //           tablinks[i].className = tablinks[i].className.replace(" active", "");
-  //         }
-
-  //     document.getElementById(TagName).style.display = "block";
-  //     evt.currentTarget.className += "active";
-
-  //     google.charts.load('current', {'packages':['corechart']});
-
-  //     // Set a callback to run when the Google Visualization API is loaded.
-  //     google.charts.setOnLoadCallback(drawChart);
-
-  //     Callback that creates and populates a data table,
-  //     instantiates the pie chart, passes in the data and
-  //     draws it.
-
-  //     // Don't need google chart
-  //     function drawChart() {
-
-  //       // Create the data table.
-  //       var data = new google.visualization.DataTable();
-  //       data.addColumn('string', 'Topping');
-  //       data.addColumn('number', 'Slices');
-  //       data.addRows([
-  //         ['Mushrooms', 3],
-  //         ['Onions', 1],
-  //         ['Olives', 1],
-  //         ['Zucchini', 1],
-  //         ['Pepperoni', 2]
-  //       ]);
-
-  //       // Set chart options
-  //       var options = {'title':'How Much Pizza I Ate Last Night',
-  //                      'width':400,
-  //                      'height':300};
-
-  //       // Instantiate and draw our chart, passing in some options.
-  //       var chart = new google.visualization.PieChart(document.getElementById('graph'));
-  //       chart.draw(data, options);
-  //     }
-
-
-  // }
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $("#draggable").draggable({
-          containment: "parent"
-        });
-
-        // $(".esriPopupWrapper").draggable({
-        //   containment: "parent"
-        // });
-    });
-  </script>
+  <script type="text/javascript" src="./script/constant.js"></script>
   <script type="text/javascript" src="./script/init.js"></script>
   <script type="text/javascript" src="./script/graph.js"></script>
-  <script type="text/javascript" src="./script/constant.js"></script>
+  <script type="text/javascript" src="./script/utility.js"></script>
+  
   </body>
 </html>
