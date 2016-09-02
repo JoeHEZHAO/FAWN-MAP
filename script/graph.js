@@ -48,76 +48,79 @@ $(document).ready(function() {
 
 
       // this url is not json, see url6 can work, so the problem lies on url5;
-      console.log(stdID);
+      // console.log(stdID);
       var temp = [];
       var date = [];
-      $.getJSON(url4 + stdID, function(data){
-        // temp.push(data.temp2fts[0][1]);
-        // console.log(temp);
-        // console.log(Date.parse("1472149800000"));
-        // var d = new Date(1472287500000);
-        // console.log(d);
 
+      $.getJSON(url4 + stdID, function(data){
         for (var i = 0; i < data.temp2fts.length; i++){
-          temp.push(data.temp2fts[i][1]);
+          // temp.push(data.temp2fts[i][1]);
           // var d = new Date(data.temp2fts[i][0]);
-          date.push(new Date(data.temp2fts[i][0]));
-          console.log(temp);
+          // d = d.getUTCDate() + d.getUTCMonth() + d.getFullYeay() + d.getUTCHours()+ d.getUTCMinutes() + d.getUTCSeconds();
+          // date.push(d);
+          // // date.push(new Date(data.temp2fts[i][0]).toUTCString());
+          // // console.log(d.getUTCMonth() + 1);
+          // console.log(d.getUTCDate());
+          temp.push([data.temp2fts[i][0], data.temp2fts[i][1]]);
         }
 
 
         var chart = new Highcharts.Chart({
               chart: {
                   renderTo: 'graph',
-                  reflow: true,
-                  height: 200
+                  zoomType: 'x'
+              },
+              title: {
+                text: 'Temperature 2 feets'
+              },
+              subtitle: {
+                text: 'temp2fts'
               },
 
-              rangeSelector : {
-                  buttons : [ {
-                    type : 'minute',
-                    count : 240,
-                    text : '4h'
-                  }, {
-                    type : 'day',
-                    count : 0.5,
-                    text : '12h'
-                  }, {
-                    type : 'day',
-                    count : 1,
-                    text : '24h'
-                  }, {
-                    type : 'day',
-                    count : 3,
-                    text : '3d'
-                  }, {
-                    type : 'day',
-                    count : 7,
-                    text : '7d'
-                  } ],
-              },
-
-              // xAxis: {
-              //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-              //         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+              // rangeSelector : {
+              //     buttons : [ {
+              //       type : 'minute',
+              //       count : 240,
+              //       text : '4h'
+              //     }, {
+              //       type : 'day',
+              //       count : 0.5,
+              //       text : '12h'
+              //     }, {
+              //       type : 'day',
+              //       count : 1,
+              //       text : '24h'
+              //     }, {
+              //       type : 'day',
+              //       count : 3,
+              //       text : '3d'
+              //     }, {
+              //       type : 'day',
+              //       count : 7,
+              //       text : '7d'
+              //     } ],
               // },
+
               xAxis: {
-                  // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                  //     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                  categories : date
+                type: 'datetime',
+                // categories : date
               },
 
-              // series: [{
-              //     data: [gl_attr.graphics[0].attributes["lng"], 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6]
-              // }]
+              yAxis: {
+                  title: {
+                    text: 'Temperature (°F)'
+                  }
+              },
+
               series: [{
+                  Name: 'FAWN',
                   data: temp
               }]
           });
-      });
-          // console.log(temp);
 
-          
+          chart.yAxis[0].setExtremes(65,95);
+      });
+          // console.log(temp);   
       }
 
 })

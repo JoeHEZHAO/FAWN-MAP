@@ -105,7 +105,7 @@
 
     loadDataGenerateLayer.getDataCreateLayer(url6, gl_attr);
         
-    popup.resize(450,350);
+    popup.resize(600,400);
         
     map.addLayer(gl_attr);
 
