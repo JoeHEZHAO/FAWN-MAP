@@ -15,6 +15,24 @@
           evt.currentTarget.className += "active";
   }
 
+  function openToolkit(){
+        var i, tablecontent, tablinks;
+
+          tablecontent = document.getElementsByClassName("tabcontent");
+          for ( i = 0; i < tablecontent.length; i++) {
+            //console.log("asd");
+            tablecontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks")
+          for ( i = 0; i < tablinks.length; i++) {
+            //console.log("asd");
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(TagName).style.display = "block";
+          evt.currentTarget.className += "active";
+
+  }
+
     function myFunction(x){
           x.classList.toggle("change");
           document.getElementById("myDropdown").classList.toggle("show")

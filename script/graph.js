@@ -49,87 +49,65 @@ $(document).ready(function() {
 
       // this url is not json, see url6 can work, so the problem lies on url5;
       // console.log(stdID);
-      var temp = [];
-      var date = [];
 
-      $.getJSON(url4 + stdID, function(data){
-        for (var i = 0; i < data.temp2fts.length; i++){
-          // temp.push(data.temp2fts[i][1]);
-          // var d = new Date(data.temp2fts[i][0]);
-          // d = d.getUTCDate() + d.getUTCMonth() + d.getFullYeay() + d.getUTCHours()+ d.getUTCMinutes() + d.getUTCSeconds();
-          // date.push(d);
-          // // date.push(new Date(data.temp2fts[i][0]).toUTCString());
-          // // console.log(d.getUTCMonth() + 1);
-          // console.log(d.getUTCDate());
-          temp.push([data.temp2fts[i][0], data.temp2fts[i][1]]);
-        }
+      function getChart(renderDiv, target, title){
+         var chartData = [];
 
+         $.getJSON(url4 + stdID, function(data){
+            for (var i = 0; i < data[target].length; i++){
+              chartData.push([data[target][i][0], data[target][i][1]]);
+            };
 
-        var chart = new Highcharts.Chart({
+          var chart = new Highcharts.Chart({
               chart: {
                   // renderTo: 'graph',
-                  renderTo: 'graph2',
+                  renderTo: renderDiv,
                   zoomType: 'x'
               },
               title: {
-                text: 'Temperature 2 feets'
+                text: title
               },
               subtitle: {
-                text: 'temp2fts'
+                text: title
               },
-
-              // rangeSelector : {
-              //     buttons : [ {
-              //       type : 'minute',
-              //       count : 240,
-              //       text : '4h'
-              //     }, {
-              //       type : 'day',
-              //       count : 0.5,
-              //       text : '12h'
-              //     }, {
-              //       type : 'day',
-              //       count : 1,
-              //       text : '24h'
-              //     }, {
-              //       type : 'day',
-              //       count : 3,
-              //       text : '3d'
-              //     }, {
-              //       type : 'day',
-              //       count : 7,
-              //       text : '7d'
-              //     } ],
-              // },
-
               xAxis: {
                 type: 'datetime',
                 // categories : date
               },
-
               yAxis: {
                   title: {
                     text: 'Temperature (°F)'
                   }
               },
-
               series: [{
                   Name: 'FAWN',
-                  data: temp
+                  data: chartData
               }]
-          });
+            });
 
-          chart.yAxis[0].setExtremes(65,95);
-      });
+            if (title == 'temp2fts') {
+              chart.yAxis[0].setExtremes(65,95);
+            }else if(title == 'wetBulbTemp'){
+              chart.yAxis[0].setExtremes(65,85);
+            }else{
+              chart.yAxis[0].setExtremes(-5,5);
+            }
+            
+         });
+
+
+    }
+    getChart('temp2mF', 'temp2fts', 'temp2fts');
+    getChart('rainFall2mInch', 'rainFall', 'rainFall');
+    getChart('wetBulbF', 'wetBulbTemp', 'wetBulbTemp');
 
     $(".owl-carousel").owlCarousel({
-            navigation : true, // Show next and prev buttons
+          //  navigation : true, // Show next and prev buttons
             slideSpeed : 300,
             paginationSpeed : 400,
             singleItem:true
     });
     
-          // console.log(temp);   
-      }
+  }
 
 })

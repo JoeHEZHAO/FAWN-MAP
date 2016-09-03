@@ -45,21 +45,20 @@
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 
-            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Prediction</a></li>" +
-            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Toolkit</a></li>" +
+            "<li><a class='tablinks' onclick='openTag(event,&#39;forcast&#39;)'>Prediction</a></li>" +
+            "<li><a class='tablinks' onclick='openTag(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
             "</ul>" + 
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
-          // descriptionEnd: "</div><div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
-
           descriptionEnd: 
              "</div>" + 
-             "<div id='graph' class='owl-carousel'>" +
-
-             "<div id='graph2' style='overflow:hidden' value='graph'></div>" +
-             "<div id='tempGraph' style='overflow:hidden'></div>" +
-
-             "</div>",
+             "<div id='graph' class='owl-carousel tabcontent'>"+
+                "<div id='temp2mF' style='overflow:hidden' value='graph'></div>" +
+                "<div id='rainFall2mInch' style='overflow:hidden'></div>" + 
+                "<div id='wetBulbF' style='overflow:hidden'></div>" +
+             "</div>" +
+             "<div id='forcast' class='tabcontent' style='background-color: white; display: block' > asd</div>" +
+             "<div id='Toolkit' class='tabcontent' style='background-color: white; display: block' > das</div>",
 
           descriptionContent : '',
           json : { },
