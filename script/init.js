@@ -50,7 +50,16 @@
             "</ul>" + 
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
-          descriptionEnd: "</div><div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
+          // descriptionEnd: "</div><div id='graph' class='tabcontent' style='overflow:hidden' value='graph'></div>",
+
+          descriptionEnd: 
+             "</div>" + 
+             "<div id='graph' class='owl-carousel'>" +
+
+             "<div id='graph2' style='overflow:hidden' value='graph'></div>" +
+             "<div id='tempGraph' style='overflow:hidden'></div>" +
+
+             "</div>",
 
           descriptionContent : '',
           json : { },

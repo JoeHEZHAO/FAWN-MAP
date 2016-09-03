@@ -67,7 +67,8 @@ $(document).ready(function() {
 
         var chart = new Highcharts.Chart({
               chart: {
-                  renderTo: 'graph',
+                  // renderTo: 'graph',
+                  renderTo: 'graph2',
                   zoomType: 'x'
               },
               title: {
@@ -120,6 +121,14 @@ $(document).ready(function() {
 
           chart.yAxis[0].setExtremes(65,95);
       });
+
+    $(".owl-carousel").owlCarousel({
+            navigation : true, // Show next and prev buttons
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem:true
+    });
+    
           // console.log(temp);   
       }
 
