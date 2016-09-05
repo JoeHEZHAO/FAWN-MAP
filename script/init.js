@@ -45,7 +45,7 @@
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 
-            "<li><a class='tablinks' onclick='openTag(event,&#39;forcast&#39;)'>Prediction</a></li>" +
+            "<li><a class='tablinks' onclick='openForcast(event,&#39;forcast&#39;, {lng}, {lat})'>Prediction</a></li>" +
             "<li><a class='tablinks' onclick='openTag(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
             "</ul>" + 
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
@@ -57,8 +57,13 @@
                 "<div id='rainFall2mInch' style='overflow:hidden'></div>" + 
                 "<div id='wetBulbF' style='overflow:hidden'></div>" +
              "</div>" +
-             "<div id='forcast' class='tabcontent' style='background-color: white; display: block' > asd</div>" +
-             "<div id='Toolkit' class='tabcontent' style='background-color: white; display: block' > das</div>",
+             "<div id='forcast' class='tabcontent' style='background-color: white; display: block' ></div>" +
+             "<div id='Toolkit' class='tabcontent' style='background-color: white; display: block'>"
+
+              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
+              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
+              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Freeze Alert Notification System'>Freeze Alert Notification System</button>"
+              + "</div>",
 
           descriptionContent : '',
           json : { },

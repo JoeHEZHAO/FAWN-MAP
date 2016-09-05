@@ -15,6 +15,60 @@
           evt.currentTarget.className += "active";
   }
 
+  function openForcast(evt, TagName, lng, lat){
+    openTag(evt, TagName);
+
+    $.getJSON(url_forcast1 + lat + url_forcast2 + lng + url_forcast3, function(data) {
+      var dateTime = [];
+      var tempLabel = [];
+      var temperature = [];
+      var weather = [];
+      var iconLink = [];
+      for( var i = 0; i < 3; i++){
+          dateTime.push(data.time.startPeriodName[i]);
+          tempLabel.push(data.time.tempLabel[i]);
+          temperature.push(data.data.temperature[i]);
+          weather.push(data.data.weather[i]);
+          iconLink.push(data.data.iconLink[i]);
+      }
+
+      document.getElementById("forcast").innerHTML = 
+      "<ul style='display:table; width: 100%; padding-left: 0px;'>"
+
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<span style='display:block; text-align:center'>" + dateTime[0] + "</span>"
+        + "<span style='display:block; text-align:center'>" + tempLabel[0] + "</span>"
+        + "<span style='display:block; text-align:center'>" + temperature[0] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[0] + "</span>"
+        // + "<span style='display:block'>" + iconLink[0] + "</span>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "</li>"
+
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<span style='display:block; text-align:center'>" + dateTime[1] + "</span>"
+        + "<span style='display:block; text-align:center'>" + tempLabel[1] + "</span>"
+        + "<span style='display:block; text-align:center'>" + temperature[1] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[1] + "</span>"
+        // + "<span style='display:block'>" + iconLink[1] + "</span>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "</li>"
+
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<span style='display:block; text-align:center'>" + dateTime[2] + "</span>"
+        + "<span style='display:block; text-align:center'>" + tempLabel[2] + "</span>"
+        + "<span style='display:block; text-align:center'>" + temperature[2] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[2] + "</span>"
+        // + "<span style='display:block'>" + iconLink[2] + "</span>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "</li>"
+
+      + "</ul>";
+        // window.open(url_forcast1 + lat + url_forcast2 + lng + url_forcast3);
+    });
+
+  }
+
+
   function openToolkit(){
         var i, tablecontent, tablinks;
 

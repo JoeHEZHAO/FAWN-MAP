@@ -649,7 +649,15 @@ background:rgba(255,255,255,0.2);
   top: 55px;
 }
 
-
+#Toolkit button {
+    margin-top: 18px;
+    height: auto;
+    width: 153px;
+    font-size: 13px;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto
+}
 
 
 
