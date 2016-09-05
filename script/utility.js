@@ -1,4 +1,4 @@
-    function openTag(evt, TagName){
+  function openTag(evt, TagName){
           var i, tablecontent, tablinks;
 
           tablecontent = document.getElementsByClassName("tabcontent");
@@ -69,21 +69,20 @@
   }
 
 
-  function openToolkit(){
-        var i, tablecontent, tablinks;
+  function openToolkit(evt, TagName){
+     openTag(evt, TagName);
+     // need grower and station from fdacs data
 
-          tablecontent = document.getElementsByClassName("tabcontent");
-          for ( i = 0; i < tablecontent.length; i++) {
-            //console.log("asd");
-            tablecontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks")
-          for ( i = 0; i < tablinks.length; i++) {
-            //console.log("asd");
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(TagName).style.display = "block";
-          evt.currentTarget.className += "active";
+
+  }
+
+  function coldp(grower, station){
+    
+  var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
+  $.cookie('grower', grower,{expires : 7, path : "/"});
+  $.cookie('station', station, {expires : 7, path : "/"});
+  $.cookie('source', 'fdacs', {expires : 7, path : "/"});
+  window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
 
   }
 

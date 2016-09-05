@@ -58,11 +58,14 @@ $(document).ready(function() {
               chartData.push([data[target][i][0], data[target][i][1]]);
             };
 
-          var chart = new Highcharts.Chart({
+          var chart = new Highcharts.StockChart({
               chart: {
                   // renderTo: 'graph',
                   renderTo: renderDiv,
                   zoomType: 'x'
+              },
+              rangeSelector : {
+                selected : 1
               },
               title: {
                 text: title
@@ -81,7 +84,10 @@ $(document).ready(function() {
               },
               series: [{
                   Name: 'FAWN',
-                  data: chartData
+                  data: chartData,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
               }]
             });
 
@@ -105,7 +111,8 @@ $(document).ready(function() {
           //  navigation : true, // Show next and prev buttons
             slideSpeed : 300,
             paginationSpeed : 400,
-            singleItem:true
+            singleItem:true,
+            mouseDrag: false
     });
     
   }

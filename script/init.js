@@ -46,7 +46,7 @@
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 
             "<li><a class='tablinks' onclick='openForcast(event,&#39;forcast&#39;, {lng}, {lat})'>Prediction</a></li>" +
-            "<li><a class='tablinks' onclick='openTag(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
+            "<li><a class='tablinks' onclick='openToolkit(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
             "</ul>" + 
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
