@@ -24,13 +24,51 @@
       var temperature = [];
       var weather = [];
       var iconLink = [];
+      var pop = [];
+      var icon = [];
+      var dir = ['/img/cloud_day/', '/img/cloud_night/', '/img/cloud_day/'];
+      if(data.time.startPeriodName[0] == "Tonight" || data.time.startPeriodName[0] == "Overnight"){
+        dir[0] = '/img/cloud_night/';
+        dir[1] = '/img/cloud_day/';
+        dir[2] = '/img/cloud_night/'
+      }
+
       for( var i = 0; i < 3; i++){
           dateTime.push(data.time.startPeriodName[i]);
           tempLabel.push(data.time.tempLabel[i]);
           temperature.push(data.data.temperature[i]);
           weather.push(data.data.weather[i]);
           iconLink.push(data.data.iconLink[i]);
+          pop.push(data.data.pop[i]);
+
+          var index; 
+          if (weather[i].indexOf('then') != -1){
+              index = weather[i].indexOf('then') - 1;
+          }else if (weather[i].indexOf('and') != -1){
+              index = weather[i].indexOf('and') - 1;
+          }else{
+              index = weather[i].length;
+          }
+          weather[i] = weather[i].substring(0,index);
+          // console.log(weather[i].substring(0,index));
+
+          if(pop[i]){
+              icon[i] = weather[i].toLowerCase();            
+              if(icon.indexOf('thunderstorms') != -1){ 
+                  icon[i] = dir[i] + "thunderstorm_" +pop[i] + ".png";           
+              }else{          
+              icon[i] = dir[i] + "rain_" + pop[i] + ".png"; 
+              }          
+          }else{ 
+              icon[i] = weather[i].toLowerCase();    
+              if(icon[i].indexOf('sprinkles') != -1 || icon[i].indexOf('drizzle') != -1){
+                  icon[i] = dir[i] + "sprinkles.png";
+              }else{
+                  icon[i] = dir[i] + icon[i].replace(/ /g,"_") + ".png";
+              }
+        }
       }
+      console.log(icon);
 
       document.getElementById("forcast").innerHTML = 
       "<ul style='display:table; width: 100%; padding-left: 0px;'>"
@@ -39,27 +77,27 @@
         + "<span style='display:block; text-align:center'>" + dateTime[0] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[0] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[0] + "</span>"
-        + "<span style='display:block; text-align:center'>" + weather[0] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[0] + "</span><br>"
         // + "<span style='display:block'>" + iconLink[0] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
         + "</li>"
 
         + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
         + "<span style='display:block; text-align:center'>" + dateTime[1] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[1] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[1] + "</span>"
-        + "<span style='display:block; text-align:center'>" + weather[1] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[1] + "</span><br>"
         // + "<span style='display:block'>" + iconLink[1] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
         + "</li>"
 
         + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
         + "<span style='display:block; text-align:center'>" + dateTime[2] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[2] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[2] + "</span>"
-        + "<span style='display:block; text-align:center'>" + weather[2] + "</span>"
+        + "<span style='display:block; text-align:center'>" + weather[2] + "</span><br>"
         // + "<span style='display:block'>" + iconLink[2] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto;' src=" + "'" + iconLink[0] + "'" + ">"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px;height:60px' src=" + "'." + icon[0] + "'" + ">"
         + "</li>"
 
       + "</ul>";
@@ -77,13 +115,11 @@
   }
 
   function coldp(grower, station){
-    
-  var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
-  $.cookie('grower', grower,{expires : 7, path : "/"});
-  $.cookie('station', station, {expires : 7, path : "/"});
-  $.cookie('source', 'fdacs', {expires : 7, path : "/"});
-  window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
-
+    var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
+    $.cookie('grower', grower,{expires : 7, path : "/"});
+    $.cookie('station', station, {expires : 7, path : "/"});
+    $.cookie('source', 'fdacs', {expires : 7, path : "/"});
+    window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
   }
 
     function myFunction(x){

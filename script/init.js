@@ -41,7 +41,7 @@
 
         // PopupTemplate generate function
       var popupTemplateGenerate = {
-          title : "<div class='title'><h1>StationName:  {stnName}</h1><br><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
+          title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 

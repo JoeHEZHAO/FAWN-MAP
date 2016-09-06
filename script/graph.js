@@ -1,20 +1,7 @@
 $(document).ready(function() {
     addBarChart = function(evt,TagName, stdID){
-
         // close other tag and open graph
-        var i, tablecontent, tablinks;
-              tablecontent = document.getElementsByClassName("tabcontent");
-              for ( i = 0; i < tablecontent.length; i++) {
-                //console.log("asd");
-                tablecontent[i].style.display = "none";
-              }
-              tablinks = document.getElementsByClassName("tablinks")
-              for ( i = 0; i < tablinks.length; i++) {
-                //console.log("asd");
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-              }
-        document.getElementById(TagName).style.display = "block";
-        evt.currentTarget.className += "active";
+        openTag(evt, TagName);
 
 
           // $(".esriPopupWrapper").draggable({
@@ -54,10 +41,10 @@ $(document).ready(function() {
          var chartData = [];
 
          $.getJSON(url4 + stdID, function(data){
-            for (var i = 0; i < data[target].length; i++){
+            for (var i = 0; i < data[target].length - 4; i++){
               chartData.push([data[target][i][0], data[target][i][1]]);
             };
-
+            // console.log(chartData);
           var chart = new Highcharts.StockChart({
               chart: {
                   // renderTo: 'graph',
@@ -100,6 +87,7 @@ $(document).ready(function() {
             }
             
          });
+
 
 
     }
