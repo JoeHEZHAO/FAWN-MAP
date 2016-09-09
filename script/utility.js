@@ -106,12 +106,9 @@
 
   }
 
-
   function openToolkit(evt, TagName){
      openTag(evt, TagName);
      // need grower and station from fdacs data
-
-
   }
 
   function coldp(grower, station){
@@ -162,14 +159,11 @@
         // map.addLayer(glLayer);
     }
 
-
-
     $(document).ready(function() {
         $("#draggable").draggable({
           containment: "parent"
         });
     });
-
 
 require([
   "esri/geometry/Point",
@@ -207,7 +201,7 @@ require([
               graphLayer.add(addAttr(data[i].longitude, data[i].latitude, data[i]));
 
             };
-              // console.log(graphLayer.graphics[0].attributes);
+        // console.log(graphLayer.graphics[0].attributes);
         function addAttr(lng,lat,json)
         {
           var p = new Point(lng,lat);

@@ -87,9 +87,80 @@ $(document).ready(function() {
             }        
          });
     }
-    getChart('temp2mF', 'temp2fts', 'temp2fts');
-    getChart('rainFall2mInch', 'rainFall', 'rainFall');
-    getChart('wetBulbF', 'wetBulbTemp', 'wetBulbTemp');
+    getChart('temp2mF_FAWN', 'temp2fts', 'temp2fts');
+    getChart('rainFall2mInch_FAWN', 'rainFall', 'rainFall');
+    getChart('wetBulbF_FAWN', 'wetBulbTemp', 'wetBulbTemp');
+
+    $(".owl-carousel").owlCarousel({
+          //  navigation : true, // Show next and prev buttons
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem:true,
+            mouseDrag: false
+    });
+    
+  }
+
+  addBarChartFdacswx = function(evt,TagName, stdID){
+        // close other tag and open graph
+      openTag(evt, TagName);
+
+      function getChart(renderDiv, target, title){
+         var chartData = [];
+         $.getJSON(url3 + stdID + url3_1, function(data){
+          // console.log(data[0][target]);
+            for (var i = 0; i < data.length; i++){
+              var float = parseFloat(data[i][target]);
+              chartData.push([data[i].date_time, float]);
+            };
+            // console.log(chartData);
+          var chart = new Highcharts.StockChart({
+              chart: {
+                  // renderTo: 'graph',
+                  renderTo: renderDiv,
+                  zoomType: 'x'
+              },
+              rangeSelector : {
+                selected : 1
+              },
+              title: {
+                text: title
+              },
+              subtitle: {
+                text: title
+              },
+              xAxis: {
+                type: 'datetime',
+                // categories : date
+              },
+              yAxis: {
+                  title: {
+                    text: 'Temperature (°F)'
+                  }
+              },
+              series: [{
+                  Name: 'Fdacswx',
+                  data: chartData,
+                  tooltip: {
+                    valueDecimals: 2
+                  }
+              }]
+            });
+
+            if (title == 'dry_bulb_air_temp') {
+              chart.yAxis[0].setExtremes(65,95);
+            }else if(title == 'wet_bulb_temp'){
+              chart.yAxis[0].setExtremes(35,60);
+            }
+            // else{
+            //   chart.yAxis[0].setExtremes(-5,5);
+            // }        
+         });
+    }
+    getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
+    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'wet_bulb_temp');
+    getChart('rainFall_Fdacswx', 'rainfall', 'rainfall');
+
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons

@@ -42,7 +42,7 @@
         });
 
         // PopupTemplate generate function
-      var popupTemplateGenerate = {
+      var popupTemplateGenerateFawn = {
           title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
           descriptionStart : "<ul class='tab'>" + 
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
@@ -55,9 +55,9 @@
           descriptionEnd: 
              "</div>" 
              +  "<div id='graph' class='owl-carousel tabcontent'>"
-             +  "<div id='temp2mF' style='overflow:hidden' value='graph'></div>" 
-             +  "<div id='rainFall2mInch' style='overflow:hidden'></div>" 
-             +  "<div id='wetBulbF' style='overflow:hidden'></div>" 
+             +  "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>" 
+             +  "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>" 
+             +  "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>" 
              +  "</div>" 
              +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
@@ -80,9 +80,47 @@
           }
       }
 
-    var templateFawn = new PopupTemplate(popupTemplateGenerate.setContent(lastestDataNameFawn));
+      var popupTemplateGenerateFadacswx = {
+          title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{longitude} ／ lat:{latitude}</h4></div>",
+          descriptionStart : "<ul class='tab'>" + 
+            "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
+            "<li><a class='tablinks' onclick='addBarChartFdacswx(event, &#39;graph&#39;, {station_id})'>Graph</a></li>" + 
+            "<li><a class='tablinks' onclick='openForcast(event,&#39;forcast&#39;, {longitude}, {latitude})'>Prediction</a></li>" +
+            "<li><a class='tablinks' onclick='openToolkit(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
+            "</ul>" + 
+            "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
-    var templateFdacswx = new PopupTemplate(popupTemplateGenerate.setContent(lastestDataNameFdacswx));
+          descriptionEnd: 
+             "</div>" 
+             +  "<div id='graph' class='owl-carousel tabcontent'>"
+             +  "<div id='dryTemp_Fdacswx' style='overflow:hidden' value='graph'></div>" 
+             +  "<div id='rainFall_Fdacswx' style='overflow:hidden'></div>" 
+             +  "<div id='wetTemp_Fdacswx' style='overflow:hidden'></div>" 
+             +  "</div>" 
+             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
+             +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
+             +  "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
+             + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
+             + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Freeze Alert Notification System'>Freeze Alert Notification System</button>"
+             + "</div>",
+
+          descriptionContent : '',
+          json : { },
+          setContent : function(descripContent){
+            // this.descriptionContent = descripContent;
+              // console.log(descripContent);
+              for (var i = 0; i < descripContent.length; i++) {
+                this.descriptionContent = this.descriptionContent.concat("<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>" +  descripContent[i] + ":</span><span style='float:right; color: #999'>{" + descripContent[i] + "}</span></div>");
+              }
+              // console.log(this.descriptionContent);
+
+              return this.json = { title: this.title, description: this.descriptionStart + this.descriptionContent + this.descriptionEnd };
+          }
+      }
+
+    var templateFdacswx = new PopupTemplate(popupTemplateGenerateFadacswx.setContent(lastestDataNameFdacswx));
+
+    var templateFawn = new PopupTemplate(popupTemplateGenerateFawn.setContent(lastestDataNameFawn));
 
     gl_attr = new GraphicsLayer({
       infoTemplate: templateFawn,
@@ -99,26 +137,17 @@
    
     popup.resize(600,400);
     map.addLayer(gl_attr);
+    // map.removeLayer(glAttrFdacswx);
     map.addLayer(glAttrFdacswx);
+    // map.removeLayer(gl_attr);
+
 
     // map.addLayer(glAttrFdacswx);
         // checkbox changing
         var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
-
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
-
-        // on(GetTempLyrToggle, "change", function(){
-        //   // console.log(GetTempLyrToggle.checked);
-        //   gl_temp.visible = GetTempLyrToggle.checked;
-        //   if(gl_temp.visible == false){
-        //     map.removeLayer(gl_temp);
-        //   }
-        //   else{
-        //     map.addLayer(gl_temp);
-        //   }
-        // });
 
         on(GetTempLyrToggle, "change", function(){
             gl_attr.visible = GetTempLyrToggle.checked;
@@ -139,13 +168,14 @@
         });
         
         on(GetTempFdacswx, "change", function(){
-            console.log(glAttrFdacswx.graphics[0].attributes);
+            // console.log(glAttrFdacswx.graphics[0].attributes);
             glAttrFdacswx.visible = GetTempFdacswx.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
               while(glAttrFdacswx.graphics[i] != null){
                 glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
+                // console.log(glAttrFdacswx.graphics[i].attributes.et);
                 i++;
               }
             }else{
@@ -156,7 +186,6 @@
               }
             }
         });
-
 
         on(GetStationLyrToggle, "change", function(){
             gl_attr.visible = GetStationLyrToggle.checked;

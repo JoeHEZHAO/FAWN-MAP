@@ -1,7 +1,8 @@
 //Fdacs:
 url1 = "http://fdacswx.fawn.ifas.ufl.edu/index.php/read/station/format/json";
 url2 = "http://fdacswx.fawn.ifas.ufl.edu/index.php/read/latestobz/format/json";
-url3 = "http://fdacswx.fawn.ifas.ufl.edu/index.php/read/sevendaytimestamp/station_id/1371069452397/format/json";
+url3 = "http://fdacswx.fawn.ifas.ufl.edu/index.php/read/sevendaytimestamp/station_id/"
+url3_1 = "/format/json";
 
 //FAWN:
 //url4 = "http://fawn.ifas.ufl.edu/controller.php/graphjson/data/150";
