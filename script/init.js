@@ -99,7 +99,7 @@
              +  "</div>" 
              +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
-             +  "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
+             +  "<button type='button' style='display: block' onclick='coldp({station_name}, )' value='Cold Protection'>Cold Protection Toolkit</button>"
              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Freeze Alert Notification System'>Freeze Alert Notification System</button>"
              + "</div>",
@@ -113,7 +113,6 @@
                 this.descriptionContent = this.descriptionContent.concat("<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>" +  descripContent[i] + ":</span><span style='float:right; color: #999'>{" + descripContent[i] + "}</span></div>");
               }
               // console.log(this.descriptionContent);
-
               return this.json = { title: this.title, description: this.descriptionStart + this.descriptionContent + this.descriptionEnd };
           }
       }
@@ -133,6 +132,7 @@
     });
 
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
+    // loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
    
     popup.resize(600,400);

@@ -147,19 +147,20 @@ $(document).ready(function() {
               }]
             });
 
-            if (title == 'dry_bulb_air_temp') {
-              chart.yAxis[0].setExtremes(65,95);
-            }else if(title == 'wet_bulb_temp'){
-              chart.yAxis[0].setExtremes(35,60);
-            }
+            // if (title == 'dry_bulb_air_temp') {
+            //   chart.yAxis[0].setExtremes(65,95);
+            // }
+            // else if(title == 'wet_bulb_temp'){
+            //   chart.yAxis[0].setExtremes(35,60);
+            // }
             // else{
             //   chart.yAxis[0].setExtremes(-5,5);
             // }        
          });
     }
     getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
-    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'wet_bulb_temp');
     getChart('rainFall_Fdacswx', 'rainfall', 'rainfall');
+    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'wet_bulb_temp');
 
 
     $(".owl-carousel").owlCarousel({

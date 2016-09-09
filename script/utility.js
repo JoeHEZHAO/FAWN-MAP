@@ -174,27 +174,7 @@ require([
   ], function(Point, SimpleMarkerSymbol, TextSymbol, Graphic, GraphicsLayer) {
 
   // loadData object  
-    loadDataGenerateLayerFawn = {
-      getDataCreateLayer : function(url, graphLayer){
-      $.getJSON(url, function(data){
-          for (var i = 0; i < data.stnsWxData.length ;i++){
-            graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-          };
-
-      function addAttr(lng,lat,json)
-      {
-        var p = new Point(lng,lat);
-          //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-        var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
-        var attr = json;
-        var g = new Graphic(p,t,attr);
-        return g;
-      }
-        })  
-      }
-    }
-
-    loadDataGenerateLayerFdacswx = {
+   loadDataGenerateLayerFdacswx = {
       getDataCreateLayer : function(url, graphLayer){
         $.getJSON(url, function(data){
             for (var i = 0; i < data.length ;i++){
@@ -214,5 +194,58 @@ require([
           })  
       }
     }
+
+  loadDataGenerateLayerFawn = {
+      getDataCreateLayer : function(url, graphLayer){
+      $.getJSON(url, function(data){
+          for (var i = 0; i < data.stnsWxData.length ;i++){
+            graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+          };
+
+      function addAttr(lng,lat,json)
+      {
+        var p = new Point(lng,lat);
+          //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+        var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
+        var attr = json;
+        var g = new Graphic(p,t,attr);
+        return g;
+      }
+        })  
+      }
+    };
+
+  // $(document).ready(function() {
+  //   loadDataGenerateLayerFdacswx = {
+  //     getDataCreateLayer : function(url_1, url_12, graphLayer){
+  //       $.when(
+  //         $.getJSON(url_1),
+  //         $.getJSON(url_12)
+  //         ).done(function(result1, result2) {
+  //           for(var i = 0; i < result1.length; i++){
+  //             if(result1[i].station_name == result2[i].station_name)
+  //             {
+  //               console.log("a");
+  //               // console.log(result2[i].grower_name);
+  //               var json = result1[i];
+  //               json["grower_name"]  = result2[i].grower_name;
+  //               graphLayer.add(addAttr(result1[i].longitude, result1[i].latitude, json));
+  //             }
+  //           }
+  //         });
+
+  //     function addAttr(lng,lat,json)
+  //       {
+  //         var p = new Point(lng,lat);
+  //           //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+  //         var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
+  //         var attr = json;
+  //         var g = new Graphic(p,t,attr);
+  //         return g;
+  //       }
+  //     }
+  //   }
+  // });
+
 
   })
