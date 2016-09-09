@@ -68,7 +68,7 @@
               }
         }
       }
-      console.log(icon);
+      // console.log(icon);
 
       document.getElementById("forcast").innerHTML = 
       "<ul style='display:table; width: 100%; padding-left: 0px;'>"
@@ -143,22 +143,26 @@
         // }
         // }
 
+    openMenu = function(evt, dataSource){
+        var i, tabcontent, tablinks;
 
-    function openMenu(evt, cityName){
-      var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("side_menu_tabcontent");
+        for(i=0; i < tabcontent.length;i++){
+          tabcontent[i].style.display="none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+       for(i=0;i<tablinks.length;i++){
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
 
-      tabcontent = document.getElementsByClassName("side_menu_tabcontent");
-      for(i=0; i < tabcontent.length;i++){
-        tabcontent[i].style.display="none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-     for(i=0;i<tablinks.length;i++){
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+        document.getElementById(dataSource).style.display= "block";
+        evt.currentTarget.className += " active";
 
-      document.getElementById(cityName).style.display= "block";
-      evt.currentTarget.className += " active";
+        // map.removeLayer(removeLayer);
+        // map.addLayer(glLayer);
     }
+
+
 
     $(document).ready(function() {
         $("#draggable").draggable({
@@ -176,7 +180,7 @@ require([
   ], function(Point, SimpleMarkerSymbol, TextSymbol, Graphic, GraphicsLayer) {
 
   // loadData object  
-    loadDataGenerateLayer = {
+    loadDataGenerateLayerFawn = {
       getDataCreateLayer : function(url, graphLayer){
       $.getJSON(url, function(data){
           for (var i = 0; i < data.stnsWxData.length ;i++){
@@ -193,6 +197,27 @@ require([
         return g;
       }
         })  
+      }
+    }
+
+    loadDataGenerateLayerFdacswx = {
+      getDataCreateLayer : function(url, graphLayer){
+        $.getJSON(url, function(data){
+            for (var i = 0; i < data.length ;i++){
+              graphLayer.add(addAttr(data[i].longitude, data[i].latitude, data[i]));
+
+            };
+              // console.log(graphLayer.graphics[0].attributes);
+        function addAttr(lng,lat,json)
+        {
+          var p = new Point(lng,lat);
+            //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
+          var attr = json;
+          var g = new Graphic(p,t,attr);
+          return g;
+        }
+          })  
       }
     }
 

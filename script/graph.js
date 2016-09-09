@@ -84,12 +84,8 @@ $(document).ready(function() {
               chart.yAxis[0].setExtremes(65,85);
             }else{
               chart.yAxis[0].setExtremes(-5,5);
-            }
-            
+            }        
          });
-
-
-
     }
     getChart('temp2mF', 'temp2fts', 'temp2fts');
     getChart('rainFall2mInch', 'rainFall', 'rainFall');

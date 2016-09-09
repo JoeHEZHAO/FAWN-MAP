@@ -22,7 +22,9 @@
         Map, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, FeatureLayer, Point, SimpleMarkerSymbol,TextSymbol, Graphic, GraphicsLayer,dom,on,ready,query
       ) {
 
-      var lastestDataName = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
+      var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
+
+      var lastestDataNameFdacswx = ['station_id', 'date_time', 'dry_bulb_air_temp', 'wet_bulb_temp', 'humidity', 'wind_speed', 'wind_direction', 'rainfall', 'latitude', 'longitude', 'total_rain_inche_since_installed', 'start_date_of_total_rain', 'station_name', 'vendor_name', 'time_zone', 'solar_radiation', 'et', 'solar_radiation_field_name', 'minutes_old', 'hasET', 'hasSolarRadiation', 'hasRemote', 'hasSoilMoisture', 'standard_date_time', 'fresh'];
 
         //var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
         var popup = new Popup({
@@ -51,19 +53,18 @@
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
           descriptionEnd: 
-             "</div>" + 
-             "<div id='graph' class='owl-carousel tabcontent'>"+
-                "<div id='temp2mF' style='overflow:hidden' value='graph'></div>" +
-                "<div id='rainFall2mInch' style='overflow:hidden'></div>" + 
-                "<div id='wetBulbF' style='overflow:hidden'></div>" +
-             "</div>" +
-             "<div id='forcast' class='tabcontent' style='background-color: white; display: block' ></div>" +
-             "<div id='Toolkit' class='tabcontent' style='background-color: white; display: block'>"
-
-              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
-              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
-              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Freeze Alert Notification System'>Freeze Alert Notification System</button>"
-              + "</div>",
+             "</div>" 
+             +  "<div id='graph' class='owl-carousel tabcontent'>"
+             +  "<div id='temp2mF' style='overflow:hidden' value='graph'></div>" 
+             +  "<div id='rainFall2mInch' style='overflow:hidden'></div>" 
+             +  "<div id='wetBulbF' style='overflow:hidden'></div>" 
+             +  "</div>" 
+             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
+             +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
+             +  "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
+             + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
+             + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Freeze Alert Notification System'>Freeze Alert Notification System</button>"
+             + "</div>",
 
           descriptionContent : '',
           json : { },
@@ -79,54 +80,34 @@
           }
       }
 
-    var template = new PopupTemplate(popupTemplateGenerate.setContent(lastestDataName));
+    var templateFawn = new PopupTemplate(popupTemplateGenerate.setContent(lastestDataNameFawn));
 
-
-    var template_temp = new PopupTemplate({
-        title: "Fawn Weather Temperature Info",
-        description: "Latitude: {YCoord} <br/>" + "Longitude: {XCoord} <br/> Plant Name:{Plant}</br>"
-        + "Temperature : {TEMP}",
-        fieldInfos:[],
-        mediaInfos:[]});
-
-    var template_windspeed = new PopupTemplate({
-        title: "Fawn Weather windSpeed info",
-        description: "Latitude: {YCoord} <br/>" + "Longitude: {XCoord} <br/> WindSpeed:{windSpeed}" + 
-        "<div><p>hellow world</p></div>",
-        fieldInfos:[],
-        mediaInfos:[]});
+    var templateFdacswx = new PopupTemplate(popupTemplateGenerate.setContent(lastestDataNameFdacswx));
 
     gl_attr = new GraphicsLayer({
-      infoTemplate: template,
+      infoTemplate: templateFawn,
        outFields:["*"],
     });
 
-  	var gl_temp = new GraphicsLayer({
-  		// infoTemplate: template_temp,
-        outFields: ["*"]
-  			  		});
+    glAttrFdacswx = new GraphicsLayer({
+      infoTemplate: templateFdacswx,
+       outFields:["*"],
+    });
 
-  	var gl_station = new GraphicsLayer({
-  		// infoTemplate: template,
-        outFields: ["*"]
-  	});
-
-  	var gl_windspeed = new GraphicsLayer({
-  		// infoTemplate: template_windspeed,
-        outFields: ["*"]
-  	});
-
-    loadDataGenerateLayer.getDataCreateLayer(url6, gl_attr);
-        
+    loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
+    loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
+   
     popup.resize(600,400);
-        
     map.addLayer(gl_attr);
+    map.addLayer(glAttrFdacswx);
 
+    // map.addLayer(glAttrFdacswx);
         // checkbox changing
         var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
-        var graphDiv = dom.byId("graph1");
+
+        var GetTempFdacswx = dom.byId("GetTempFdacswx");
 
         // on(GetTempLyrToggle, "change", function(){
         //   // console.log(GetTempLyrToggle.checked);
@@ -156,6 +137,26 @@
               }
             }
         });
+        
+        on(GetTempFdacswx, "change", function(){
+            console.log(glAttrFdacswx.graphics[0].attributes);
+            glAttrFdacswx.visible = GetTempFdacswx.checked;
+            if (glAttrFdacswx.visible == true) {
+            var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
+            var i = 0;
+              while(glAttrFdacswx.graphics[i] != null){
+                glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
+                i++;
+              }
+            }else{
+              var b = 0;
+              while(glAttrFdacswx.graphics[b] != null){
+                glAttrFdacswx.graphics[b].setSymbol(null);
+                b++;
+              }
+            }
+        });
+
 
         on(GetStationLyrToggle, "change", function(){
             gl_attr.visible = GetStationLyrToggle.checked;
@@ -174,4 +175,25 @@
               }
             }
         });
-      });
+
+
+    // openMenu = function(evt, dataSource, glLayer, removeLayer){
+    //     var i, tabcontent, tablinks;
+
+    //     tabcontent = document.getElementsByClassName("side_menu_tabcontent");
+    //     for(i=0; i < tabcontent.length;i++){
+    //       tabcontent[i].style.display="none";
+    //     }
+    //     tablinks = document.getElementsByClassName("tablinks");
+    //    for(i=0;i<tablinks.length;i++){
+    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+    //     }
+
+    //     document.getElementById(dataSource).style.display= "block";
+    //     evt.currentTarget.className += " active";
+
+    //     map.removeLayer(removeLayer);
+    //     map.addLayer(glLayer);
+    // }
+
+  });

@@ -41,20 +41,20 @@
         <div class="tabs">
       <ul>
         <li>
-            <a href="#" class="tablinks" onclick="openMenu(event, 'Main')">FAWN</a>
+            <a href="#" class="tablinks" onclick="openMenu(event, 'FAWN')">FAWN</a>
             <!-- <span href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</span> -->
         </li>
         <li>
-          <a href="#" class="tablinks" onclick="openMenu(event, 'Weather')">Fdacswx</a>
+          <a href="#" class="tablinks" onclick="openMenu(event, 'Fdacswx')">Fdacswx</a>
         </li>
         <li>
-          <a href="#" class="tablinks" onclick="openMenu(event, 'Radar')">NOAA</a>
+          <a href="#" class="tablinks" onclick="openMenu(event, 'NOAA')">NOAA</a>
         </li>
       </ul>
 
       <!-- checkboxes on side_menu_col start-->
 
-      <div id="Main" class="side_menu_tabcontent">
+      <div id="FAWN" class="side_menu_tabcontent">
 
          <!-- station layer checkbox menu begin-->
 
@@ -94,15 +94,44 @@
 
         </div>
 
-      <div id="Weather" class="side_menu_tabcontent">
-        <ul>
-            <li>Server</li>
-            <li>Photo</li>
-            <li>News </li>
-        </ul>
+      <div id="Fdacswx" class="side_menu_tabcontent">
+
+        <!-- station layer checkbox menu begin-->
+        <div style="width: 100%;height: 20%; max-height: 70px; position: relative;background-color: grey;border: 1px solid #797979">
+            <div class="roundedOne">
+              <input type="checkbox" id="GetStationFdacswx" value="Station Layer" unchecked>
+              <label for="GetStation"></label>
+            </div>
+            <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">Station Layer</div>
+          </div>
+
+        <!-- station layer checkbox end -->
+
+        <!-- Temperature Layer checkbox begin -->
+
+          <div style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetTempFdacswx" value="Temperature Layer" unchecked>
+                <label for="GetTempFdacswx"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">Temperature Layer</div>
+          </div>
+
+        <!-- Temperature Layer checkbox end -->
+
+        <!-- WindSpeed Layer checkbox start -->
+
+          <div style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetWindSpeedFdacswx" value="Temperature Layer" unchecked>
+                <label for="GetWindSpeed"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">WindSpeed Layer</div>
+          </div>
+
       </div>
 
-      <div id="Radar" class="side_menu_tabcontent">
+      <div id="NOAA" class="side_menu_tabcontent">
         <ul>
             <li>Activities</li>
             <li>Webcams</li>
