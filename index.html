@@ -5,10 +5,10 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <script src="script/jquery-1.8.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="script/jquery.cookie.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script src="./owl-carousel/owl.carousel.js"></script>
     <script type="text/javascript" src="https://js.arcgis.com/3.17/"></script>
-
     <!-- <script src="http://code.highcharts.com/highcharts.js"></script> -->
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -165,7 +165,19 @@
   <script type="text/javascript" src="./script/utility.js"></script>
   <script type="text/javascript" src="./script/constant.js"></script>
   <script type="text/javascript" src="./script/init.js"></script>
-
-  
+  <script type="text/javascript">
+    $(document).ready(function(){
+      coldp = function (grower, station){
+        // console.log(grower, station);
+        var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
+        $.cookie('grower', grower,{expires : 7, path : "/"});
+        $.cookie('station', station, {expires : 7, path : "/"});
+        $.cookie('source', 'fdacs', {expires : 7, path : "/"});
+        console.log($.cookie('grower'));
+        console.log($.cookie('station'));
+        window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
+      }
+    })
+  </script>
   </body>
 </html>

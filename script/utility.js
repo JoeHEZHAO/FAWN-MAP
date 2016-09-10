@@ -110,15 +110,6 @@
      openTag(evt, TagName);
      // need grower and station from fdacs data
   }
-
-  function coldp(grower, station){
-    var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
-    $.cookie('grower', grower,{expires : 7, path : "/"});
-    $.cookie('station', station, {expires : 7, path : "/"});
-    $.cookie('source', 'fdacs', {expires : 7, path : "/"});
-    window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
-  }
-
     function myFunction(x){
           x.classList.toggle("change");
           document.getElementById("myDropdown").classList.toggle("show")
@@ -178,14 +169,13 @@ require([
       getDataCreateLayer : function(url, graphLayer){
         $.getJSON(url, function(data){
             for (var i = 0; i < data.length ;i++){
-              graphLayer.add(addAttr(data[i].longitude, data[i].latitude, data[i]));
-
+              var json = data[i];
+              json["grower_name"]  = FdacswxStdGrowerFinder[data[i].station_name];
+              graphLayer.add(addAttr(data[i].longitude, data[i].latitude, json));
             };
-        // console.log(graphLayer.graphics[0].attributes);
         function addAttr(lng,lat,json)
         {
           var p = new Point(lng,lat);
-            //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
           var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
           var attr = json;
           var g = new Graphic(p,t,attr);
@@ -214,6 +204,8 @@ require([
         })  
       }
     };
+
+
 
   // $(document).ready(function() {
   //   loadDataGenerateLayerFdacswx = {
