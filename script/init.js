@@ -1,17 +1,18 @@
     var map;
       require([
-        "esri/map", 
+        "esri/map",
+        "esri/dijit/Search",
       	"dojo/dom-construct",
         "esri/symbols/SimpleFillSymbol",
       	"esri/dijit/InfoWindow",
-        "esri/dijit/Popup", 
+        "esri/dijit/Popup",
         "esri/dijit/PopupTemplate",
       	"esri/InfoTemplate",
-        "esri/layers/FeatureLayer",
         "esri/geometry/Point",
         "esri/symbols/SimpleMarkerSymbol",
         "esri/symbols/TextSymbol",
-        "esri/graphic", 
+        "esri/graphic",
+        "esri/layers/FeatureLayer",
         "esri/layers/GraphicsLayer",
         "dojo/dom",
         "dojo/on",
@@ -19,7 +20,7 @@
         "dojo/query",
         "dojo/domReady!"
       ], function(
-        Map, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, FeatureLayer, Point, SimpleMarkerSymbol,TextSymbol, Graphic, GraphicsLayer,dom,on,ready,query
+        Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol, Graphic,FeatureLayer, GraphicsLayer,dom,on,ready,query
       ) {
 
       var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
@@ -44,22 +45,22 @@
         // PopupTemplate generate function
       var popupTemplateGenerateFawn = {
           title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
-          descriptionStart : "<ul class='tab'>" + 
+          descriptionStart : "<ul class='tab'>" +
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
-            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" + 
+            "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" +
             "<li><a class='tablinks' onclick='openForcast(event,&#39;forcast&#39;, {lng}, {lat})'>Prediction</a></li>" +
             "<li><a class='tablinks' onclick='openToolkit(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
-            "</ul>" + 
+            "</ul>" +
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
-          descriptionEnd: 
-             "</div>" 
+          descriptionEnd:
+             "</div>"
              +  "<div id='graph' class='owl-carousel tabcontent'>"
-             +  "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>" 
-             +  "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>" 
-             +  "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>" 
-             +  "</div>" 
-             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
+             +  "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>"
+             +  "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>"
+             +  "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>"
+             +  "</div>"
+             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>"
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
              +  "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
@@ -82,22 +83,22 @@
 
       var popupTemplateGenerateFadacswx = {
           title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{longitude} ／ lat:{latitude}</h4></div>",
-          descriptionStart : "<ul class='tab'>" + 
+          descriptionStart : "<ul class='tab'>" +
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
-            "<li><a class='tablinks' onclick='addBarChartFdacswx(event, &#39;graph&#39;, {station_id})'>Graph</a></li>" + 
+            "<li><a class='tablinks' onclick='addBarChartFdacswx(event, &#39;graph&#39;, {station_id})'>Graph</a></li>" +
             "<li><a class='tablinks' onclick='openForcast(event,&#39;forcast&#39;, {longitude}, {latitude})'>Prediction</a></li>" +
             "<li><a class='tablinks' onclick='openToolkit(event,&#39;Toolkit&#39;)'>Toolkit</a></li>" +
-            "</ul>" + 
+            "</ul>" +
             "<div id='current' class='tabcontent' style='background-color: white; display: block'>",
 
-          descriptionEnd: 
-             "</div>" 
+          descriptionEnd:
+             "</div>"
              +  "<div id='graph' class='owl-carousel tabcontent'>"
-             +  "<div id='dryTemp_Fdacswx' style='overflow:hidden' value='graph'></div>" 
-             +  "<div id='rainFall_Fdacswx' style='overflow:hidden'></div>" 
-             +  "<div id='wetTemp_Fdacswx' style='overflow:hidden'></div>" 
-             +  "</div>" 
-             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>" 
+             +  "<div id='dryTemp_Fdacswx' style='overflow:hidden' value='graph'></div>"
+             +  "<div id='rainFall_Fdacswx' style='overflow:hidden'></div>"
+             +  "<div id='wetTemp_Fdacswx' style='overflow:hidden'></div>"
+             +  "</div>"
+             +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>"
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
              +  "<button type='button' style='display: block' onclick='coldp(&#39;{grower_name}&#39;, &#39;{station_name}&#39;)' value='Cold Protection'>Cold Protection Toolkit</button>"
              + "<button type='button' style='display: block' onclick='window.open(&#39;http://uffawn-datareport.appspot.com/&#39;))' value='Irrigation Scheduler Toolkit' >Irrigation Scheduler Toolkit</button>"
@@ -121,29 +122,111 @@
 
     var templateFawn = new PopupTemplate(popupTemplateGenerateFawn.setContent(lastestDataNameFawn));
 
+    var featureCollection = {
+          "layerDefinition": null,
+          "featureSet": {
+            "features": [],
+            "geometryType": "esriGeometryPoint"
+          }
+        };
+
+
+    featureCollection.layerDefinition = {
+          "geometryType": "esriGeometryPoint",
+          "objectIdField": "ObjectID",
+          "drawingInfo": {
+            "renderer": {
+              "type": "simple",
+              "symbol": {
+                "type": "esriPMS",
+                "url": "images/flickr.png",
+                "contentType": "image/png",
+                "width": 15,
+                "height": 15
+              }
+            }
+          },
+          "fields": [{
+            "name": "ObjectID",
+            "alias": "ObjectID",
+            "type": "esriFieldTypeOID"
+          }, {
+            "name": "description",
+            "alias": "Description",
+            "type": "esriFieldTypeString"
+          }, {
+            "name": "title",
+            "alias": "Title",
+            "type": "esriFieldTypeString"
+          }]
+    };
+
+    featureLayer = new FeatureLayer(
+        featureCollection,{
+        outFields: ["*"]
+    });
+
     gl_attr = new GraphicsLayer({
       infoTemplate: templateFawn,
-       outFields:["*"],
+      outFields:["*"],
     });
 
     glAttrFdacswx = new GraphicsLayer({
       infoTemplate: templateFdacswx,
-       outFields:["*"],
+      outFields:["*"],
+      // minScale: 5,
+      // maxScale:  1
     });
 
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
     // loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
-   
+
     popup.resize(600,400);
     map.addLayer(gl_attr);
     // map.removeLayer(glAttrFdacswx);
     map.addLayer(glAttrFdacswx);
     // map.removeLayer(gl_attr);
+    map.addLayer(featureLayer);
+    console.log(featureLayer);
+
+    var featureLayer1 = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Ecological_Footprint/FeatureServer/0", {
+      outFields : ["*"]
+    });
+
+         map.addLayer(featureLayer1);
+         //Create search widget
+         // var search = new Search({
+         //    map: map,
+         //    //passing in empty source array to clear defaults such as 
+         //    //"All" and the ArcGIS Online World Geocoding service
+         //    sources: [],
+         //    zoomScale: 5000000
+         // }, "search");
+
+         //listen for the load event and set the source properties 
+         // search.on("load", function () {
+
+         //    var sources = search.sources;
+         //    sources.push({
+         //       featureLayer: featureLayer,
+         //       placeholder: "Spain",
+         //       enableLabel: true,
+         //       searchFields: ["stnID"],
+         //       displayField: "stnID",
+         //       exactMatch: false,
+         //       outFields: ["*"],
+
+         //       //Create an InfoTemplate and include three fields
+         //       infoTemplate: new InfoTemplate("Ecological Footprint", "<a href= ${URL} target=_blank ;'>Additional Info</a></br></br>Country: ${Country}</br>Rating: ${Rating}")
+
+         //    });
+         //    //Set the sources above to the search widget
+         //    search.set("sources", sources);
+         // });
+         // search.startup();
 
 
-    // map.addLayer(glAttrFdacswx);
-        // checkbox changing
         var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
@@ -166,7 +249,7 @@
               }
             }
         });
-        
+
         on(GetTempFdacswx, "change", function(){
             // console.log(glAttrFdacswx.graphics[0].attributes);
             glAttrFdacswx.visible = GetTempFdacswx.checked;

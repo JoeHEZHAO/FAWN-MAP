@@ -41,7 +41,7 @@
           iconLink.push(data.data.iconLink[i]);
           pop.push(data.data.pop[i]);
 
-          var index; 
+          var index;
           if (weather[i].indexOf('then') != -1){
               index = weather[i].indexOf('then') - 1;
           }else if (weather[i].indexOf('and') != -1){
@@ -53,14 +53,14 @@
           // console.log(weather[i].substring(0,index));
 
           if(pop[i]){
-              icon[i] = weather[i].toLowerCase();            
-              if(icon.indexOf('thunderstorms') != -1){ 
-                  icon[i] = dir[i] + "thunderstorm_" +pop[i] + ".png";           
-              }else{          
-              icon[i] = dir[i] + "rain_" + pop[i] + ".png"; 
-              }          
-          }else{ 
-              icon[i] = weather[i].toLowerCase();    
+              icon[i] = weather[i].toLowerCase();
+              if(icon.indexOf('thunderstorms') != -1){
+                  icon[i] = dir[i] + "thunderstorm_" +pop[i] + ".png";
+              }else{
+              icon[i] = dir[i] + "rain_" + pop[i] + ".png";
+              }
+          }else{
+              icon[i] = weather[i].toLowerCase();
               if(icon[i].indexOf('sprinkles') != -1 || icon[i].indexOf('drizzle') != -1){
                   icon[i] = dir[i] + "sprinkles.png";
               }else{
@@ -70,10 +70,10 @@
       }
       // console.log(icon);
 
-      document.getElementById("forcast").innerHTML = 
+      document.getElementById("forcast").innerHTML =
       "<ul style='display:table; width: 100%; padding-left: 0px;'>"
 
-        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
         + "<span style='display:block; text-align:center'>" + dateTime[0] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[0] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[0] + "</span>"
@@ -82,7 +82,7 @@
         + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
         + "</li>"
 
-        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
         + "<span style='display:block; text-align:center'>" + dateTime[1] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[1] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[1] + "</span>"
@@ -91,7 +91,7 @@
         + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
         + "</li>"
 
-        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>" 
+        + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
         + "<span style='display:block; text-align:center'>" + dateTime[2] + "</span>"
         + "<span style='display:block; text-align:center'>" + tempLabel[2] + "</span>"
         + "<span style='display:block; text-align:center'>" + temperature[2] + "</span>"
@@ -118,18 +118,6 @@
           document.getElementById("map_and_panel").classList.toggle("map_change");
     }
 
-        // window.onclick = function(event){
-        //   if(!event.target.matches('.menu_btn')){
-        //   var dropdowns = document.getElementsByClassName('dropdown-content');
-        //   var i;
-        //   for(i=0;i<dropdowns.length;i++){
-        //     var openDropDown = dropdowns[i];
-        //   if(openDropDown.classList.contains("show")){
-        //     openDropDown.classList.remove("show");
-        //     }
-        //   }
-        // }
-        // }
 
     openMenu = function(evt, dataSource){
         var i, tabcontent, tablinks;
@@ -160,11 +148,12 @@ require([
   "esri/geometry/Point",
   "esri/symbols/SimpleMarkerSymbol",
   "esri/symbols/TextSymbol",
-  "esri/graphic", 
+  "esri/graphic",
+  "esri/layers/FeatureLayer",
   "esri/layers/GraphicsLayer",
-  ], function(Point, SimpleMarkerSymbol, TextSymbol, Graphic, GraphicsLayer) {
+  ], function(Point, SimpleMarkerSymbol, TextSymbol, Graphic, FeatureLayer, GraphicsLayer) {
 
-  // loadData object  
+  // loadData object
    loadDataGenerateLayerFdacswx = {
       getDataCreateLayer : function(url, graphLayer){
         $.getJSON(url, function(data){
@@ -181,29 +170,102 @@ require([
           var g = new Graphic(p,t,attr);
           return g;
         }
-          })  
+          })
       }
     }
 
   loadDataGenerateLayerFawn = {
       getDataCreateLayer : function(url, graphLayer){
-      $.getJSON(url, function(data){
-          for (var i = 0; i < data.stnsWxData.length ;i++){
-            graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-          };
+        var template =
+            {
+              "name" : "New Feature",
+              "description" : "",
+              "drawingTool" : "esriFeatureEditToolPoint",
+              "prototype" : {
+                "attributes" : {
+                  "bp2m" : null,
+                  "county" : null,
+                  "dailyAvgTempF" : null,
+                  "dailyMinTempF" : null,
+                  "dailyTotalRainInch" : null,
+                  "dateTimes" : null,
+                  "dewPoint2mF" : null,
+                  "elevation_feet" : null,
+                  "etInch" : null,
+                  "facility" : null,
+                  "fcstEndTime" : null,
+                  "fcstStartTime" : null,
+                  "freeze_keyword": null,
+                  "isFresh": null,
+                  "lat": null,
+                  "lng": null,
+                  "nws_office": null,
+                  "radar_keyword": null,
+                  "rainFall2mInch": null,
+                  "relHum2mPct": null,
+                  "soilTemp10cmF": null,
+                  "stnID": null
+                }
+              }
+           };
 
-      function addAttr(lng,lat,json)
-      {
-        var p = new Point(lng,lat);
-          //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-        var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
-        var attr = json;
-        var g = new Graphic(p,t,attr);
-        return g;
+        var stdID = "stnID";
+        var _rendererFields = [];
+        _rendererFields.push(stdID);
+        // _rendererFields.push("a");
+        var fields = [
+          {
+            alias : "lng",
+            editable : true,
+            length: 1000,
+            name: "lng",
+            nullable: true,
+            type: "esriFieldTypeString"
+          },
+          {
+            alias : "lat",
+            editable : true,
+            length: 1000,
+            name: "lat",
+            nullable: true,
+            type: "esriFieldTypeString"
+          },
+          {
+            alias : "stnID",
+            editable : true,
+            length: 1000,
+            name: "stnID",
+            nullable: true,
+            type: "esriFieldTypeString"
+          },
+        ];
+        $.getJSON(url, function(data){
+            for (var i = 0; i < data.stnsWxData.length ;i++)
+            {
+              graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+              featureLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+              // features.push(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
+              // fields[i] = {"lng" :data.stnsWxData[i].lng, "lat": data.stnsWxData[i].lat};
+            };
+            featureLayer.fields = fields;
+            featureLayer._rendererFields = _rendererFields;
+            featureLayer.objectIdField = "lat";
+            featureLayer.renderer["attributeField"] = "stnID";
+            featureLayer.templates[0] = template;
+            // console.log(featureLayer);
+            // console.log(featureLayer.graphics[1].attributes);
+            function addAttr(lng,lat,json)
+            {
+              var p = new Point(lng,lat);
+                //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+              var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
+              var attr = json;
+              var g = new Graphic(p,t,attr);
+              return g;
+            }
+        })
       }
-        })  
-      }
-    };
+  };
 
 
 

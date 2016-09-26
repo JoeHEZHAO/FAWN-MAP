@@ -13,6 +13,7 @@
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
     <!-- Default Theme -->
     <link rel="stylesheet" href="owl-carousel/owl.theme.css">
@@ -146,6 +147,12 @@
           <!-- start map and panel  -->
       <div class="map_and_panel" id="map_and_panel">
 
+      <!-- angular search bar -->
+        <div id="search">
+          
+        </div>
+
+
             <!-- start draggable window -->
         <div id="draggable" class="ui-widget-content">
             <div id="map_panel" class="map_panel">
@@ -168,7 +175,6 @@
   <script type="text/javascript">
     $(document).ready(function(){
       coldp = function (grower, station){
-        // console.log(grower, station);
         var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
         $.cookie('grower', grower,{expires : 7, path : "/"});
         $.cookie('station', station, {expires : 7, path : "/"});

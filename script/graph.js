@@ -145,17 +145,7 @@ $(document).ready(function() {
                     valueDecimals: 2
                   }
               }]
-            });
-
-            // if (title == 'dry_bulb_air_temp') {
-            //   chart.yAxis[0].setExtremes(65,95);
-            // }
-            // else if(title == 'wet_bulb_temp'){
-            //   chart.yAxis[0].setExtremes(35,60);
-            // }
-            // else{
-            //   chart.yAxis[0].setExtremes(-5,5);
-            // }        
+            });      
          });
     }
     getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
