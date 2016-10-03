@@ -217,7 +217,7 @@ html, body, {
 
 .roundedOne input{
     left: 3px;
-    top: 5px; 
+    top: 5px;
     position: relative;
 }
 
@@ -411,7 +411,7 @@ html, body, {
     color: white;
     background-color: #333333;
     font-family: "verb","Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
-}     
+}
 
 #London{
     background-image: url("http://www.imagewa.com/PhotoPreview/300/300_79251.jpg");
@@ -480,10 +480,10 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 
-#draggable { 
-width: 195px; 
-height: 180px; 
-padding: 0.5em; 
+#draggable {
+width: 195px;
+height: 180px;
+padding: 0.5em;
 z-index: 2;
 top: 4%;
 left: 80%;
@@ -531,7 +531,7 @@ background:rgba(255,255,255,0.2);
     position: relative;
 }*/
 .esriPopup .esriPopupWrapper{
-    
+
 }
 
  /*owl carousel css*/
@@ -634,16 +634,16 @@ background:rgba(255,255,255,0.2);
   margin:0px 50px;
 }
 
- 
+
 .owl-theme .owl-controls .owl-buttons div {
   position: absolute;
 }
- 
+
 .owl-theme .owl-controls .owl-buttons .owl-prev{
   left: -45px;
-  top: 55px; 
+  top: 55px;
 }
- 
+
 .owl-theme .owl-controls .owl-buttons .owl-next{
   right: -45px;
   top: 55px;
@@ -659,19 +659,15 @@ background:rgba(255,255,255,0.2);
     margin-right: auto
 }
 
-#search {
-         display: block;
-         position: absolute;
-         z-index: 2;
-         top: 20px;
-         left: 74px;
-         width: 20%;
-         height: 7%;
-      }
+/*#search {
+  display: block,
+  position: absolute,
+  width: 100%,
+  height: 100%,
+  top: 0,
+  left: 0
+}*/
 
-
-
-
-
-
-
+#search select{
+  overflow: hidden
+}

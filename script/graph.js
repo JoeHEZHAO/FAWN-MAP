@@ -84,7 +84,7 @@ $(document).ready(function() {
               chart.yAxis[0].setExtremes(65,85);
             }else{
               chart.yAxis[0].setExtremes(-5,5);
-            }        
+            }
          });
     }
     getChart('temp2mF_FAWN', 'temp2fts', 'temp2fts');
@@ -98,7 +98,7 @@ $(document).ready(function() {
             singleItem:true,
             mouseDrag: false
     });
-    
+
   }
 
   addBarChartFdacswx = function(evt,TagName, stdID){
@@ -145,7 +145,7 @@ $(document).ready(function() {
                     valueDecimals: 2
                   }
               }]
-            });      
+            });
          });
     }
     getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
@@ -160,7 +160,5 @@ $(document).ready(function() {
             singleItem:true,
             mouseDrag: false
     });
-    
   }
-
 })

@@ -188,23 +188,23 @@
     map.addLayer(glAttrFdacswx);
     // map.removeLayer(gl_attr);
     map.addLayer(featureLayer);
-    console.log(featureLayer);
+    // console.log(featureLayer);
 
-    var featureLayer1 = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Ecological_Footprint/FeatureServer/0", {
-      outFields : ["*"]
-    });
+    // var featureLayer1 = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Ecological_Footprint/FeatureServer/0", {
+    //   outFields : ["*"]
+    // });
 
-         map.addLayer(featureLayer1);
+    //      map.addLayer(featureLayer1);
          //Create search widget
          // var search = new Search({
          //    map: map,
-         //    //passing in empty source array to clear defaults such as 
+         //    //passing in empty source array to clear defaults such as
          //    //"All" and the ArcGIS Online World Geocoding service
          //    sources: [],
          //    zoomScale: 5000000
          // }, "search");
 
-         //listen for the load event and set the source properties 
+         //listen for the load event and set the source properties
          // search.on("load", function () {
 
          //    var sources = search.sources;
@@ -236,7 +236,7 @@
             gl_attr.visible = GetTempLyrToggle.checked;
             if (gl_attr.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-            var i = 0;
+            var i = 0;;
               while(gl_attr.graphics[i] != null){
                 gl_attr.graphics[i].setSymbol(tempSymbol);
                 i++;
@@ -248,17 +248,16 @@
                 b++;
               }
             }
+
         });
 
         on(GetTempFdacswx, "change", function(){
-            // console.log(glAttrFdacswx.graphics[0].attributes);
             glAttrFdacswx.visible = GetTempFdacswx.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
               while(glAttrFdacswx.graphics[i] != null){
                 glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
-                // console.log(glAttrFdacswx.graphics[i].attributes.et);
                 i++;
               }
             }else{

@@ -103,7 +103,6 @@
       + "</ul>";
         // window.open(url_forcast1 + lat + url_forcast2 + lng + url_forcast3);
     });
-
   }
 
   function openToolkit(evt, TagName){
@@ -116,7 +115,7 @@
           //document.getElementById("map").classList.toggle("map_change");
           //document.getElementById("map_panel").classList.toggle("panel_change");
           document.getElementById("map_and_panel").classList.toggle("map_change");
-    }
+  }
 
 
     openMenu = function(evt, dataSource){
@@ -130,10 +129,8 @@
        for(i=0;i<tablinks.length;i++){
         tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-
         document.getElementById(dataSource).style.display= "block";
         evt.currentTarget.className += " active";
-
         // map.removeLayer(removeLayer);
         // map.addLayer(glLayer);
     }
@@ -239,20 +236,22 @@ require([
             type: "esriFieldTypeString"
           },
         ];
+        var stnName = [];
         $.getJSON(url, function(data){
+
             for (var i = 0; i < data.stnsWxData.length ;i++)
             {
               graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
               featureLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-              // features.push(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-              // fields[i] = {"lng" :data.stnsWxData[i].lng, "lat": data.stnsWxData[i].lat};
+              // console.log("'" + data.stnsWxData[i].stnName + "'");
             };
             featureLayer.fields = fields;
             featureLayer._rendererFields = _rendererFields;
             featureLayer.objectIdField = "lat";
             featureLayer.renderer["attributeField"] = "stnID";
             featureLayer.templates[0] = template;
-            // console.log(featureLayer);
+            // console.log(stnName);
+
             // console.log(featureLayer.graphics[1].attributes);
             function addAttr(lng,lat,json)
             {
