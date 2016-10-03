@@ -1,42 +1,6 @@
-// var app = angular.module("instantSearch", []);
-// // Create the instant search filter
-// app.filter('searchFor', function(){
-//
-//    // All filters must return a function. The first parameter
-//    // is the data that is to be filtered, and the second is an
-//    // argument that may be passed with a colon (searchFor:searchString)
-//
-//    return function(arr, searchString){
-//
-//       if(!searchString){
-//          return arr;
-//       }
-//
-//       var result = [];
-//
-//       searchString = searchString.toLowerCase();
-//
-//       // Using the forEach helper method to loop through the array
-//       angular.forEach(arr, function(item){
-//
-//          if(item.title.toLowerCase().indexOf(searchString) !== -1){
-//             result.push(item);
-//          }
-//
-//       });
-//
-//       return result;
-//    };
-//
-// });
-//
-// // The controller
-//
-// InstantSearchController = function($scope){
-//    $scope.items = item1;
-// }
 
-    var app = angular.module('myApp', []);
+
+    var app = angular.module('myApp', ['kendo.directives']); //'kendo.directives'
     var GrowerName = [];
 
     //remove duplicate
@@ -46,17 +10,29 @@
         }
     });
 
-    $(document).ready(function() {
-      $('#searchBar').autocomplete({
-          source: GrowerName
-      });
-    });
+    // $(document).ready(function() {
+    //   $('#searchBar').autocomplete({
+    //       source : GrowerName,
+    //       change : function(event, ui){
+    //           GrowerName = $("#searchBar").val();
+    //           console.log(GrowerName);
+    //     }
+    //    });
+    //  });
 
     app.controller('myCtrl', function($scope) {
+      // $scope.selected = undefined;
+      // $scope.states = GrowerName;
+
         // initialize
         $scope.growerNames = GrowerName;
         $scope.stationName = [];
         $scope.items = GrowerName;
+
+        $scope.searchBarChange = function(value){
+          console.log(value);
+          $scope.growerNames.push(value);
+        }
 
         $scope.onChanged = function(grower) {
           $scope.stationName = null;
