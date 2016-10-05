@@ -1,4 +1,4 @@
-    var map;
+    // map is global for other js file to use
       require([
         "esri/map",
         "esri/dijit/Search",
@@ -35,7 +35,7 @@
          }, domConstruct.create("div"));
 
         // create map and layers
-        var map = new Map("map", {
+        map = new Map("map", {
           basemap: "streets",
           center: [-81.379234,28.53833],
           zoom: 8,

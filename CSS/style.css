@@ -671,3 +671,8 @@ background:rgba(255,255,255,0.2);
 #search select{
   overflow: hidden
 }
+
+/*important for kendo api*/
+.k-animation-container{
+  background-color: white
+}
