@@ -7,26 +7,15 @@
             GrowerName.push(value);
         }
     });
-
-    // need to sort the list
+    GrowerName.sort();//list sorting complete
 
     app.controller('myCtrl', function($scope) {
-      // $scope.selected = undefined;
-      // $scope.states = GrowerName;
-      $(document).ready(function() {
-        $("#searchBar").kendoAutoComplete({
-            dataSource : GrowerName,
-            change: function(e) {
-              console.log(this.value());
-              // $scope.growerNames = this.value();
-              // console.log($scope.growerNames);
-            }
-          });
-       });
+  
         // initialize
         $scope.growerNames = GrowerName;
         $scope.stationName = [];
         $scope.items = GrowerName;
+        $scope.fawnStationName = FawnStationFinder;
 
         $scope.onChanged = function(grower) {
           $scope.stationName = null;
@@ -39,10 +28,8 @@
           $scope.stationName = stationTemp;
         }
 
-        //submit() starts
-        $scope.submit = function(GrowerName, stationName){
-          // alert("123"); it works
-          // alert(GrowerName + stationName); it works
+        //submit() event starts
+        $scope.submitFadacs = function(GrowerName, stationName){
           var lat;
           var lng;
           $.getJSON(url2, function(data){
@@ -52,7 +39,6 @@
                     lng = data[i].longitude;
                 }
               }
-
               if (lat != null && lng != null) {
                  require([
                     "esri/map",
@@ -64,22 +50,62 @@
                   ], function(
                     Map, Point, PictureMarkerSymbol, Graphic, GraphicsLayer
                   ) {
-                      //http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red-th.png
                       var pictureMarkerSymbol = new PictureMarkerSymbol('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red-th.png', 31, 51);
+                      lng = (parseFloat(lng)).toString();
+                      lat = (parseFloat(lat) + 0.04).toString();
                       var p = new Point(lng, lat);
                       var g = new Graphic(p, pictureMarkerSymbol); 
                       var pinpointLayer = new GraphicsLayer({
                             outFields:["*"],
                       });
-                      map.centerAndZoom(p, 12);
+                      map.centerAndZoom(p, 10);
                       pinpointLayer.add(g);
                       map.addLayer(pinpointLayer);
-                      console.log(pinpointLayer);
                   })
               }
    
           })
         }
-        // submit() ends
+        // submitFadacs() ends
+
+        //submitFawn() starts
+        $scope.submitFawn = function(stationName){
+          var lat;
+          var lng;
+          $.getJSON(url6, function(data){
+            for (var i = 0; i < data.stnsWxData.length; i++) {
+              if (data.stnsWxData[i].stnName == stationName) {
+                lat = data.stnsWxData[i].lat;
+                lng = data.stnsWxData[i].lng;
+              }
+            }
+
+            if (lat != null && lng != null) {
+              require([
+                    "esri/map",
+                    "esri/geometry/Point",
+                    "esri/symbols/PictureMarkerSymbol",
+                    "esri/graphic",
+                    "esri/layers/GraphicsLayer",
+                    "dojo/domReady!"
+                  ], function(
+                    Map, Point, PictureMarkerSymbol, Graphic, GraphicsLayer
+                  ) {
+                      var pictureMarkerSymbol = new PictureMarkerSymbol('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red-th.png', 31, 51);
+                      lng = (parseFloat(lng)).toString();
+                      lat = (parseFloat(lat) + 0.04).toString();
+                      var p = new Point(lng, lat);
+                      var g = new Graphic(p, pictureMarkerSymbol); 
+                      var pinpointLayer = new GraphicsLayer({
+                            outFields:["*"],
+                      });
+                      map.centerAndZoom(p, 10);
+                      pinpointLayer.add(g);
+                      map.addLayer(pinpointLayer);
+                  })
+            }
+          })
+
+        }
 
     });

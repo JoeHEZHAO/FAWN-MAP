@@ -174,8 +174,6 @@
     glAttrFdacswx = new GraphicsLayer({
       infoTemplate: templateFdacswx,
       outFields:["*"],
-      // minScale: 5,
-      // maxScale:  1
     });
 
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
@@ -187,7 +185,7 @@
     // map.removeLayer(glAttrFdacswx);
     map.addLayer(glAttrFdacswx);
     // map.removeLayer(gl_attr);
-    map.addLayer(featureLayer);
+    // map.addLayer(featureLayer);
     // console.log(featureLayer);
 
     // var featureLayer1 = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Ecological_Footprint/FeatureServer/0", {
@@ -233,6 +231,21 @@
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
 
         on(GetTempLyrToggle, "change", function(){
+            // if (GetTempFdacswx.checked == true) {
+            //     GetTempFdacswx.checked = false;
+            //     on.emit(dom.byId("GetTempFdacswx"), "change", {
+            //       bubbles: true,
+            //       cancelable: true
+            //     });
+            // }
+            GetTempFdacswx.checked = false;
+            var b = 0;
+              while(glAttrFdacswx.graphics[b] != null){
+                glAttrFdacswx.graphics[b].setSymbol(null);
+                b++;
+              }
+            document.getElementById('searchForFadacs').style.display = 'none';
+
             gl_attr.visible = GetTempLyrToggle.checked;
             if (gl_attr.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
@@ -241,17 +254,27 @@
                 gl_attr.graphics[i].setSymbol(tempSymbol);
                 i++;
               }
+              document.getElementById('searchForFawn').style.display = 'block';
             }else{
               var b = 0;
               while(gl_attr.graphics[b] != null){
                 gl_attr.graphics[b].setSymbol(null);
                 b++;
               }
+              document.getElementById('searchForFawn').style.display = 'none';
             }
-
         });
 
         on(GetTempFdacswx, "change", function(){
+            
+            GetTempLyrToggle.checked = false;
+            var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+            document.getElementById('searchForFawn').style.display = 'none';
+
             glAttrFdacswx.visible = GetTempFdacswx.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
@@ -260,13 +283,15 @@
                 glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
                 i++;
               }
+              document.getElementById('searchForFadacs').style.display = 'block';
             }else{
               var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
                 glAttrFdacswx.graphics[b].setSymbol(null);
                 b++;
               }
-            }
+              document.getElementById('searchForFadacs').style.display = 'none';
+            } 
         });
 
         on(GetStationLyrToggle, "change", function(){
@@ -285,25 +310,5 @@
                 b++;
               }
             }
-        });
-
-    // openMenu = function(evt, dataSource, glLayer, removeLayer){
-    //     var i, tabcontent, tablinks;
-
-    //     tabcontent = document.getElementsByClassName("side_menu_tabcontent");
-    //     for(i=0; i < tabcontent.length;i++){
-    //       tabcontent[i].style.display="none";
-    //     }
-    //     tablinks = document.getElementsByClassName("tablinks");
-    //    for(i=0;i<tablinks.length;i++){
-    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
-    //     }
-
-    //     document.getElementById(dataSource).style.display= "block";
-    //     evt.currentTarget.className += " active";
-
-    //     map.removeLayer(removeLayer);
-    //     map.addLayer(glLayer);
-    // }
-
+        });   
   });
