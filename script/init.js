@@ -195,13 +195,15 @@
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
 
         on(GetTempLyrToggle, "change", function(){
+            map.removeLayer(pinpointLayer);
+
             GetTempFdacswx.checked = false;
             var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
                 glAttrFdacswx.graphics[b].setSymbol(null);
                 b++;
               }
-            document.getElementById('searchForFadacs').style.display = 'none';
+            //document.getElementById('searchForFadacs').style.display = 'none';
 
             gl_attr.visible = GetTempLyrToggle.checked;
             if (gl_attr.visible == true) {
@@ -223,14 +225,15 @@
         });
 
         on(GetTempFdacswx, "change", function(){
-            
+            map.removeLayer(pinpointLayer);
+
             GetTempLyrToggle.checked = false;
             var b = 0;
               while(gl_attr.graphics[b] != null){
                 gl_attr.graphics[b].setSymbol(null);
                 b++;
               }
-            document.getElementById('searchForFawn').style.display = 'none';
+            //document.getElementById('searchForFawn').style.display = 'none';
 
             glAttrFdacswx.visible = GetTempFdacswx.checked;
             if (glAttrFdacswx.visible == true) {
