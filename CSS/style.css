@@ -328,7 +328,7 @@ html, body, {
   margin-right: 200px;
 }
 .map_change{
-  right: 200px;
+  right: 20%;
 }
 .panel_change{
   right: 200px;
@@ -676,3 +676,13 @@ background:rgba(255,255,255,0.2);
 .k-animation-container{
   background-color: white
 }
+
+/*.esriLargeSliderVertical {
+        height: 100px;
+      }
+
+.esriLargeSliderTR {
+right: 10px;
+top: 10px;
+}
+*/

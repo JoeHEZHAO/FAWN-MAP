@@ -109,7 +109,8 @@
      openTag(evt, TagName);
      // need grower and station from fdacs data
   }
-    function myFunction(x){
+    
+  function myFunction(x){
           x.classList.toggle("change");
           document.getElementById("myDropdown").classList.toggle("show")
           //document.getElementById("map").classList.toggle("map_change");

@@ -39,7 +39,9 @@
           basemap: "streets",
           center: [-81.379234,28.53833],
           zoom: 8,
-          infoWindow: popup
+          infoWindow: popup,
+          sliderPosition: "top-right",
+          // sliderStyle: "large"
         });
 
         // PopupTemplate generate function
