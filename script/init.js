@@ -176,68 +176,23 @@
       outFields:["*"],
     });
 
+    pinpointLayer = new GraphicsLayer({
+      outFields:["*"],
+    });
+
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
-    // loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
 
     popup.resize(600,400);
     map.addLayer(gl_attr);
-    // map.removeLayer(glAttrFdacswx);
     map.addLayer(glAttrFdacswx);
-    // map.removeLayer(gl_attr);
-    // map.addLayer(featureLayer);
-    // console.log(featureLayer);
 
-    // var featureLayer1 = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Ecological_Footprint/FeatureServer/0", {
-    //   outFields : ["*"]
-    // });
-
-    //      map.addLayer(featureLayer1);
-         //Create search widget
-         // var search = new Search({
-         //    map: map,
-         //    //passing in empty source array to clear defaults such as
-         //    //"All" and the ArcGIS Online World Geocoding service
-         //    sources: [],
-         //    zoomScale: 5000000
-         // }, "search");
-
-         //listen for the load event and set the source properties
-         // search.on("load", function () {
-
-         //    var sources = search.sources;
-         //    sources.push({
-         //       featureLayer: featureLayer,
-         //       placeholder: "Spain",
-         //       enableLabel: true,
-         //       searchFields: ["stnID"],
-         //       displayField: "stnID",
-         //       exactMatch: false,
-         //       outFields: ["*"],
-
-         //       //Create an InfoTemplate and include three fields
-         //       infoTemplate: new InfoTemplate("Ecological Footprint", "<a href= ${URL} target=_blank ;'>Additional Info</a></br></br>Country: ${Country}</br>Rating: ${Rating}")
-
-         //    });
-         //    //Set the sources above to the search widget
-         //    search.set("sources", sources);
-         // });
-         // search.startup();
-
-
-        var GetStationLyrToggle = dom.byId("GetStation");
+        // var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
-        var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
+        // var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
 
         on(GetTempLyrToggle, "change", function(){
-            // if (GetTempFdacswx.checked == true) {
-            //     GetTempFdacswx.checked = false;
-            //     on.emit(dom.byId("GetTempFdacswx"), "change", {
-            //       bubbles: true,
-            //       cancelable: true
-            //     });
-            // }
             GetTempFdacswx.checked = false;
             var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
@@ -294,21 +249,21 @@
             } 
         });
 
-        on(GetStationLyrToggle, "change", function(){
-            gl_attr.visible = GetStationLyrToggle.checked;
-            if (gl_attr.visible == true) {
-            var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-            var i = 0;
-              while(gl_attr.graphics[i] != null){
-                gl_attr.graphics[i].setSymbol(tempSymbol);
-                i++;
-              }
-            }else{
-              var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
-            }
-        });   
+        // on(GetStationLyrToggle, "change", function(){
+        //     gl_attr.visible = GetStationLyrToggle.checked;
+        //     if (gl_attr.visible == true) {
+        //     var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+        //     var i = 0;
+        //       while(gl_attr.graphics[i] != null){
+        //         gl_attr.graphics[i].setSymbol(tempSymbol);
+        //         i++;
+        //       }
+        //     }else{
+        //       var b = 0;
+        //       while(gl_attr.graphics[b] != null){
+        //         gl_attr.graphics[b].setSymbol(null);
+        //         b++;
+        //       }
+        //     }
+        // });   
   });

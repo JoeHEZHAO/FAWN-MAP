@@ -3,39 +3,34 @@ $(document).ready(function() {
         // close other tag and open graph
         openTag(evt, TagName);
 
+        // $(".esriPopupWrapper").draggable({
+        //     containment:"parent",
+        //     //once starting drag, the div disappear
+        //       // start: function() {
+        //       // $(".esriPopup .outerPointer.left").remove();
+        //       // $(".esriPopup .pointer.bottom").remove();
+        //       // $(".esriPopup .pointer").remove();
+        //       // $(".esriPopup .outerPointer").remove();
+        //       // $(".esriPopupWrapper").css({"bottom": "null"});
+        //       // }
+        // });
 
-          // $(".esriPopupWrapper").draggable({
-          //     // containment:"parent"
-
-          //     //once starting drag, the div disappear
-          //       start: function() {
-          //       // $(".esriPopup .outerPointer.left").remove();
-          //       // $(".esriPopup .pointer.bottom").remove();
-          //       $(".esriPopup .pointer").remove();
-          //       $(".esriPopup .outerPointer").remove();
-          //       // $(".esriPopupWrapper").css({"bottom": "null"});
-          //       },
-          // });
-
-          // divs inside does not have effect, try to figure it out.
+          //divs inside does not have effect, try to figure it out.
           // $(".esriPopupWrapper").resizable({
 
           // })
 
-          // $(".esriPopupWrapper").resizable();
+          // $(".esriPopupWrapper").resizables();
 
 
           // $(".esriPopup .outerPointer.left").remove();
 
           // $(".esriPopup .pointer.bottomLeft").css({"bottom": "9px", "position": "relative"});
-          // // works !!
+          // works !!
           // $(".esriPopup .pointer.bottom").css({"bottom": "9px", "position": "relative"});
           // $(".esriPopup .outerPointer.left").css({"position": "relative"});
+
           // console.log(url5_1 + stdID + url5_2);
-
-
-      // this url is not json, see url6 can work, so the problem lies on url5;
-      // console.log(stdID);
 
       function getChart(renderDiv, target, title){
          var chartData = [];
@@ -151,7 +146,6 @@ $(document).ready(function() {
     getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
     getChart('rainFall_Fdacswx', 'rainfall', 'rainfall');
     getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'wet_bulb_temp');
-
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons

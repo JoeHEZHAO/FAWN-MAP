@@ -50,15 +50,16 @@
                   ], function(
                     Map, Point, PictureMarkerSymbol, Graphic, GraphicsLayer
                   ) {
+                      map.removeLayer(pinpointLayer);
+
                       var pictureMarkerSymbol = new PictureMarkerSymbol('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red-th.png', 31, 51);
                       lng = (parseFloat(lng)).toString();
                       lat = (parseFloat(lat) + 0.04).toString();
                       var p = new Point(lng, lat);
                       var g = new Graphic(p, pictureMarkerSymbol); 
-                      var pinpointLayer = new GraphicsLayer({
-                            outFields:["*"],
-                      });
+                      
                       map.centerAndZoom(p, 10);
+                      pinpointLayer.clear();
                       pinpointLayer.add(g);
                       map.addLayer(pinpointLayer);
                   })
@@ -91,17 +92,19 @@
                   ], function(
                     Map, Point, PictureMarkerSymbol, Graphic, GraphicsLayer
                   ) {
+                      map.removeLayer(pinpointLayer);
+
                       var pictureMarkerSymbol = new PictureMarkerSymbol('http://www.clker.com/cliparts/W/0/g/a/W/E/map-pin-red-th.png', 31, 51);
                       lng = (parseFloat(lng)).toString();
                       lat = (parseFloat(lat) + 0.04).toString();
                       var p = new Point(lng, lat);
                       var g = new Graphic(p, pictureMarkerSymbol); 
-                      var pinpointLayer = new GraphicsLayer({
-                            outFields:["*"],
-                      });
+                      
                       map.centerAndZoom(p, 10);
+                      pinpointLayer.clear();
                       pinpointLayer.add(g);
                       map.addLayer(pinpointLayer);
+                      // pinpointer only show once success
                   })
             }
           })

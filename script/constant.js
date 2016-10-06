@@ -17,45 +17,7 @@ url_forcast2 = "&lon=";
 url_forcast3 = "&unit=0&lg=english&FcstType=json";
 
 FawnStationFinder = [
-'Alachua','Apopka','Arcadia','Avalon',
-'Balm',
-'Belle Glade',
-'Bronson',
-'Carrabelle',
-'Citra',
-'Clewiston',
-'Dade City',
-'DeFuniak Springs',
-'Dover',
-'Fort Lauderdale',
-'Frostproof',
-'Hastings',
-'Homestead',
-'Immokalee',
-'Indian River',
-'Jay',
-'Joshua',
-'Kenansville',
-'Lake Alfred',
-'Lecanto',
-'Live Oak',
-'Macclenny',
-'Marianna',
-'Mayo',
-'Monticello',
-'North Port',
-'Ocklawaha',
-'Okahumpka',
-'Okeechobee',
-'Ona',
-'Palmdale',
-'Pierson',
-'Putnam Hall',
-'Quincy',
-'Sebring',
-'St. Lucie West',
-'Umatilla',
-'Wellington'
+'Alachua','Apopka','Arcadia','Avalon','Balm','Belle Glade','Bronson','Carrabelle','Citra','Clewiston','Dade City','DeFuniak Springs','Dover','Fort Lauderdale','Frostproof','Hastings','Homestead','Immokalee','Indian River','Jay','Joshua','Kenansville','Lake Alfred','Lecanto','Live Oak','Macclenny','Marianna','Mayo','Monticello','North Port','Ocklawaha','Okahumpka','Okeechobee','Ona','Palmdale','Pierson','Putnam Hall','Quincy','Sebring','St. Lucie West','Umatilla','Wellington'
 ]
 
 FdacswxStdGrowerFinder = {
