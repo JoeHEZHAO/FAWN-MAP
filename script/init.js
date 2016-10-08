@@ -185,27 +185,44 @@
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
 
+    // console.log(glAttrFdacswx);
     popup.resize(600,400);
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
 
-        // var GetStationLyrToggle = dom.byId("GetStation");
+        // fawn checkbox
+        var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
-        // var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
+        var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
+
+        //fadacswx checkbox
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
+        var GetStationFdacswx = dom.byId("GetStationFdacswx");
+        var GetWindSpeedFdacswx = dom.byId("GetWindSpeedFdacswx");
 
-        on(GetTempLyrToggle, "change", function(){
-            map.removeLayer(pinpointLayer);
+        on(GetStationLyrToggle, "change", function(){
+          map.removeLayer(pinpointLayer);
 
-            GetTempFdacswx.checked = false;
+          if (GetTempLyrToggle.checked == true)
+          {
+            GetTempLyrToggle.checked = false;
             var b = 0;
-              while(glAttrFdacswx.graphics[b] != null){
-                glAttrFdacswx.graphics[b].setSymbol(null);
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
                 b++;
               }
-            //document.getElementById('searchForFadacs').style.display = 'none';
+          }
+           
+          if (GetWindSpeedLyrToggle.checked == true) {
+            GetWindSpeedLyrToggle.checked = false;
+            var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+          }       
 
-            gl_attr.visible = GetTempLyrToggle.checked;
+           gl_attr.visible = GetStationLyrToggle.checked;
             if (gl_attr.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
             var i = 0;;
@@ -213,29 +230,188 @@
                 gl_attr.graphics[i].setSymbol(tempSymbol);
                 i++;
               }
-              document.getElementById('searchForFawn').style.display = 'block';
+              //document.getElementById('searchForFawn').style.display = 'block';
             }else{
               var b = 0;
               while(gl_attr.graphics[b] != null){
                 gl_attr.graphics[b].setSymbol(null);
                 b++;
               }
-              document.getElementById('searchForFawn').style.display = 'none';
+              //document.getElementById('searchForFawn').style.display = 'none';
+            }
+        })
+
+        on(GetTempLyrToggle, "change", function(){
+            map.removeLayer(pinpointLayer);
+
+            // GetTempFdacswx.checked = false;
+            // var b = 0;
+            //   while(glAttrFdacswx.graphics[b] != null){
+            //     glAttrFdacswx.graphics[b].setSymbol(null);
+            //     b++;
+            //   }
+            //document.getElementById('searchForFadacs').style.display = 'none';
+          if (GetStationLyrToggle.checked == true) {
+              GetStationLyrToggle.checked = false;
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+          }
+          
+          if (GetWindSpeedLyrToggle.checked == true) {
+              GetWindSpeedLyrToggle.checked = false;
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+          }
+
+            gl_attr.visible = GetTempLyrToggle.checked;
+            if (gl_attr.visible == true) {
+            //var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("red");
+            var i = 0;;
+              while(gl_attr.graphics[i] != null){
+                var t = new TextSymbol(gl_attr.graphics[i].attributes.temp10mF).setColor("purple").setHaloSize(20);
+                gl_attr.graphics[i].setSymbol(t);
+                i++;
+              }
+              //document.getElementById('searchForFawn').style.display = 'block';
+            }else{
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+              //document.getElementById('searchForFawn').style.display = 'none';
+            }
+        });
+
+        on(GetWindSpeedLyrToggle, "change", function(){
+            map.removeLayer(pinpointLayer);
+
+            // GetTempFdacswx.checked = false;
+            // var b = 0;
+            //   while(glAttrFdacswx.graphics[b] != null){
+            //     glAttrFdacswx.graphics[b].setSymbol(null);
+            //     b++;
+            //   }
+            //document.getElementById('searchForFadacs').style.display = 'none';
+          if (GetStationLyrToggle.checked == true) {
+              GetStationLyrToggle.checked = false;
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+          }
+          
+          if (GetTempLyrToggle.checked == true) {
+              GetTempLyrToggle.checked = false;
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+          }
+
+            gl_attr.visible = GetWindSpeedLyrToggle.checked;
+            if (gl_attr.visible == true) {
+            //var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("red");
+            var i = 0;;
+              while(gl_attr.graphics[i] != null){
+                var t = new TextSymbol(gl_attr.graphics[i].attributes.windSpeed10mMph).setColor("purple").setHaloSize(20);
+                gl_attr.graphics[i].setSymbol(t);
+                i++;
+              }
+              //document.getElementById('searchForFawn').style.display = 'block';
+            }else{
+              var b = 0;
+              while(gl_attr.graphics[b] != null){
+                gl_attr.graphics[b].setSymbol(null);
+                b++;
+              }
+              //document.getElementById('searchForFawn').style.display = 'none';
             }
         });
 
         on(GetTempFdacswx, "change", function(){
             map.removeLayer(pinpointLayer);
 
-            GetTempLyrToggle.checked = false;
-            var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
+            // GetTempLyrToggle.checked = false;
+            // var b = 0;
+            //   while(gl_attr.graphics[b] != null){
+            //     gl_attr.graphics[b].setSymbol(null);
+            //     b++;
+            //   }
             //document.getElementById('searchForFawn').style.display = 'none';
+            if (GetStationFdacswx.checked == true) {
+                GetStationFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
+          
+            if (GetWindSpeedFdacswx.checked == true) {
+                GetWindSpeedFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
 
             glAttrFdacswx.visible = GetTempFdacswx.checked;
+            if (glAttrFdacswx.visible == true) {
+            // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
+            var i = 0;
+              while(glAttrFdacswx.graphics[i] != null){
+                var t = new TextSymbol(glAttrFdacswx.graphics[i].attributes.dry_bulb_air_temp).setColor("green").setHaloSize(20);
+                glAttrFdacswx.graphics[i].setSymbol(t);
+                i++;
+              }
+            }else{
+              var b = 0;
+              while(glAttrFdacswx.graphics[b] != null){
+                glAttrFdacswx.graphics[b].setSymbol(null);
+                b++;
+              }
+            } 
+        });
+
+        on(GetStationFdacswx, "change", function(){
+            map.removeLayer(pinpointLayer);
+
+            // GetTempLyrToggle.checked = false;
+            // var b = 0;
+            //   while(gl_attr.graphics[b] != null){
+            //     gl_attr.graphics[b].setSymbol(null);
+            //     b++;
+            //   }
+            //document.getElementById('searchForFawn').style.display = 'none';
+            if (GetTempFdacswx.checked == true) {
+                GetTempFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
+          
+            if (GetWindSpeedFdacswx.checked == true) {
+                GetWindSpeedFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
+
+            glAttrFdacswx.visible = GetStationFdacswx.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
@@ -243,32 +419,58 @@
                 glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
                 i++;
               }
-              document.getElementById('searchForFadacs').style.display = 'block';
             }else{
               var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
                 glAttrFdacswx.graphics[b].setSymbol(null);
                 b++;
               }
-              document.getElementById('searchForFadacs').style.display = 'none';
             } 
-        });
+        });   
 
-        // on(GetStationLyrToggle, "change", function(){
-        //     gl_attr.visible = GetStationLyrToggle.checked;
-        //     if (gl_attr.visible == true) {
-        //     var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-        //     var i = 0;
-        //       while(gl_attr.graphics[i] != null){
-        //         gl_attr.graphics[i].setSymbol(tempSymbol);
-        //         i++;
-        //       }
-        //     }else{
-        //       var b = 0;
-        //       while(gl_attr.graphics[b] != null){
-        //         gl_attr.graphics[b].setSymbol(null);
-        //         b++;
-        //       }
-        //     }
-        // });   
+        on(GetWindSpeedFdacswx, "change", function(){
+            map.removeLayer(pinpointLayer);
+
+            // GetTempLyrToggle.checked = false;
+            // var b = 0;
+            //   while(gl_attr.graphics[b] != null){
+            //     gl_attr.graphics[b].setSymbol(null);
+            //     b++;
+            //   }
+            //document.getElementById('searchForFawn').style.display = 'none';
+            if (GetTempFdacswx.checked == true) {
+                GetTempFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
+          
+            if (GetStationFdacswx.checked == true) {
+                GetStationFdacswx.checked = false;
+                var b = 0;
+                while(glAttrFdacswx.graphics[b] != null){
+                  glAttrFdacswx.graphics[b].setSymbol(null);
+                  b++;
+                }
+            }
+
+            glAttrFdacswx.visible = GetWindSpeedFdacswx.checked;
+            if (glAttrFdacswx.visible == true) {
+            // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
+            var i = 0;
+              while(glAttrFdacswx.graphics[i] != null){
+                var t = new TextSymbol(glAttrFdacswx.graphics[i].attributes.wind_speed).setColor("green").setHaloSize(20);
+                glAttrFdacswx.graphics[i].setSymbol(t);
+                i++;
+              }
+            }else{
+              var b = 0;
+              while(glAttrFdacswx.graphics[b] != null){
+                glAttrFdacswx.graphics[b].setSymbol(null);
+                b++;
+              }
+            } 
+        }); 
   });
