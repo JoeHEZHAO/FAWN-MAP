@@ -26,11 +26,14 @@
       var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
 
       var lastestDataNameFdacswx = ['station_id', 'date_time', 'dry_bulb_air_temp', 'wet_bulb_temp', 'humidity', 'wind_speed', 'wind_direction', 'rainfall', 'latitude', 'longitude', 'total_rain_inche_since_installed', 'start_date_of_total_rain', 'station_name', 'vendor_name', 'time_zone', 'solar_radiation', 'et', 'solar_radiation_field_name', 'minutes_old', 'hasET', 'hasSolarRadiation', 'hasRemote', 'hasSoilMoisture', 'standard_date_time', 'fresh', 'grower_name'];
-
+        var point = new Point(-50,50);
         //var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
-        var popup = new Popup({
+         popup = new Popup({
             titleInBody: true,
-            anchor: "auto",
+            // anchor: "auto",
+            offsetX:1,
+            offsetY:1,
+            location: point
             //popupWindow : false  // －－－determine if a window shoule be displayed
          }, domConstruct.create("div"));
 
@@ -124,50 +127,6 @@
 
     var templateFawn = new PopupTemplate(popupTemplateGenerateFawn.setContent(lastestDataNameFawn));
 
-    var featureCollection = {
-          "layerDefinition": null,
-          "featureSet": {
-            "features": [],
-            "geometryType": "esriGeometryPoint"
-          }
-        };
-
-
-    featureCollection.layerDefinition = {
-          "geometryType": "esriGeometryPoint",
-          "objectIdField": "ObjectID",
-          "drawingInfo": {
-            "renderer": {
-              "type": "simple",
-              "symbol": {
-                "type": "esriPMS",
-                "url": "images/flickr.png",
-                "contentType": "image/png",
-                "width": 15,
-                "height": 15
-              }
-            }
-          },
-          "fields": [{
-            "name": "ObjectID",
-            "alias": "ObjectID",
-            "type": "esriFieldTypeOID"
-          }, {
-            "name": "description",
-            "alias": "Description",
-            "type": "esriFieldTypeString"
-          }, {
-            "name": "title",
-            "alias": "Title",
-            "type": "esriFieldTypeString"
-          }]
-    };
-
-    featureLayer = new FeatureLayer(
-        featureCollection,{
-        outFields: ["*"]
-    });
-
     gl_attr = new GraphicsLayer({
       infoTemplate: templateFawn,
       outFields:["*"],
@@ -187,6 +146,7 @@
 
     // console.log(glAttrFdacswx);
     popup.resize(600,400);
+    // popup.maximize();
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
 
@@ -202,7 +162,6 @@
 
         on(GetStationLyrToggle, "change", function(){
           map.removeLayer(pinpointLayer);
-
           if (GetTempLyrToggle.checked == true)
           {
             GetTempLyrToggle.checked = false;
@@ -222,23 +181,42 @@
               }
           }       
 
-           gl_attr.visible = GetStationLyrToggle.checked;
-            if (gl_attr.visible == true) {
-            var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-            var i = 0;;
-              while(gl_attr.graphics[i] != null){
-                gl_attr.graphics[i].setSymbol(tempSymbol);
-                i++;
-              }
-              //document.getElementById('searchForFawn').style.display = 'block';
-            }else{
-              var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
-              //document.getElementById('searchForFawn').style.display = 'none';
+          gl_attr.visible = GetStationLyrToggle.checked;
+          if (gl_attr.visible == true) {
+          var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          var i = 0;;
+            while(gl_attr.graphics[i] != null){
+              gl_attr.graphics[i].setSymbol(tempSymbol);
+              i++;
             }
+            //document.getElementById('searchForFawn').style.display = 'block';
+          }else{
+            var b = 0;
+            while(gl_attr.graphics[b] != null){
+              gl_attr.graphics[b].setSymbol(null);
+              b++;
+            }
+            //document.getElementById('searchForFawn').style.display = 'none';
+          }
+
+          $(document).ready(function() {
+              $(".esriPopupWrapper").draggable({
+                  // containment:"parent",
+                  handle: ".titlePane",
+                  start: function() {
+                  // $(".esriPopupWrapper").css({"bottom": "null"});
+                  }
+              });
+              var width = $('#map').width(); // working
+              var height = $('#map').height();
+              // var point = new Point(-50,50);
+              popup.resize(0.6 * width, 0.6 * height); // working
+              // popup.location
+              $('.maximize').remove(); // it works !
+              $('.pointer').remove();  // also works !
+              $('.outerPointer').remove();
+          })
+
         })
 
         on(GetTempLyrToggle, "change", function(){
@@ -472,5 +450,5 @@
                 b++;
               }
             } 
-        }); 
+        });    
   });

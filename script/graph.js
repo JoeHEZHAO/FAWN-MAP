@@ -3,17 +3,20 @@ $(document).ready(function() {
         // close other tag and open graph
         openTag(evt, TagName);
 
-        // $(".esriPopupWrapper").draggable({
-        //     containment:"parent",
-        //     //once starting drag, the div disappear
-        //       // start: function() {
-        //       // $(".esriPopup .outerPointer.left").remove();
-        //       // $(".esriPopup .pointer.bottom").remove();
-        //       // $(".esriPopup .pointer").remove();
-        //       // $(".esriPopup .outerPointer").remove();
-        //       // $(".esriPopupWrapper").css({"bottom": "null"});
-        //       // }
-        // });
+        $(".esriPopupWrapper").draggable({
+            // containment:"parent",
+            //once starting drag, the div disappear
+              start: function() {
+              // $(".esriPopup .outerPointer.left").remove();
+              // $(".esriPopup .pointer.bottom").remove();
+              // $(".esriPopup .pointer").remove();
+              // $(".esriPopup .outerPointer").remove();
+              // $(".esriPopupWrapper").css({"bottom": "null"});
+
+              $('.maximize').remove(); // it works !
+  
+              }
+        });
 
           //divs inside does not have effect, try to figure it out.
           // $(".esriPopupWrapper").resizable({
@@ -42,13 +45,12 @@ $(document).ready(function() {
             // console.log(chartData);
           var chart = new Highcharts.StockChart({
               chart: {
-                  // renderTo: 'graph',
                   renderTo: renderDiv,
                   zoomType: 'x'
               },
-              rangeSelector : {
-                selected : 1
-              },
+              // rangeSelector : {
+              //   selected : 0
+              // },
               title: {
                 text: title
               },

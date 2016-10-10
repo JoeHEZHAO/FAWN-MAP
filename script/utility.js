@@ -174,86 +174,14 @@ require([
 
   loadDataGenerateLayerFawn = {
       getDataCreateLayer : function(url, graphLayer){
-        var template =
-            {
-              "name" : "New Feature",
-              "description" : "",
-              "drawingTool" : "esriFeatureEditToolPoint",
-              "prototype" : {
-                "attributes" : {
-                  "bp2m" : null,
-                  "county" : null,
-                  "dailyAvgTempF" : null,
-                  "dailyMinTempF" : null,
-                  "dailyTotalRainInch" : null,
-                  "dateTimes" : null,
-                  "dewPoint2mF" : null,
-                  "elevation_feet" : null,
-                  "etInch" : null,
-                  "facility" : null,
-                  "fcstEndTime" : null,
-                  "fcstStartTime" : null,
-                  "freeze_keyword": null,
-                  "isFresh": null,
-                  "lat": null,
-                  "lng": null,
-                  "nws_office": null,
-                  "radar_keyword": null,
-                  "rainFall2mInch": null,
-                  "relHum2mPct": null,
-                  "soilTemp10cmF": null,
-                  "stnID": null
-                }
-              }
-           };
-
-        var stdID = "stnID";
-        var _rendererFields = [];
-        _rendererFields.push(stdID);
-        // _rendererFields.push("a");
-        var fields = [
-          {
-            alias : "lng",
-            editable : true,
-            length: 1000,
-            name: "lng",
-            nullable: true,
-            type: "esriFieldTypeString"
-          },
-          {
-            alias : "lat",
-            editable : true,
-            length: 1000,
-            name: "lat",
-            nullable: true,
-            type: "esriFieldTypeString"
-          },
-          {
-            alias : "stnID",
-            editable : true,
-            length: 1000,
-            name: "stnID",
-            nullable: true,
-            type: "esriFieldTypeString"
-          },
-        ];
-        var stnName = [];
         $.getJSON(url, function(data){
 
             for (var i = 0; i < data.stnsWxData.length ;i++)
             {
               graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-              featureLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
               // console.log("'" + data.stnsWxData[i].stnName + "'");
             };
-            featureLayer.fields = fields;
-            featureLayer._rendererFields = _rendererFields;
-            featureLayer.objectIdField = "lat";
-            featureLayer.renderer["attributeField"] = "stnID";
-            featureLayer.templates[0] = template;
             // console.log(stnName);
-
-            // console.log(featureLayer.graphics[1].attributes);
             function addAttr(lng,lat,json)
             {
               var p = new Point(lng,lat);
@@ -266,40 +194,4 @@ require([
         })
       }
   };
-
-
-
-  // $(document).ready(function() {
-  //   loadDataGenerateLayerFdacswx = {
-  //     getDataCreateLayer : function(url_1, url_12, graphLayer){
-  //       $.when(
-  //         $.getJSON(url_1),
-  //         $.getJSON(url_12)
-  //         ).done(function(result1, result2) {
-  //           for(var i = 0; i < result1.length; i++){
-  //             if(result1[i].station_name == result2[i].station_name)
-  //             {
-  //               console.log("a");
-  //               // console.log(result2[i].grower_name);
-  //               var json = result1[i];
-  //               json["grower_name"]  = result2[i].grower_name;
-  //               graphLayer.add(addAttr(result1[i].longitude, result1[i].latitude, json));
-  //             }
-  //           }
-  //         });
-
-  //     function addAttr(lng,lat,json)
-  //       {
-  //         var p = new Point(lng,lat);
-  //           //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-  //         var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
-  //         var attr = json;
-  //         var g = new Graphic(p,t,attr);
-  //         return g;
-  //       }
-  //     }
-  //   }
-  // });
-
-
   })
