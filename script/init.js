@@ -1,4 +1,5 @@
     // map is global for other js file to use
+    var popup;
       require([
         "esri/map",
         "esri/dijit/Search",
@@ -14,28 +15,27 @@
         "esri/graphic",
         "esri/layers/FeatureLayer",
         "esri/layers/GraphicsLayer",
+        "dojo/dnd/Moveable",
         "dojo/dom",
-        "dojo/on",
         "dojo/ready",
         "dojo/query",
+        "dojo/on",
+        "dojo/dom-class",
+        "dojo/_base/connect",
         "dojo/domReady!"
       ], function(
-        Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol, Graphic,FeatureLayer, GraphicsLayer,dom,on,ready,query
+        Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol, Graphic,FeatureLayer, GraphicsLayer, Moveable, dom,ready,query, on,domClass, connect
       ) {
 
       var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
 
       var lastestDataNameFdacswx = ['station_id', 'date_time', 'dry_bulb_air_temp', 'wet_bulb_temp', 'humidity', 'wind_speed', 'wind_direction', 'rainfall', 'latitude', 'longitude', 'total_rain_inche_since_installed', 'start_date_of_total_rain', 'station_name', 'vendor_name', 'time_zone', 'solar_radiation', 'et', 'solar_radiation_field_name', 'minutes_old', 'hasET', 'hasSolarRadiation', 'hasRemote', 'hasSoilMoisture', 'standard_date_time', 'fresh', 'grower_name'];
-        var point = new Point(-50,50);
-        //var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
-         popup = new Popup({
-            titleInBody: true,
-            // anchor: "auto",
-            offsetX:1,
-            offsetY:1,
-            location: point
-            //popupWindow : false  // －－－determine if a window shoule be displayed
-         }, domConstruct.create("div"));
+
+        var point = new Point(0,0);
+        popup = new Popup({
+          titleInBody: true,
+          anchor : "auto",
+        }, domConstruct.create("div"));
 
         // create map and layers
         map = new Map("map", {
@@ -145,7 +145,7 @@
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
 
     // console.log(glAttrFdacswx);
-    popup.resize(600,400);
+    // popup.resize(600,400);
     // popup.maximize();
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
@@ -198,25 +198,6 @@
             }
             //document.getElementById('searchForFawn').style.display = 'none';
           }
-
-          $(document).ready(function() {
-              $(".esriPopupWrapper").draggable({
-                  // containment:"parent",
-                  handle: ".titlePane",
-                  start: function() {
-                  // $(".esriPopupWrapper").css({"bottom": "null"});
-                  }
-              });
-              var width = $('#map').width(); // working
-              var height = $('#map').height();
-              // var point = new Point(-50,50);
-              popup.resize(0.6 * width, 0.6 * height); // working
-              // popup.location
-              $('.maximize').remove(); // it works !
-              $('.pointer').remove();  // also works !
-              $('.outerPointer').remove();
-          })
-
         })
 
         on(GetTempLyrToggle, "change", function(){
@@ -450,5 +431,81 @@
                 b++;
               }
             } 
-        });    
+        });   
+
+        // function for drag and a little modify
+        function draggable(){
+          $(document).ready(function() {     
+              $(".esriPopupWrapper").draggable({
+                  handle: ".titlePane",
+                  start: function() {
+                  // 
+                  }
+              });
+              // var width = $('#map').width();
+              // var height = $('#map').height();
+              
+
+              // popup.resize(0.5 * width, 0.5 * height); // working
+              // var point = new Point(-81.379234,28.53833); // location property is for map coordinates
+              // popup.location = point;
+              // console.log(popup);
+              
+
+              // popup.location
+              $('.pointer').remove();  // also works !
+              $('.outerPointer').remove();
+              // var style = {
+              //   'min-height': 0.5 * height
+              // }
+              // $('.contentPane').css(style); // sucessfully set up min-height style to popup
+              // $(".esriPopupWrapper").css({"bottom": "null"});
+          })
+        }
+
+
+        function draggableUsingDojo(){
+
+            var handle = query(".titlePane", map.infoWindow.domNode)[0];
+            var dnd = new Moveable(map.infoWindow.domNode, {
+                handle: handle
+            });
+            on(dnd, 'FirstMove', function() {
+
+
+            }.bind(this));
+        }
+        draggableUsingDojo();
+
+        connect.connect(popup,"onShow",function(){
+          // var width = $('#map').width();
+          // var height = $('#map').height();
+          popup.maximize();
+
+          query(".outerPointer").style("display", "none");
+          query(".pointer").style("display", "none");
+          query(".restore").style("display","none");
+
+        });
+
+
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
