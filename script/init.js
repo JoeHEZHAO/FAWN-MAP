@@ -20,11 +20,12 @@
         "dojo/ready",
         "dojo/query",
         "dojo/on",
+        "dojo/dom-style",
         "dojo/dom-class",
         "dojo/_base/connect",
         "dojo/domReady!"
       ], function(
-        Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol, Graphic,FeatureLayer, GraphicsLayer, Moveable, dom,ready,query, on,domClass, connect
+        Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol, Graphic,FeatureLayer, GraphicsLayer, Moveable, dom,ready,query, on,domStyle, domClass, connect
       ) {
 
       var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
@@ -87,7 +88,7 @@
       }
 
       var popupTemplateGenerateFadacswx = {
-          title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{longitude} ／ lat:{latitude}</h4></div>",
+          title : "<div class='title'><h1>StationName:  {station_name}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{longitude} ／ lat:{latitude}</h4></div>",
           descriptionStart : "<ul class='tab'>" +
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChartFdacswx(event, &#39;graph&#39;, {station_id})'>Graph</a></li>" +
@@ -145,7 +146,7 @@
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
 
     // console.log(glAttrFdacswx);
-    // popup.resize(600,400);
+    popup.resize(600,400);
     // popup.maximize();
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
@@ -478,15 +479,53 @@
         draggableUsingDojo();
 
         connect.connect(popup,"onShow",function(){
-          // var width = $('#map').width();
-          // var height = $('#map').height();
-          popup.maximize();
+          var height;
+          var width;
+          $(document).ready(function() {
+            width = $("#map").width();
+            height = $('#map').height();
+          })
 
-          query(".outerPointer").style("display", "none");
-          query(".pointer").style("display", "none");
+          if (width > 800 && height > 800) {
+            width = width * (width - 800) /width / 2 - 25;
+            height = height * (height - 700) / height / 2 - 25;
+          }
+          
+          popup.maximize();
+          popup.resize(800,600);
+
+          query(".esriPopupWrapper").style({
+            left : width + "px",
+            top : height + "px"
+          });
+
+          // console.log(popup);
           query(".restore").style("display","none");
 
         });
+
+        // connect.connect(popup,"onSelectionChange",function(){
+        //   console.log("123");
+        //   // var height;
+        //   // var width;
+
+        //   // $(document).ready(function() {
+        //   //   width = $("#map").width();
+        //   //   height = $('#map').height();
+        //   // })
+        //   // console.log("123");
+        //   // width = width * 0.3;
+        //   // height = height * 0.16;
+
+        //   popup.maximize();
+        //   // popup.resize(800,600);
+        //   // query(".esriPopupWrapper").style({
+        //   //   left : width + "px",
+        //   //   top : height + "px"
+        //   // });
+
+        //   // query(".restore").style("display","none");
+        // });
 
 
   });

@@ -2,38 +2,9 @@ $(document).ready(function() {
     addBarChart = function(evt,TagName, stdID){
         // close other tag and open graph
         openTag(evt, TagName);
-
-        // $(".esriPopupWrapper").draggable({
-        //     // containment:"parent",
-        //     //once starting drag, the div disappear
-        //       start: function() {
-        //       // $(".esriPopup .outerPointer.left").remove();
-        //       // $(".esriPopup .pointer.bottom").remove();
-        //       // $(".esriPopup .pointer").remove();
-        //       // $(".esriPopup .outerPointer").remove();
-        //       // $(".esriPopupWrapper").css({"bottom": "null"});
-
-        //       $('.maximize').remove(); // it works !
-  
-        //       }
-        // });
-
-          //divs inside does not have effect, try to figure it out.
-          // $(".esriPopupWrapper").resizable({
-
-          // })
-
-          // $(".esriPopupWrapper").resizables();
-
-
-          // $(".esriPopup .outerPointer.left").remove();
-
-          // $(".esriPopup .pointer.bottomLeft").css({"bottom": "9px", "position": "relative"});
-          // works !!
-          // $(".esriPopup .pointer.bottom").css({"bottom": "9px", "position": "relative"});
-          // $(".esriPopup .outerPointer.left").css({"position": "relative"});
-
-          // console.log(url5_1 + stdID + url5_2);
+        getChart('temp2mF_FAWN', 'temp2fts', 'temp2fts');
+        getChart('rainFall2mInch_FAWN', 'rainFall', 'rainFall');
+        getChart('wetBulbF_FAWN', 'wetBulbTemp', 'wetBulbTemp');
 
       function getChart(renderDiv, target, title){
          var chartData = [];
@@ -48,9 +19,34 @@ $(document).ready(function() {
                   renderTo: renderDiv,
                   zoomType: 'x'
               },
-              // rangeSelector : {
-              //   selected : 0
-              // },
+              rangeSelector : {
+                // enabled : false
+                buttons: [{
+                    type: 'hour',
+                    count: 4,
+                    text: '1h'
+                  }, {
+                    type: 'hour',
+                    count: 12,
+                    text: '12h'
+                  }, {
+                    type: 'hour',
+                    count: 24,
+                    text: '24h'
+                  }, {
+                    type: 'day',
+                    count: 1,
+                    text: '1d'
+                  }, {
+                    type: 'day',
+                    count: 3,
+                    text: '3d'
+                  }, {
+                    type: 'day',
+                    count : 7,
+                    text: '7d'
+                }]
+              },
               title: {
                 text: title
               },
@@ -59,11 +55,10 @@ $(document).ready(function() {
               },
               xAxis: {
                 type: 'datetime',
-                // categories : date
               },
               yAxis: {
                   title: {
-                    text: 'Temperature (°F)'
+                    text: 'Graphic Weather Data (Temperature °F)'
                   }
               },
               series: [{
@@ -72,21 +67,18 @@ $(document).ready(function() {
                   tooltip: {
                     valueDecimals: 2
                   }
-              }]
+              }],
             });
 
             if (title == 'temp2fts') {
-              chart.yAxis[0].setExtremes(65,95);
+              chart.yAxis[0].setExtremes(50,95);
             }else if(title == 'wetBulbTemp'){
-              chart.yAxis[0].setExtremes(65,85);
+              chart.yAxis[0].setExtremes(50,85);
             }else{
               chart.yAxis[0].setExtremes(-5,5);
             }
          });
     }
-    getChart('temp2mF_FAWN', 'temp2fts', 'temp2fts');
-    getChart('rainFall2mInch_FAWN', 'rainFall', 'rainFall');
-    getChart('wetBulbF_FAWN', 'wetBulbTemp', 'wetBulbTemp');
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons
@@ -118,7 +110,28 @@ $(document).ready(function() {
                   zoomType: 'x'
               },
               rangeSelector : {
-                selected : 1
+                // enabled : false
+                buttons: [{
+                    type: 'hour',
+                    count: 4,
+                    text: '1h'
+                  }, {
+                    type: 'hour',
+                    count: 12,
+                    text: '12h'
+                  }, {
+                    type: 'hour',
+                    count: 24,
+                    text: '24h'
+                  }, {
+                    type: 'day',
+                    count: 3,
+                    text: '3d'
+                  }, {
+                    type: 'day',
+                    count : 7,
+                    text: '7d'
+                }]
               },
               title: {
                 text: title
