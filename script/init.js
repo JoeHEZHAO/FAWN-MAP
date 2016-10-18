@@ -62,9 +62,9 @@
           descriptionEnd:
              "</div>"
              +  "<div id='graph' class='owl-carousel tabcontent'>"
-             +  "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>"
-             +  "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>"
-             +  "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>"
+             +    "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>"
+             +    "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>"
+             +    "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>"
              +  "</div>"
              +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>"
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
@@ -486,21 +486,24 @@
             height = $('#map').height();
           })
 
-          if (width > 800 && height > 800) {
-            width = width * (width - 800) /width / 2 - 25;
-            height = height * (height - 700) / height / 2 - 25;
-          }
+          // if (width > 800 && height > 800) {
+          //   var width1 = width * (width - 800) /width / 2 - 25;
+          //   var height1 = height * (height - 700) / height / 2 - 25;
+          // }
           
           popup.maximize();
-          popup.resize(800,600);
+          popup.resize(width * 0.6, height * 0.6);
 
           query(".esriPopupWrapper").style({
-            left : width + "px",
-            top : height + "px"
+            left : ( width - (width * 0.6) )/ 2 - 25 + "px",
+            top : ( width - (width * 0.6) )/ 5 - 25 + "px",
           });
-
-          // console.log(popup);
           query(".restore").style("display","none");
+          query(".esriViewPopup").style("height", "100%");
+
+          // $(document).ready(function() {
+          //   $(".esriPopupWrapper").resizeable();
+          // })
 
         });
 

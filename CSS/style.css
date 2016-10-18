@@ -329,6 +329,8 @@ html, body, {
 
 .map_change{
   right: 20%;
+  /*float: left;*/
+  width: 80%;
 }
 
 .panel_change{
@@ -479,7 +481,6 @@ ul.tab li a:focus, .active {background-color: #ccc;}
     /*background-color: rgba(255,255,255,1);*/
     padding:8px;
 }
-
 
 #draggable {
 width: 195px;

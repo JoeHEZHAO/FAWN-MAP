@@ -2,11 +2,11 @@ $(document).ready(function() {
     addBarChart = function(evt,TagName, stdID){
         // close other tag and open graph
         openTag(evt, TagName);
-        getChart('temp2mF_FAWN', 'temp2fts', 'temp2fts');
-        getChart('rainFall2mInch_FAWN', 'rainFall', 'rainFall');
-        getChart('wetBulbF_FAWN', 'wetBulbTemp', 'wetBulbTemp');
+        getChart('temp2mF_FAWN', 'temp2fts', 'Dry Bulb Temperature', 'Temperature °F');
+        getChart('rainFall2mInch_FAWN', 'rainFall', 'Rain Fall', 'Inch');
+        getChart('wetBulbF_FAWN', 'wetBulbTemp', 'Wet Bulb Temperature', 'Temperature °F');
 
-      function getChart(renderDiv, target, title){
+      function getChart(renderDiv, target, title, yAxisTitle){
          var chartData = [];
 
          $.getJSON(url4 + stdID, function(data){
@@ -50,16 +50,13 @@ $(document).ready(function() {
               title: {
                 text: title
               },
-              subtitle: {
-                text: title
-              },
               xAxis: {
                 type: 'datetime',
               },
               yAxis: {
                   title: {
-                    text: 'Graphic Weather Data (Temperature °F)'
-                  }
+                    text: yAxisTitle
+                  }    
               },
               series: [{
                   Name: 'FAWN',
@@ -70,14 +67,15 @@ $(document).ready(function() {
               }],
             });
 
-            if (title == 'temp2fts') {
-              chart.yAxis[0].setExtremes(50,95);
-            }else if(title == 'wetBulbTemp'){
-              chart.yAxis[0].setExtremes(50,85);
-            }else{
-              chart.yAxis[0].setExtremes(-5,5);
-            }
+            // if (title == 'Dry Bulb Temperature') {
+            //   chart.yAxis[0].setExtremes(50,95);
+            // }else if(title == 'Wet Bulb Temperature'){
+            //   chart.yAxis[0].setExtremes(50,85);
+            // }else{
+            //   chart.yAxis[0].setExtremes(-5,5);
+            // }
          });
+         // chart.setSize(800, 600);
     }
 
     $(".owl-carousel").owlCarousel({
@@ -94,7 +92,7 @@ $(document).ready(function() {
         // close other tag and open graph
       openTag(evt, TagName);
 
-      function getChart(renderDiv, target, title){
+      function getChart(renderDiv, target, title, yAxisTitle){
          var chartData = [];
          $.getJSON(url3 + stdID + url3_1, function(data){
           // console.log(data[0][target]);
@@ -136,17 +134,14 @@ $(document).ready(function() {
               title: {
                 text: title
               },
-              subtitle: {
-                text: title
-              },
               xAxis: {
                 type: 'datetime',
                 // categories : date
               },
               yAxis: {
                   title: {
-                    text: 'Temperature (°F)'
-                  }
+                    text: yAxisTitle
+                  }    
               },
               series: [{
                   Name: 'Fdacswx',
@@ -156,11 +151,12 @@ $(document).ready(function() {
                   }
               }]
             });
+          // chart.setSize(800, 600);
          });
     }
-    getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'dry_bulb_air_temp');
-    getChart('rainFall_Fdacswx', 'rainfall', 'rainfall');
-    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'wet_bulb_temp');
+    getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'Dry Bulb Air Temperature', 'Temperature °F');
+    getChart('rainFall_Fdacswx', 'rainfall', 'Rain Fall', 'Inch');
+    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'Wet Bulb Temperature', 'Temperature °F');
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons
