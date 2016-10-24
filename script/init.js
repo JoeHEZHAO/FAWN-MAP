@@ -492,9 +492,9 @@
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
               },
               resize: function(e,ui){
-                height = $('.esriPopupWrapper').height();
-                document.getElementsByClassName("sizer content")[0].style.height = height - 20 +"px";
-                document.getElementsByClassName("contentPane")[0].style.height = height - 36 +"px";
+                height_temp = $('.esriPopupWrapper').height();
+                document.getElementsByClassName("sizer content")[0].style.height = height_temp - 20 +"px";
+                document.getElementsByClassName("contentPane")[0].style.height = height_temp - 36 +"px";
               }
             });
           })
