@@ -32,7 +32,6 @@
 
       var lastestDataNameFdacswx = ['station_id', 'date_time', 'dry_bulb_air_temp', 'wet_bulb_temp', 'humidity', 'wind_speed', 'wind_direction', 'rainfall', 'latitude', 'longitude', 'total_rain_inche_since_installed', 'start_date_of_total_rain', 'station_name', 'vendor_name', 'time_zone', 'solar_radiation', 'et', 'solar_radiation_field_name', 'minutes_old', 'hasET', 'hasSolarRadiation', 'hasRemote', 'hasSoilMoisture', 'standard_date_time', 'fresh', 'grower_name'];
 
-        var point = new Point(0,0);
         popup = new Popup({
           titleInBody: true,
           anchor : "auto",
@@ -486,24 +485,42 @@
             height = $('#map').height();
           })
 
-          // if (width > 800 && height > 800) {
-          //   var width1 = width * (width - 800) /width / 2 - 25;
-          //   var height1 = height * (height - 700) / height / 2 - 25;
-          // }
-          
+          $(document).ready(function() {
+            $(".esriPopupWrapper").resizable({
+              start: function(e, ui) {
+                // alert("123"); working
+                document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
+              },
+              resize: function(e,ui){
+                height = $('.esriPopupWrapper').height();
+                document.getElementsByClassName("sizer content")[0].style.height = height - 20 +"px";
+                document.getElementsByClassName("contentPane")[0].style.height = height - 36 +"px";
+              }
+            });
+          })
+
           popup.maximize();
           popup.resize(width * 0.6, height * 0.6);
 
+          query(".restore").style("display","none");
+          query('.zoomTo').style("display", "none");
+          query('.sizer').style("width", "100%");
+          
+          query('.contentPane').style('max-height', 'none');
+          query(".contentPane").style("height", "100%");
+          
           query(".esriPopupWrapper").style({
             left : ( width - (width * 0.6) )/ 2 - 25 + "px",
             top : ( width - (width * 0.6) )/ 5 - 25 + "px",
           });
-          query(".restore").style("display","none");
-          query(".esriViewPopup").style("height", "100%");
+          document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
+          document.getElementsByClassName("sizer")[2].style.display = "none"; // successfully delete the third sizer div
+          // document.getElementsByClassName("sizer content")[0].style.height = "100%";
 
-          // $(document).ready(function() {
-          //   $(".esriPopupWrapper").resizeable();
-          // })
+
+          
+          
+          // query('.sizer').style("height", "100%");
 
         });
 
