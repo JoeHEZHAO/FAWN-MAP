@@ -1,10 +1,26 @@
 $(document).ready(function() {
+  var stdID_global;
+    // changeGraph = function(){
+    //   console.log(data);
+    // }
+  // changeGraph = function(){
+  //   var e = document.getElementById("selectBar");
+  //   console.log(e.options[e.selectedIndex].value);
+  //   getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F');
+  // }
     addBarChart = function(evt,TagName, stdID){
+        stdID_global = stdID;
         // close other tag and open graph
         openTag(evt, TagName);
-        getChart('temp2mF_FAWN', 'temp2fts', 'Dry Bulb Temperature', 'Temperature °F');
-        getChart('rainFall2mInch_FAWN', 'rainFall', 'Rain Fall', 'Inch');
-        getChart('wetBulbF_FAWN', 'wetBulbTemp', 'Wet Bulb Temperature', 'Temperature °F');
+        getChart('graphRender', 'temp2fts', 'Dry Bulb Temperature', 'Temperature °F');
+        // getChart('rainFall2mInch_FAWN', 'rainFall', 'Rain Fall', 'Inch');
+        // getChart('wetBulbF_FAWN', 'wetBulbTemp', 'Wet Bulb Temperature', 'Temperature °F');
+
+      changeGraph = function(){
+        var e = document.getElementById("selectBar");
+        console.log(e.options[e.selectedIndex].value);
+        getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F');
+      }
 
       function getChart(renderDiv, target, title, yAxisTitle){
          var chartData = [];
