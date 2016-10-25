@@ -101,13 +101,13 @@
 
           descriptionEnd:
              "</div>"
-             +  "<div id='graph'>"
+             +  "<div id='graph' class='tabcontent'>"
              +    "<select id='selectBar' value='Dry Temperature' onchange='changeGraphFadacswx()'>"
              +       "<option value='dry_bulb_air_temp'> Dry Temperature </option>"
              +       "<option value='wet_bulb_temp'>  Wet Temperature</option>" 
              +       "<option value='rainfall'>  Rain Fall</option>"
              +    "</select>"
-             +    "<div id='graphRender' style='overflow:hidden'></div>"
+             +    "<div id='graphRender' style='overflow:hidden' class='graphRender'></div>"
              +  "</div>"
              +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>"
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"

@@ -673,3 +673,9 @@ background:rgba(255,255,255,0.2);
 .esriPopupWrapper .title {
     cursor: move;
 }
+
+.graphRender {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
