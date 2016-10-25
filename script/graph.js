@@ -16,7 +16,7 @@ $(document).ready(function() {
         // getChart('rainFall2mInch_FAWN', 'rainFall', 'Rain Fall', 'Inch');
         // getChart('wetBulbF_FAWN', 'wetBulbTemp', 'Wet Bulb Temperature', 'Temperature °F');
 
-      changeGraph = function(){
+      changeGraphFAWN = function(){
         var e = document.getElementById("selectBar");
         console.log(e.options[e.selectedIndex].value);
         getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F');
@@ -108,6 +108,12 @@ $(document).ready(function() {
         // close other tag and open graph
       openTag(evt, TagName);
 
+      changeGraphFadacswx = function(){
+        var e = document.getElementById("selectBar");
+        console.log(e.options[e.selectedIndex].value);
+        getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F'); 
+      }
+
       function getChart(renderDiv, target, title, yAxisTitle){
          var chartData = [];
          $.getJSON(url3 + stdID + url3_1, function(data){
@@ -170,9 +176,9 @@ $(document).ready(function() {
           // chart.setSize(800, 600);
          });
     }
-    getChart('dryTemp_Fdacswx', 'dry_bulb_air_temp', 'Dry Bulb Air Temperature', 'Temperature °F');
-    getChart('rainFall_Fdacswx', 'rainfall', 'Rain Fall', 'Inch');
-    getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'Wet Bulb Temperature', 'Temperature °F');
+    getChart('graphRender', 'dry_bulb_air_temp', 'Dry Bulb Air Temperature', 'Temperature °F');
+    // getChart('rainFall_Fdacswx', 'rainfall', 'Rain Fall', 'Inch');
+    // getChart('wetTemp_Fdacswx', 'wet_bulb_temp', 'Wet Bulb Temperature', 'Temperature °F');
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons

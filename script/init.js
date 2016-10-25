@@ -61,7 +61,7 @@
           descriptionEnd:
              "</div>"
              +  "<div id='graph' class='tabcontent'>"
-             +    "<select id='selectBar' value='Dry Temperature' onchange='changeGraph()'>"
+             +    "<select id='selectBar' value='Dry Temperature' onchange='changeGraphFAWN()'>"
              +       "<option value='temp2fts'> Dry Temperature </option>"
              +       "<option value='wetBulbTemp'>  Wet Temperature</option>" 
              +       "<option value='rainFall'>  Rain Fall</option>"
@@ -101,10 +101,13 @@
 
           descriptionEnd:
              "</div>"
-             +  "<div id='graph' class='owl-carousel tabcontent'>"
-             +  "<div id='dryTemp_Fdacswx' style='overflow:hidden' value='graph'></div>"
-             +  "<div id='rainFall_Fdacswx' style='overflow:hidden'></div>"
-             +  "<div id='wetTemp_Fdacswx' style='overflow:hidden'></div>"
+             +  "<div id='graph'>"
+             +    "<select id='selectBar' value='Dry Temperature' onchange='changeGraphFadacswx()'>"
+             +       "<option value='dry_bulb_air_temp'> Dry Temperature </option>"
+             +       "<option value='wet_bulb_temp'>  Wet Temperature</option>" 
+             +       "<option value='rainfall'>  Rain Fall</option>"
+             +    "</select>"
+             +    "<div id='graphRender' style='overflow:hidden'></div>"
              +  "</div>"
              +  "<div id='forcast' class='tabcontent' style='background-color: white; display: none' ></div>"
              +  "<div id='Toolkit' class='tabcontent' style='background-color: white; display: none'>"
