@@ -486,48 +486,54 @@
         connect.connect(popup,"onShow",function(){
           var height;
           var width;
+          var heightPopup;
           $(document).ready(function() {
             width = $("#map").width();
             height = $('#map').height();
           })
+
+          popup.maximize();
+          popup.resize(width * 0.6 - 25, height * 0.6 - 25);
+
+          query(".restore").style("display","none");
+          query('.zoomTo').style("display", "none");
+          query('.sizer').style("width", "100%");
+
+          $(document).ready(function() {
+            heightPopup = $('.esriPopupWrapper').height();
+          })
+
+          query('.contentPane').style('max-height', ( heightPopup - 36 ) + "px");
+          query(".contentPane").style("height", "100%");
+          
+          // console.log(width);
+          query(".esriPopupWrapper").style({
+            left : ( width - (width * 0.6) )/ 2 - 25 + "px",
+            top : ( height - (height * 0.6) )/ 5 - 25 + "px",
+          });
+          document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
+          document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = height * 0.6 + "px";
+          document.getElementsByClassName("sizer")[2].style.display = "none"; // successfully delete the third sizer div
+          // document.getElementsByClassName("sizer content")[0].style.height = "100%";
+
 
           $(document).ready(function() {
             $(".esriPopupWrapper").resizable({
               start: function(e, ui) {
                 // alert("123"); working
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
+                document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
+
+                query('.contentPane').style('max-height', 'none');
+
               },
               resize: function(e,ui){
-                height_temp = $('.esriPopupWrapper').height();
+                var height_temp = $('.esriPopupWrapper').height();
                 document.getElementsByClassName("sizer content")[0].style.height = height_temp - 20 +"px";
                 document.getElementsByClassName("contentPane")[0].style.height = height_temp - 36 +"px";
               }
             });
           })
-
-          popup.maximize();
-          popup.resize(width * 0.6, height * 0.6);
-
-          query(".restore").style("display","none");
-          query('.zoomTo').style("display", "none");
-          query('.sizer').style("width", "100%");
-          
-          query('.contentPane').style('max-height', 'none');
-          query(".contentPane").style("height", "100%");
-          
-          query(".esriPopupWrapper").style({
-            left : ( width - (width * 0.6) )/ 2 - 25 + "px",
-            top : ( width - (width * 0.6) )/ 5 - 25 + "px",
-          });
-          document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
-          document.getElementsByClassName("sizer")[2].style.display = "none"; // successfully delete the third sizer div
-          document.getElementsByClassName("sizer content")[0].style.height = "100%";
-
-
-          
-          
-          // query('.sizer').style("height", "100%");
-
         });
 
         // connect.connect(popup,"onSelectionChange",function(){
