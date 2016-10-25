@@ -14,57 +14,57 @@ $(document).ready(function() {
               chartData.push([data[target][i][0], data[target][i][1]]);
             };
             // console.log(chartData);
-          var chart = new Highcharts.StockChart({
-              chart: {
-                  renderTo: renderDiv,
-                  zoomType: 'x'
-              },
-              rangeSelector : {
-                // enabled : false
-                buttons: [{
-                    type: 'hour',
-                    count: 4,
-                    text: '1h'
-                  }, {
-                    type: 'hour',
-                    count: 12,
-                    text: '12h'
-                  }, {
-                    type: 'hour',
-                    count: 24,
-                    text: '24h'
-                  }, {
-                    type: 'day',
-                    count: 1,
-                    text: '1d'
-                  }, {
-                    type: 'day',
-                    count: 3,
-                    text: '3d'
-                  }, {
-                    type: 'day',
-                    count : 7,
-                    text: '7d'
-                }]
-              },
-              title: {
-                text: title
-              },
-              xAxis: {
-                type: 'datetime',
-              },
-              yAxis: {
-                  title: {
-                    text: yAxisTitle
-                  }    
-              },
-              series: [{
-                  Name: 'FAWN',
-                  data: chartData,
-                  tooltip: {
-                    valueDecimals: 2
-                  }
-              }],
+            var chart = new Highcharts.StockChart({
+                chart: {
+                    renderTo: renderDiv,
+                    zoomType: 'x'
+                },
+                rangeSelector : {
+                  // enabled : false
+                  buttons: [{
+                      type: 'hour',
+                      count: 4,
+                      text: '1h'
+                    }, {
+                      type: 'hour',
+                      count: 12,
+                      text: '12h'
+                    }, {
+                      type: 'hour',
+                      count: 24,
+                      text: '24h'
+                    }, {
+                      type: 'day',
+                      count: 1,
+                      text: '1d'
+                    }, {
+                      type: 'day',
+                      count: 3,
+                      text: '3d'
+                    }, {
+                      type: 'day',
+                      count : 7,
+                      text: '7d'
+                  }]
+                },
+                title: {
+                  text: title
+                },
+                xAxis: {
+                  type: 'datetime',
+                },
+                yAxis: {
+                    title: {
+                      text: yAxisTitle
+                    }    
+                },
+                series: [{
+                    Name: 'FAWN',
+                    data: chartData,
+                    tooltip: {
+                      valueDecimals: 2
+                    }
+                }],
             });
 
             // if (title == 'Dry Bulb Temperature') {

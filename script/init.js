@@ -60,7 +60,12 @@
 
           descriptionEnd:
              "</div>"
-             +  "<div id='graph' class='owl-carousel tabcontent'>"
+             +  "<div id='graph' class='tabcontent'>"
+             +    "<select id='selectBar' value='Dry Temperature'>"
+             +       "<option value='Dry Temperature'> Dry Temperature </option>"
+             +       "<option value='Dry Temperature'> Wet Temperature </option>"
+             +       "<option value='Dry Temperature'> Rain Fall </option>"
+             +    "</select>"
              +    "<div id='temp2mF_FAWN' style='overflow:hidden' value='graph'></div>"
              +    "<div id='rainFall2mInch_FAWN' style='overflow:hidden'></div>"
              +    "<div id='wetBulbF_FAWN' style='overflow:hidden'></div>"
@@ -515,7 +520,7 @@
           });
           document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
           document.getElementsByClassName("sizer")[2].style.display = "none"; // successfully delete the third sizer div
-          // document.getElementsByClassName("sizer content")[0].style.height = "100%";
+          document.getElementsByClassName("sizer content")[0].style.height = "100%";
 
 
           
