@@ -137,8 +137,12 @@
       infoTemplate: templateFawn,
       outFields:["*"],
       // minScale: 1,
-      showAttribution: true
+      // showAttribution: true
     });
+
+    gl_attr_temp = new GraphicsLayer({
+      outFields:["*"],
+    })
 
     glAttrFdacswx = new GraphicsLayer({
       infoTemplate: templateFdacswx,
@@ -150,13 +154,17 @@
     });
 
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
+    loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr_temp); // for now
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
 
-    // console.log(glAttrFdacswx);
+    // $(document).ready(function() {
+    //   gl_attr_temp = $.extend({}, gl_attr, {}); 
+    // })
     popup.resize(600,400);
     // popup.maximize();
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
+    map.addLayer(gl_attr_temp);
 
         // fawn checkbox
         var GetStationLyrToggle = dom.byId("GetStation");
@@ -202,98 +210,91 @@
               i++;
             }
             //document.getElementById('searchForFawn').style.display = 'block';
+            query("#TemperatureLayerFawn").style("display","block");
+            query("#WindSpeedLayerFawn").style("display","block");
           }else{
             var b = 0;
             while(gl_attr.graphics[b] != null){
               gl_attr.graphics[b].setSymbol(null);
+              gl_attr_temp.graphics[b].setSymbol(null);
               b++;
             }
+            query("#TemperatureLayerFawn").style("display","none");
+            query("#WindSpeedLayerFawn").style("display","none");
             //document.getElementById('searchForFawn').style.display = 'none';
-          }
-        })
-
-        on(GetStationLyrToggle, "change", function(){
-          map.removeLayer(pinpointLayer);
-          if (GetTempLyrToggle.checked == true)
-          {
-            GetTempLyrToggle.checked = false;
-            var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
-          }
-           
-          if (GetWindSpeedLyrToggle.checked == true) {
-            GetWindSpeedLyrToggle.checked = false;
-            var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
-          }       
-
-          gl_attr.visible = GetStationLyrToggle.checked;
-          if (gl_attr.visible == true) {
-          var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
-          var i = 0;;
-            while(gl_attr.graphics[i] != null){
-              gl_attr.graphics[i].setSymbol(tempSymbol);
-              i++;
-            }
-            //document.getElementById('searchForFawn').style.display = 'block';
-          }else{
-            var b = 0;
-            while(gl_attr.graphics[b] != null){
-              gl_attr.graphics[b].setSymbol(null);
-              b++;
-            }
-            //document.getElementById('searchForFawn').style.display = 'none';
-          }
-        })
-
-        on(GetTempLyrToggle, "change", function(){
-            map.removeLayer(pinpointLayer);
-
-            // GetTempFdacswx.checked = false;
-            // var b = 0;
-            //   while(glAttrFdacswx.graphics[b] != null){
-            //     glAttrFdacswx.graphics[b].setSymbol(null);
-            //     b++;
-            //   }
-            //document.getElementById('searchForFadacs').style.display = 'none';
-          if (GetStationLyrToggle.checked == true) {
-              GetStationLyrToggle.checked = false;
-              var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
           }
           
+
+        })
+
+        // on(GetStationLyrToggle, "change", function(){
+        //   map.removeLayer(pinpointLayer);
+        //   if (GetTempLyrToggle.checked == true)
+        //   {
+        //     GetTempLyrToggle.checked = false;
+        //     var b = 0;
+        //       while(gl_attr.graphics[b] != null){
+        //         gl_attr.graphics[b].setSymbol(null);
+        //         b++;
+        //       }
+        //   }
+           
+        //   if (GetWindSpeedLyrToggle.checked == true) {
+        //     GetWindSpeedLyrToggle.checked = false;
+        //     var b = 0;
+        //       while(gl_attr.graphics[b] != null){
+        //         gl_attr.graphics[b].setSymbol(null);
+        //         b++;
+        //       }
+        //   }       
+
+        //   gl_attr.visible = GetStationLyrToggle.checked;
+        //   if (gl_attr.visible == true) {
+        //   var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+        //   var i = 0;;
+        //     while(gl_attr.graphics[i] != null){
+        //       gl_attr.graphics[i].setSymbol(tempSymbol);
+        //       i++;
+        //     }
+        //     //document.getElementById('searchForFawn').style.display = 'block';
+        //   }else{
+        //     var b = 0;
+        //     while(gl_attr.graphics[b] != null){
+        //       gl_attr.graphics[b].setSymbol(null);
+        //       b++;
+        //     }
+        //     //document.getElementById('searchForFawn').style.display = 'none';
+        //   }
+        // })
+
+        on(GetTempLyrToggle, "change", function(){
+          map.removeLayer(pinpointLayer);
+       
           if (GetWindSpeedLyrToggle.checked == true) {
               GetWindSpeedLyrToggle.checked = false;
               var b = 0;
               while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
+                gl_attr_temp.graphics[b].setSymbol(null);
                 b++;
               }
           }
 
-            gl_attr.visible = GetTempLyrToggle.checked;
-            if (gl_attr.visible == true) {
-            //var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("red");
+            gl_attr_temp.visible = GetTempLyrToggle.checked;
+            if (gl_attr_temp.visible == true) {
             var i = 0;;
-              while(gl_attr.graphics[i] != null){
-                var t = new TextSymbol(gl_attr.graphics[i].attributes.temp10mF).setColor("purple").setHaloSize(20);
-                gl_attr.graphics[i].setSymbol(t);
+              while(gl_attr_temp.graphics[i] != null){
+                gl_attr_temp.graphics[i] = gl_attr_temp.graphics[i];
+                var t = new TextSymbol(gl_attr_temp.graphics[i].attributes.temp10mF).setColor("purple").setHaloSize(20);
+                t.xoffset = 0;
+                t.yoffset = 10;
+                gl_attr_temp.graphics[i].setSymbol(t);
                 i++;
               }
               //document.getElementById('searchForFawn').style.display = 'block';
             }else{
               var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
+              while(gl_attr_temp.graphics[b] != null){
+                gl_attr_temp.graphics[b].setSymbol(null);
                 b++;
               }
               //document.getElementById('searchForFawn').style.display = 'none';
@@ -310,38 +311,40 @@
             //     b++;
             //   }
             //document.getElementById('searchForFadacs').style.display = 'none';
-          if (GetStationLyrToggle.checked == true) {
-              GetStationLyrToggle.checked = false;
-              var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
-                b++;
-              }
-          }
+          // if (GetStationLyrToggle.checked == true) {
+          //     GetStationLyrToggle.checked = false;
+          //     var b = 0;
+          //     while(gl_attr.graphics[b] != null){
+          //       gl_attr.graphics[b].setSymbol(null);
+          //       b++;
+          //     }
+          // }
           
           if (GetTempLyrToggle.checked == true) {
               GetTempLyrToggle.checked = false;
               var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
+              while(gl_attr_temp.graphics[b] != null){
+                gl_attr_temp.graphics[b].setSymbol(null);
                 b++;
               }
           }
 
-            gl_attr.visible = GetWindSpeedLyrToggle.checked;
-            if (gl_attr.visible == true) {
+            gl_attr_temp.visible = GetWindSpeedLyrToggle.checked;
+            if (gl_attr_temp.visible == true) {
             //var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("red");
             var i = 0;;
-              while(gl_attr.graphics[i] != null){
-                var t = new TextSymbol(gl_attr.graphics[i].attributes.windSpeed10mMph).setColor("purple").setHaloSize(20);
-                gl_attr.graphics[i].setSymbol(t);
+              while(gl_attr_temp.graphics[i] != null){
+                var t = new TextSymbol(gl_attr_temp.graphics[i].attributes.windSpeed10mMph).setColor("purple").setHaloSize(20);
+                t.xoffset = 0;
+                t.yoffset = 10;
+                gl_attr_temp.graphics[i].setSymbol(t);
                 i++;
               }
               //document.getElementById('searchForFawn').style.display = 'block';
             }else{
               var b = 0;
-              while(gl_attr.graphics[b] != null){
-                gl_attr.graphics[b].setSymbol(null);
+              while(gl_attr_temp.graphics[b] != null){
+                gl_attr_temp.graphics[b].setSymbol(null);
                 b++;
               }
               //document.getElementById('searchForFawn').style.display = 'none';
@@ -486,29 +489,25 @@
         });   
 
         // function for drag and a little modify
-        function draggable(){
-          $(document).ready(function() {     
-              $(".esriPopupWrapper").draggable({
-                  handle: ".titlePane",
-                  start: function() {
-                  // 
-                  }
-              });
-              $('.pointer').remove();
-              $('.outerPointer').remove();
-          })
-        }
-
+        // function draggable(){
+        //   $(document).ready(function() {     
+        //       $(".esriPopupWrapper").draggable({
+        //           handle: ".titlePane",
+        //           start: function() {
+        //           // 
+        //           }
+        //       });
+        //       $('.pointer').remove();
+        //       $('.outerPointer').remove();
+        //   })
+        // }
 
         function draggableUsingDojo(){
-
             var handle = query(".titlePane", map.infoWindow.domNode)[0];
             var dnd = new Moveable(map.infoWindow.domNode, {
                 handle: handle
             });
             on(dnd, 'FirstMove', function() {
-
-
             }.bind(this));
         }
         draggableUsingDojo();
