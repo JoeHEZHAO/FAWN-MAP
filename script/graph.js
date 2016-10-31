@@ -1,3 +1,4 @@
+var chart;
 $(document).ready(function() {
   var stdID_global;
     // changeGraph = function(){
@@ -30,7 +31,7 @@ $(document).ready(function() {
               chartData.push([data[target][i][0], data[target][i][1]]);
             };
             // console.log(chartData);
-            var chart = new Highcharts.StockChart({
+             chart = new Highcharts.StockChart({
                 chart: {
                     renderTo: renderDiv,
                     zoomType: 'x'
@@ -123,7 +124,7 @@ $(document).ready(function() {
               chartData.push([data[i].date_time, float]);
             };
             // console.log(chartData);
-          var chart = new Highcharts.StockChart({
+           chart = new Highcharts.StockChart({
               chart: {
                   // renderTo: 'graph',
                   renderTo: renderDiv,

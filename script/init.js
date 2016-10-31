@@ -136,12 +136,16 @@
     gl_attr = new GraphicsLayer({
       infoTemplate: templateFawn,
       outFields:["*"],
-      // minScale: 1,
+
       // showAttribution: true
     });
 
     gl_attr_temp = new GraphicsLayer({
       outFields:["*"],
+      minScale: 18489297,
+      // maxScale: 2011162
+      // minScale: 3,
+      // maxScale: 7
     })
 
     glAttrFdacswx = new GraphicsLayer({
@@ -149,13 +153,22 @@
       outFields:["*"],
     });
 
+    glAttrFdacswxTemp = new GraphicsLayer({
+      outFields:["*"],
+      minScale: 2311162,
+      maxScale: 72223
+    });
+
     pinpointLayer = new GraphicsLayer({
       outFields:["*"],
     });
 
+    // console.log(map);
+
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr_temp); // for now
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
+    loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswxTemp);
 
     // $(document).ready(function() {
     //   gl_attr_temp = $.extend({}, gl_attr, {}); 
@@ -165,19 +178,21 @@
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
     map.addLayer(gl_attr_temp);
+    map.addLayer(glAttrFdacswxTemp);
 
         // fawn checkbox
-        var GetStationLyrToggle = dom.byId("GetStation");
+        // var GetStationLyrToggle = dom.byId("GetStation");
         var GetTempLyrToggle = dom.byId("GetTemp");
         var GetWindSpeedLyrToggle = dom.byId("GetWindSpeed");
 
         //fadacswx checkbox
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
-        var GetStationFdacswx = dom.byId("GetStationFdacswx");
+        // var GetStationFdacswx = dom.byId("GetStationFdacswx");
         var GetWindSpeedFdacswx = dom.byId("GetWindSpeedFdacswx");
 
         //fawn overall control checkbox
         var FawnControlBox = dom.byId('openDropdownMenuFawn');
+        var FdacswxControlBox = dom.byId('openDropdownMenuFdacswx');
 
         on(FawnControlBox, 'change', function(){
           map.removeLayer(pinpointLayer);
@@ -212,13 +227,14 @@
             //document.getElementById('searchForFawn').style.display = 'block';
             query("#TemperatureLayerFawn").style("display","block");
             query("#WindSpeedLayerFawn").style("display","block");
+            gl_attr_temp.show();// = true; // change to delete layer 
           }else{
             var b = 0;
             while(gl_attr.graphics[b] != null){
               gl_attr.graphics[b].setSymbol(null);
-              gl_attr_temp.graphics[b].setSymbol(null);
               b++;
             }
+            gl_attr_temp.hide();
             query("#TemperatureLayerFawn").style("display","none");
             query("#WindSpeedLayerFawn").style("display","none");
             //document.getElementById('searchForFawn').style.display = 'none';
@@ -361,44 +377,90 @@
             //     b++;
             //   }
             //document.getElementById('searchForFawn').style.display = 'none';
-            if (GetStationFdacswx.checked == true) {
-                GetStationFdacswx.checked = false;
-                var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
-                  b++;
-                }
-            }
+            // if (GetStationFdacswx.checked == true) {
+            //     GetStationFdacswx.checked = false;
+            //     var b = 0;
+            //     while(glAttrFdacswxTemp.graphics[b] != null){
+            //       glAttrFdacswxTemp.graphics[b].setSymbol(null);
+            //       b++;
+            //     }
+            // }
           
             if (GetWindSpeedFdacswx.checked == true) {
                 GetWindSpeedFdacswx.checked = false;
                 var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
+                while(glAttrFdacswxTemp.graphics[b] != null){
+                  glAttrFdacswxTemp.graphics[b].setSymbol(null);
                   b++;
                 }
             }
 
-            glAttrFdacswx.visible = GetTempFdacswx.checked;
-            if (glAttrFdacswx.visible == true) {
+            glAttrFdacswxTemp.visible = GetTempFdacswx.checked;
+            if (glAttrFdacswxTemp.visible == true) {
             // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
-              while(glAttrFdacswx.graphics[i] != null){
-                var t = new TextSymbol(glAttrFdacswx.graphics[i].attributes.dry_bulb_air_temp).setColor("green").setHaloSize(20);
-                glAttrFdacswx.graphics[i].setSymbol(t);
+              while(glAttrFdacswxTemp.graphics[i] != null){
+                var t = new TextSymbol(glAttrFdacswxTemp.graphics[i].attributes.dry_bulb_air_temp).setColor("green").setHaloSize(20);
+                t.yoffset = 10;
+                glAttrFdacswxTemp.graphics[i].setSymbol(t);
                 i++;
               }
             }else{
               var b = 0;
-              while(glAttrFdacswx.graphics[b] != null){
-                glAttrFdacswx.graphics[b].setSymbol(null);
+              while(glAttrFdacswxTemp.graphics[b] != null){
+                glAttrFdacswxTemp.graphics[b].setSymbol(null);
                 b++;
               }
             } 
         });
 
-        on(GetStationFdacswx, "change", function(){
-            map.removeLayer(pinpointLayer);
+        // on(GetStationFdacswx, "change", function(){
+        //     map.removeLayer(pinpointLayer);
+
+        //     // GetTempLyrToggle.checked = false;
+        //     // var b = 0;
+        //     //   while(gl_attr.graphics[b] != null){
+        //     //     gl_attr.graphics[b].setSymbol(null);
+        //     //     b++;
+        //     //   }
+        //     //document.getElementById('searchForFawn').style.display = 'none';
+        //     if (GetTempFdacswx.checked == true) {
+        //         GetTempFdacswx.checked = false;
+        //         var b = 0;
+        //         while(glAttrFdacswx.graphics[b] != null){
+        //           glAttrFdacswx.graphics[b].setSymbol(null);
+        //           b++;
+        //         }
+        //     }
+          
+        //     if (GetWindSpeedFdacswx.checked == true) {
+        //         GetWindSpeedFdacswx.checked = false;
+        //         var b = 0;
+        //         while(glAttrFdacswx.graphics[b] != null){
+        //           glAttrFdacswx.graphics[b].setSymbol(null);
+        //           b++;
+        //         }
+        //     }
+
+        //     glAttrFdacswx.visible = GetStationFdacswx.checked;
+        //     if (glAttrFdacswx.visible == true) {
+        //     var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
+        //     var i = 0;
+        //       while(glAttrFdacswx.graphics[i] != null){
+        //         glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
+        //         i++;
+        //       }
+        //     }else{
+        //       var b = 0;
+        //       while(glAttrFdacswx.graphics[b] != null){
+        //         glAttrFdacswx.graphics[b].setSymbol(null);
+        //         b++;
+        //       }
+        //     } 
+        // });   
+
+        on(FdacswxControlBox, 'change', function() {
+          map.removeLayer(pinpointLayer);
 
             // GetTempLyrToggle.checked = false;
             // var b = 0;
@@ -407,25 +469,7 @@
             //     b++;
             //   }
             //document.getElementById('searchForFawn').style.display = 'none';
-            if (GetTempFdacswx.checked == true) {
-                GetTempFdacswx.checked = false;
-                var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
-                  b++;
-                }
-            }
-          
-            if (GetWindSpeedFdacswx.checked == true) {
-                GetWindSpeedFdacswx.checked = false;
-                var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
-                  b++;
-                }
-            }
-
-            glAttrFdacswx.visible = GetStationFdacswx.checked;
+            glAttrFdacswx.visible = FdacswxControlBox.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
@@ -433,14 +477,20 @@
                 glAttrFdacswx.graphics[i].setSymbol(tempSymbol);
                 i++;
               }
+              query("#TemperatureLayerFdacswx").style("display","block");
+              query("#WindSpeedLayerFdacswx").style("display","block");
+              glAttrFdacswxTemp.show();
             }else{
               var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
                 glAttrFdacswx.graphics[b].setSymbol(null);
                 b++;
               }
+              query("#TemperatureLayerFdacswx").style("display","none");
+              query("#WindSpeedLayerFdacswx").style("display","none");
+              glAttrFdacswxTemp.hide();
             } 
-        });   
+        })
 
         on(GetWindSpeedFdacswx, "change", function(){
             map.removeLayer(pinpointLayer);
@@ -452,37 +502,38 @@
             //     b++;
             //   }
             //document.getElementById('searchForFawn').style.display = 'none';
+            // if (GetTempFdacswx.checked == true) {
+            //     GetTempFdacswx.checked = false;
+            //     var b = 0;
+            //     while(glAttrFdacswx.graphics[b] != null){
+            //       glAttrFdacswx.graphics[b].setSymbol(null);
+            //       b++;
+            //     }
+            // }
+          
             if (GetTempFdacswx.checked == true) {
                 GetTempFdacswx.checked = false;
                 var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
-                  b++;
-                }
-            }
-          
-            if (GetStationFdacswx.checked == true) {
-                GetStationFdacswx.checked = false;
-                var b = 0;
-                while(glAttrFdacswx.graphics[b] != null){
-                  glAttrFdacswx.graphics[b].setSymbol(null);
+                while(glAttrFdacswxTemp.graphics[b] != null){
+                  glAttrFdacswxTemp.graphics[b].setSymbol(null);
                   b++;
                 }
             }
 
-            glAttrFdacswx.visible = GetWindSpeedFdacswx.checked;
-            if (glAttrFdacswx.visible == true) {
+            glAttrFdacswxTemp.visible = GetWindSpeedFdacswx.checked;
+            if (glAttrFdacswxTemp.visible == true) {
             // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
-              while(glAttrFdacswx.graphics[i] != null){
-                var t = new TextSymbol(glAttrFdacswx.graphics[i].attributes.wind_speed).setColor("green").setHaloSize(20);
-                glAttrFdacswx.graphics[i].setSymbol(t);
+              while(glAttrFdacswxTemp.graphics[i] != null){
+                var t = new TextSymbol(glAttrFdacswxTemp.graphics[i].attributes.wind_speed).setColor("green").setHaloSize(20);
+                t.yoffset = 10;
+                glAttrFdacswxTemp.graphics[i].setSymbol(t);
                 i++;
               }
             }else{
               var b = 0;
-              while(glAttrFdacswx.graphics[b] != null){
-                glAttrFdacswx.graphics[b].setSymbol(null);
+              while(glAttrFdacswxTemp.graphics[b] != null){
+                glAttrFdacswxTemp.graphics[b].setSymbol(null);
                 b++;
               }
             } 
@@ -513,6 +564,7 @@
         draggableUsingDojo();
 
         connect.connect(popup,"onShow",function(){
+          console.log(map.getScale());
           var height;
           var width;
           var heightPopup;
@@ -557,7 +609,6 @@
           $(document).ready(function() {
             $(".esriPopupWrapper").resizable({
               start: function(e, ui) {
-                // alert("123"); working
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.maxWidth = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
@@ -568,13 +619,26 @@
               },
               resize: function(e,ui){
                 var height_temp = $('.esriPopupWrapper').height();
+                var width_temp = $('.esriPopupWrapper').width()
                 document.getElementsByClassName("sizer content")[0].style.height = height_temp - 20 +"px";
                 document.getElementsByClassName("contentPane")[0].style.height = height_temp - 36 +"px";
               },
+              stop: function(e,ui){
+                var height_temp = $('.esriPopupWrapper').height();
+                var width_temp = $('.esriPopupWrapper').width()
+                chart.setSize(width_temp - 36, height_temp - 20, doAnimation = true);
+              }
             });
           })
-
+          delete gl_attr.infoTemplate;
+          delete glAttrFdacswx.infoTemplate;
         });
+
+        connect.connect(popup,"onHide",function(){
+            console.log("123");
+            gl_attr.infoTemplate = templateFawn;
+            glAttrFdacswx.infoTemplate = templateFdacswx;
+        })
   });
 
 
