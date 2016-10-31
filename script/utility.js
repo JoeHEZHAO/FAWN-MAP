@@ -1,5 +1,3 @@
-
-
   function openTag(evt, TagName){
           var i, tablecontent, tablinks;
 
@@ -15,6 +13,25 @@
           }
           document.getElementById(TagName).style.display = "block";
           evt.currentTarget.className += "active";
+  }
+
+  function openSearchBar(x){
+    if (x.id == "searchBarForFadacs") 
+    {
+      if (document.getElementById("searchForFadacs").style.display == 'none'){
+          document.getElementById("searchForFadacs").style.display = "block";
+      }else{
+          document.getElementById("searchForFadacs").style.display = "none";
+      } 
+    }
+    else
+    {
+      if (document.getElementById("searchForFawn").style.display == 'none'){
+          document.getElementById("searchForFawn").style.display = "block";
+      }else{
+          document.getElementById("searchForFawn").style.display = "none";
+      } 
+    } 
   }
 
   function openForcast(evt, TagName, lng, lat){

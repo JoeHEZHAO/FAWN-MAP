@@ -43,22 +43,27 @@
         </div>
         <div id="myDropdown" class="dropdown-content">
         <div class="tabs" ng-app="myApp" ng-controller="myCtrl">
-      <ul>
-        <li>
-            <a href="#" class="tablinks" onclick="openMenu(event, 'FAWN')">FAWN</a>
-            <!-- <span href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</span> -->
-        </li>
-        <li>
-          <a href="#" class="tablinks" onclick="openMenu(event, 'Fdacswx')">Fdacswx</a>
-        </li>
-        <li>
-          <a href="#" class="tablinks" onclick="openMenu(event, 'NOAA')">NOAA</a>
-        </li>
-      </ul>
+            <ul>
+              <li>
+                  <a href="#" class="tablinks" onclick="openMenu(event, 'FAWN')">FAWN</a>
+                  <!-- <span href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</span> -->
+              </li>
+              <li>
+                <a href="#" class="tablinks" onclick="openMenu(event, 'Fdacswx')">Fdacswx</a>
+              </li>
+              <li>
+                <a href="#" class="tablinks" onclick="openMenu(event, 'NOAA')">NOAA</a>
+              </li>
+            </ul>
 
       <!-- checkboxes on side_menu_col start-->
 
       <div id="FAWN" class="side_menu_tabcontent">
+
+        <div>
+          <input type="checkbox" name="openDropdownMenuFawn" id="openDropdownMenuFawn" unchecked>
+          <span>Fawn Weather Data Info</span>
+        </div>
 
          <!-- station layer checkbox menu begin-->
 
@@ -96,8 +101,12 @@
 
         <!-- WindSpeed Layer checkbox end -->
 
+        <div style="width: 100%;height: 20%; max-height: 70px; position: relative;background-color: grey;border: 1px solid #797979">
+            <input type="button" name="search" id="searchBarForFAWN" onclick="openSearchBar(this)">Search for Grower and Satation</input>
+        </div>
+
         <!-- fawn search bar starts-->
-          <div id="searchForFawn" style="display:block;">
+          <div id="searchForFawn" style="display:none;">
             <br><label>Station:</label><br>
             <select ng-model="SelectedstationName2" ng-options="value for value in fawnStationName" style="max-width: 150px"
             style="overflow:hidden" >
@@ -146,21 +155,27 @@
         <!-- WindSpeed Layer checkbox ends -->
 
         <!-- Fadacswx search bar starts -->
-          <div id="searchForFadacs" style="display: block;">
-            <br><label>Grower:</label><br>
-            <select ng-model="selectedGrowerName" ng-options="y for y in growerNames" style="max-width: 150px" ng-change="onChanged(selectedGrowerName)"
-            style="overflow:hidden" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
-              <option value="">-- Grower Name --</option>
-            </select>
+          <div style="width: 100%;height: 20%; max-height: 70px; position: relative;background-color: grey;border: 1px solid #797979">
+            
+                <input type="button" name="search" id="searchBarForFadacs" onclick="openSearchBar(this)">Search for Grower and Satation</input>
+       
+          </div>
 
-            <br><label>Station:</label><br>
-            <select ng-model="SelectedstationName1" ng-options="value for value in stationName" style="max-width: 150px"
-            style="overflow:hidden" >
-              <option value="">-- Station Name --</option>
-            </select>
+          <div id="searchForFadacs" style="display: none;">
+              <br><label>Grower:</label><br>
+              <select ng-model="selectedGrowerName" ng-options="y for y in growerNames" style="max-width: 150px" ng-change="onChanged(selectedGrowerName)"
+              style="overflow:hidden" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                <option value="">-- Grower Name --</option>
+              </select>
 
-            <br/><br/>
-            <input type="button" ng-click="submitFadacs(selectedGrowerName, SelectedstationName1)" name="submit" value="submit"/>
+              <br><label>Station:</label><br>
+              <select ng-model="SelectedstationName1" ng-options="value for value in stationName" style="max-width: 150px"
+              style="overflow:hidden" >
+                <option value="">-- Station Name --</option>
+              </select>
+
+              <br/><br/>
+              <input type="button" ng-click="submitFadacs(selectedGrowerName, SelectedstationName1)" name="submit" value="submit"/>
           </div>
         <!-- Fadacswx search bar ends -->
 
@@ -174,9 +189,13 @@
         </ul>
       </div>
 
+      <div id="searchDropDown">
+        
+      </div>
 
-        </div>
-        </div>
+
+    </div>
+  </div>
 
           <!-- start map and panel  -->
       <div class="map_and_panel" id="map_and_panel">

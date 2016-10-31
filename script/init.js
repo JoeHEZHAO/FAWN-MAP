@@ -136,6 +136,8 @@
     gl_attr = new GraphicsLayer({
       infoTemplate: templateFawn,
       outFields:["*"],
+      // minScale: 1,
+      showAttribution: true
     });
 
     glAttrFdacswx = new GraphicsLayer({
@@ -165,6 +167,50 @@
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
         var GetStationFdacswx = dom.byId("GetStationFdacswx");
         var GetWindSpeedFdacswx = dom.byId("GetWindSpeedFdacswx");
+
+        //fawn overall control checkbox
+        var FawnControlBox = dom.byId('openDropdownMenuFawn');
+
+        on(FawnControlBox, 'change', function(){
+          map.removeLayer(pinpointLayer);
+          // below part is setting two button exclusive to each other.
+            // if (FawnControlBox.checked == true)
+            // {
+            //   FawnControlBox.checked = false;
+            //   var b = 0;
+            //     while(gl_attr.graphics[b] != null){
+            //       gl_attr.graphics[b].setSymbol(null);
+            //       b++;
+            //     }
+            // }
+             
+            // if (FawnControlBox.checked == true) {
+            //   FawnControlBox.checked = false;
+            //   var b = 0;
+            //     while(gl_attr.graphics[b] != null){
+            //       gl_attr.graphics[b].setSymbol(null);
+            //       b++;
+            //     }
+            // }       
+
+          gl_attr.visible = FawnControlBox.checked;
+          if (gl_attr.visible == true) {
+          var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+          var i = 0;;
+            while(gl_attr.graphics[i] != null){
+              gl_attr.graphics[i].setSymbol(tempSymbol);
+              i++;
+            }
+            //document.getElementById('searchForFawn').style.display = 'block';
+          }else{
+            var b = 0;
+            while(gl_attr.graphics[b] != null){
+              gl_attr.graphics[b].setSymbol(null);
+              b++;
+            }
+            //document.getElementById('searchForFawn').style.display = 'none';
+          }
+        })
 
         on(GetStationLyrToggle, "change", function(){
           map.removeLayer(pinpointLayer);
@@ -448,24 +494,8 @@
                   // 
                   }
               });
-              // var width = $('#map').width();
-              // var height = $('#map').height();
-              
-
-              // popup.resize(0.5 * width, 0.5 * height); // working
-              // var point = new Point(-81.379234,28.53833); // location property is for map coordinates
-              // popup.location = point;
-              // console.log(popup);
-              
-
-              // popup.location
-              $('.pointer').remove();  // also works !
+              $('.pointer').remove();
               $('.outerPointer').remove();
-              // var style = {
-              //   'min-height': 0.5 * height
-              // }
-              // $('.contentPane').css(style); // sucessfully set up min-height style to popup
-              // $(".esriPopupWrapper").css({"bottom": "null"});
           })
         }
 
@@ -487,42 +517,52 @@
           var height;
           var width;
           var heightPopup;
+          var minHeight;
           $(document).ready(function() {
             width = $("#map").width();
             height = $('#map').height();
           })
 
-          popup.maximize();
+          popup.maximize(); // make sure is anchor is at (25, 25) position;
           popup.resize(width * 0.6 - 25, height * 0.6 - 25);
+
+          $('.esriPopupWrapper').css("min-height", height * 0.6 + "px"); // this line success for fix size
+          $('.esriPopupWrapper').css("max-height", height * 0.6 + "px"); 
+          $('.esriPopupWrapper').css("min-width", width * 0.6 + "px"); 
+          $('.esriPopupWrapper').css("max-width", width * 0.6 + "px"); 
 
           query(".restore").style("display","none");
           query('.zoomTo').style("display", "none");
           query('.sizer').style("width", "100%");
 
+          // // only problem here !!!!
           $(document).ready(function() {
             heightPopup = $('.esriPopupWrapper').height();
+        
+            document.getElementsByClassName("sizer content")[0].style.height = heightPopup - 20 + "px";
+            query('.contentPane').style('max-height', ( heightPopup - 36 ) + "px");
+            query(".contentPane").style("height", "100%");
           })
-
-          query('.contentPane').style('max-height', ( heightPopup - 36 ) + "px");
-          query(".contentPane").style("height", "100%");
-          
-          // console.log(width);
+   
+          // put popup in the middle
           query(".esriPopupWrapper").style({
             left : ( width - (width * 0.6) )/ 2 - 25 + "px",
             top : ( height - (height * 0.6) )/ 5 - 25 + "px",
           });
+
           document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
           document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = height * 0.6 + "px";
-          document.getElementsByClassName("sizer")[2].style.display = "none"; // successfully delete the third sizer div
-          // document.getElementsByClassName("sizer content")[0].style.height = "100%";
-
+          document.getElementsByClassName("sizer")[2].style.display = "none"; 
+          // successfully delete the third sizer div
 
           $(document).ready(function() {
             $(".esriPopupWrapper").resizable({
               start: function(e, ui) {
                 // alert("123"); working
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
+                document.getElementsByClassName("esriPopupWrapper")[0].style.maxWidth = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
+                document.getElementsByClassName("esriPopupWrapper")[0].style.maxHeight = null;
 
                 query('.contentPane').style('max-height', 'none');
 
@@ -531,35 +571,11 @@
                 var height_temp = $('.esriPopupWrapper').height();
                 document.getElementsByClassName("sizer content")[0].style.height = height_temp - 20 +"px";
                 document.getElementsByClassName("contentPane")[0].style.height = height_temp - 36 +"px";
-              }
+              },
             });
           })
+
         });
-
-        // connect.connect(popup,"onSelectionChange",function(){
-        //   console.log("123");
-        //   // var height;
-        //   // var width;
-
-        //   // $(document).ready(function() {
-        //   //   width = $("#map").width();
-        //   //   height = $('#map').height();
-        //   // })
-        //   // console.log("123");
-        //   // width = width * 0.3;
-        //   // height = height * 0.16;
-
-        //   popup.maximize();
-        //   // popup.resize(800,600);
-        //   // query(".esriPopupWrapper").style({
-        //   //   left : width + "px",
-        //   //   top : height + "px"
-        //   // });
-
-        //   // query(".restore").style("display","none");
-        // });
-
-
   });
 
 
