@@ -179,16 +179,38 @@ require([
               json["grower_name"]  = FdacswxStdGrowerFinder[data[i].station_name];
               graphLayer.add(addAttr(data[i].longitude, data[i].latitude, json));
             };
-        function addAttr(lng,lat,json)
-        {
-          var p = new Point(lng,lat);
-          var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
-          var attr = json;
-          var g = new Graphic(p,t,attr);
-          return g;
-        }
-          })
+
+            if (graphLayer.id == 'graphicsLayer4') {
+              console.log(graphLayer);
+              for(var i = 0; i < graphLayer.graphics.length; i++){
+                  if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10) {
+                    graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
+                  }
+              } 
+            }
+   
+            function addAttr(lng,lat,json)
+            {
+              var p = new Point(lng,lat);
+              var t = new TextSymbol(" ").setColor("green").setHaloSize(20);
+              var attr = json;
+              var g = new Graphic(p,t,attr);
+              return g;
+            }
+
+        })
       }
+      // ,
+      // mapDataFilter : function(graphLayer){
+      //   var i = 0;
+      //    while(graphLayer.graphics[i] != null){
+      //     console.log('123');
+      //     if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10) {
+      //       graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
+      //     }
+      //     i++;
+      //   }
+      // }
     }
 
   loadDataGenerateLayerFawn = {
@@ -200,6 +222,15 @@ require([
               graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
               // console.log("'" + data.stnsWxData[i].stnName + "'");
             };
+
+            if (graphLayer.id == 'graphicsLayer3') {
+              console.log(graphLayer);
+              for(var i = 0; i < graphLayer.graphics.length; i++){
+                  if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) {
+                    graphLayer.graphics[i].attributes.temp10mF = 0;
+                  }
+              } 
+            }
             // console.log(stnName);
             function addAttr(lng,lat,json)
             {
@@ -212,5 +243,26 @@ require([
             }
         })
       }
+      // ,
+      // mapDataFilter : function(graphLayer){
+      //   for(i = 0; i < graphLayer.graphics.length; i++){
+      //     if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) {
+      //       graphLayer.graphics[i].attributes.temp10mF = 0;
+      //     }
+      //   }
+      // }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
   })

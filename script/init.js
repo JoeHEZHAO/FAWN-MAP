@@ -143,9 +143,6 @@
     gl_attr_temp = new GraphicsLayer({
       outFields:["*"],
       minScale: 8000000,
-      // maxScale: 2011162
-      // minScale: 3,
-      // maxScale: 7
     })
 
     glAttrFdacswx = new GraphicsLayer({
@@ -156,7 +153,6 @@
     glAttrFdacswxTemp = new GraphicsLayer({
       outFields:["*"],
       minScale: 4000000,
-      // maxScale: 72223
     });
 
     pinpointLayer = new GraphicsLayer({
@@ -164,28 +160,25 @@
     });
 
     var featureLayer = new FeatureLayer(url_boundery, {
-          mode: FeatureLayer.MODE_SNAPSHOT,
+          mode: FeatureLayer.MODE_ONDEMAND,
           outFields: ["*"],
+          opacity : 0.5
     });
 
-
-    // console.log(map);
-
     loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr);
-    loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr_temp); // for now
+    loadDataGenerateLayerFawn.getDataCreateLayer(url6, gl_attr_temp);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswx);
     loadDataGenerateLayerFdacswx.getDataCreateLayer(url2, glAttrFdacswxTemp);
+    // loadDataGenerateLayerFawn.mapDataFilter(gl_attr_temp);
+    // loadDataGenerateLayerFdacswx.mapDataFilter(glAttrFdacswxTemp);
 
-    // $(document).ready(function() {
-    //   gl_attr_temp = $.extend({}, gl_attr, {}); 
-    // })
-    popup.resize(600,400);
-    // popup.maximize();
     map.addLayer(gl_attr);
     map.addLayer(glAttrFdacswx);
     map.addLayer(gl_attr_temp);
     map.addLayer(glAttrFdacswxTemp);
     map.addLayer(featureLayer);
+
+    // mapDataFilter(glAttrFdacswxTemp);
 
         // fawn checkbox
         // var GetStationLyrToggle = dom.byId("GetStation");
@@ -309,7 +302,7 @@
                 gl_attr_temp.graphics[i] = gl_attr_temp.graphics[i];
                 var t = new TextSymbol(gl_attr_temp.graphics[i].attributes.temp10mF).setColor("purple").setHaloSize(20);
                 t.xoffset = 0;
-                t.yoffset = 10;
+                t.yoffset = -20;
                 gl_attr_temp.graphics[i].setSymbol(t);
                 i++;
               }
@@ -359,7 +352,7 @@
               while(gl_attr_temp.graphics[i] != null){
                 var t = new TextSymbol(gl_attr_temp.graphics[i].attributes.windSpeed10mMph).setColor("purple").setHaloSize(20);
                 t.xoffset = 0;
-                t.yoffset = 10;
+                t.yoffset = -20;
                 gl_attr_temp.graphics[i].setSymbol(t);
                 i++;
               }
@@ -408,7 +401,7 @@
             var i = 0;
               while(glAttrFdacswxTemp.graphics[i] != null){
                 var t = new TextSymbol(glAttrFdacswxTemp.graphics[i].attributes.dry_bulb_air_temp).setColor("green").setHaloSize(20);
-                t.yoffset = 10;
+                t.yoffset = -20;
                 glAttrFdacswxTemp.graphics[i].setSymbol(t);
                 i++;
               }
@@ -533,7 +526,7 @@
             var i = 0;
               while(glAttrFdacswxTemp.graphics[i] != null){
                 var t = new TextSymbol(glAttrFdacswxTemp.graphics[i].attributes.wind_speed).setColor("green").setHaloSize(20);
-                t.yoffset = 10;
+                t.yoffset = -20;
                 glAttrFdacswxTemp.graphics[i].setSymbol(t);
                 i++;
               }
@@ -619,7 +612,6 @@
                 document.getElementsByClassName("esriPopupWrapper")[0].style.maxWidth = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.maxHeight = null;
-
                 query('.contentPane').style('max-height', 'none');
 
               },
@@ -632,7 +624,7 @@
               stop: function(e,ui){
                 var height_temp = $('.esriPopupWrapper').height();
                 var width_temp = $('.esriPopupWrapper').width()
-                chart.setSize(width_temp - 36, height_temp - 20, doAnimation = true);
+                chart.setSize(width_temp - 22, height_temp - 170, doAnimation = true);
               }
             });
           })
@@ -641,7 +633,6 @@
         });
 
         connect.connect(popup,"onHide",function(){
-            console.log("123");
             gl_attr.infoTemplate = templateFawn;
             glAttrFdacswx.infoTemplate = templateFdacswx;
         })

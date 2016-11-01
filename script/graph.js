@@ -83,17 +83,13 @@ $(document).ready(function() {
                     }
                 }],
             });
-
-            // if (title == 'Dry Bulb Temperature') {
-            //   chart.yAxis[0].setExtremes(50,95);
-            // }else if(title == 'Wet Bulb Temperature'){
-            //   chart.yAxis[0].setExtremes(50,85);
-            // }else{
-            //   chart.yAxis[0].setExtremes(-5,5);
-            // }
+            var height_temp = $('.esriPopupWrapper').height();
+            var width_temp = $('.esriPopupWrapper').width()
+            chart.setSize(width_temp - 36, height_temp - 168, doAnimation = true);      
          });
-         // chart.setSize(800, 600);
     }
+
+    
 
     $(".owl-carousel").owlCarousel({
           //  navigation : true, // Show next and prev buttons
@@ -174,7 +170,9 @@ $(document).ready(function() {
                   }
               }]
             });
-          // chart.setSize(800, 600);
+          var height_temp = $('.esriPopupWrapper').height();
+          var width_temp = $('.esriPopupWrapper').width()
+          chart.setSize(width_temp - 36, height_temp - 170, doAnimation = true); 
          });
     }
     getChart('graphRender', 'dry_bulb_air_temp', 'Dry Bulb Air Temperature', 'Temperature °F');
