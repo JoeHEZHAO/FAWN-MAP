@@ -142,7 +142,7 @@
 
     gl_attr_temp = new GraphicsLayer({
       outFields:["*"],
-      minScale: 18489297,
+      minScale: 8000000,
       // maxScale: 2011162
       // minScale: 3,
       // maxScale: 7
@@ -155,13 +155,19 @@
 
     glAttrFdacswxTemp = new GraphicsLayer({
       outFields:["*"],
-      minScale: 2311162,
-      maxScale: 72223
+      minScale: 4000000,
+      // maxScale: 72223
     });
 
     pinpointLayer = new GraphicsLayer({
       outFields:["*"],
     });
+
+    var featureLayer = new FeatureLayer(url_boundery, {
+          mode: FeatureLayer.MODE_SNAPSHOT,
+          outFields: ["*"],
+    });
+
 
     // console.log(map);
 
@@ -179,6 +185,7 @@
     map.addLayer(glAttrFdacswx);
     map.addLayer(gl_attr_temp);
     map.addLayer(glAttrFdacswxTemp);
+    map.addLayer(featureLayer);
 
         // fawn checkbox
         // var GetStationLyrToggle = dom.byId("GetStation");
@@ -564,7 +571,6 @@
         draggableUsingDojo();
 
         connect.connect(popup,"onShow",function(){
-          console.log(map.getScale());
           var height;
           var width;
           var heightPopup;
