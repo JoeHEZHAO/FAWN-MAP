@@ -382,22 +382,6 @@
         on(GetTempFdacswx, "change", function(){
             map.removeLayer(pinpointLayer);
 
-            // GetTempLyrToggle.checked = false;
-            // var b = 0;
-            //   while(gl_attr.graphics[b] != null){
-            //     gl_attr.graphics[b].setSymbol(null);
-            //     b++;
-            //   }
-            //document.getElementById('searchForFawn').style.display = 'none';
-            // if (GetStationFdacswx.checked == true) {
-            //     GetStationFdacswx.checked = false;
-            //     var b = 0;
-            //     while(glAttrFdacswxTemp.graphics[b] != null){
-            //       glAttrFdacswxTemp.graphics[b].setSymbol(null);
-            //       b++;
-            //     }
-            // }
-          
             if (GetWindSpeedFdacswx.checked == true) {
                 GetWindSpeedFdacswx.checked = false;
                 var b = 0;
@@ -407,12 +391,32 @@
                 }
             }
 
+            // initializing the visible when fire
+            for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
+              var p1 = new Point();
+              p1 = glAttrFdacswxTemp.graphics[i].geometry;
+              for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
+                  var p2 = new Point();
+                  p2 = glAttrFdacswxTemp.graphics[j].geometry;  
+            
+                  if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
+                  {
+                    glAttrFdacswxTemp.graphics[j].visible = false;
+                  }
+              }
+            }
+
             glAttrFdacswxTemp.visible = GetTempFdacswx.checked;
             if (glAttrFdacswxTemp.visible == true) {
-            // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
             var i = 0;
               while(glAttrFdacswxTemp.graphics[i] != null){
-                var t = new TextSymbol(glAttrFdacswxTemp.graphics[i].attributes.dry_bulb_air_temp).setColor("green").setHaloSize(30);
+                var temp = glAttrFdacswxTemp.graphics[i].attributes.dry_bulb_air_temp;
+                // if (temp.length > 4) {
+                //   temp = temp.substring(0,3);
+                // }
+                // console.log(temp.length);
+                // // temp = temp.toFixed(2);
+                var t = new TextSymbol(temp).setColor("green").setHaloSize(30);
                 t.yoffset = -20;
                 glAttrFdacswxTemp.graphics[i].setSymbol(t);
                 i++;
@@ -423,7 +427,7 @@
                 glAttrFdacswxTemp.graphics[b].setSymbol(null);
                 b++;
               }
-            } 
+            }   
         });
 
         // on(GetStationFdacswx, "change", function(){
@@ -577,36 +581,52 @@
 
         // MAP zoom event
         connect.connect(map,"onZoomEnd",function(){
+            var zoomScale = map.getZoom();
+            console.log(zoomScale);
 
             // initializing
             for(var k = 0; k < glAttrFdacswxTemp.graphics.length; k++){
               glAttrFdacswxTemp.graphics[k].visible = true;
             }
 
+            // calculating relative visible and invisible
             for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
               var p1 = new Point();
               p1 = glAttrFdacswxTemp.graphics[i].geometry;
+
               for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
-              var p2 = new Point();
+                  var p2 = new Point();
                   p2 = glAttrFdacswxTemp.graphics[j].geometry;  
 
-                  if (Math.abs(p1.x - p2.x) < 0.1 && Math.abs(p1.y - p2.y) < 0.1 && (p2.y - p1.y) > 0) {
-                    // console.log(Math.abs(p1.y - p2.y));
-                    // if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) * 1000 / (zoomScale) < 25)
-                    // {
-                    //   glAttrFdacswxTemp.graphics[i].visible = false;
-                    // }
-                    // continue;
-                    glAttrFdacswxTemp.graphics[j].visible = false;
+                  if (zoomScale == 8) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0){
+                      glAttrFdacswxTemp.graphics[j].visible = false;
+                    }
+                  }
+                  
+                  if (zoomScale == 9) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.075 && (p2.y - p1.y) > 0){
+                      glAttrFdacswxTemp.graphics[j].visible = false;
+                    }
                   }
 
-                  // var zoomScale = map.getZoom();
-                  // // console.log((Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)) * 1000 / zoomScale);
-                  // if(((Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)) * 1000 / (zoomScale)) < 25)
-                  // {
-                  //   // console.log((Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)) * 1000 / (zoomScale));
-                  //   glAttrFdacswxTemp.graphics[j].visible = false;
-                  // }
+                  if (zoomScale == 10) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.045 && (p2.y - p1.y) > 0){
+                      glAttrFdacswxTemp.graphics[j].visible = false;
+                    }
+                  }
+
+                  if (zoomScale == 11) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.025 && (p2.y - p1.y) > 0){
+                      glAttrFdacswxTemp.graphics[j].visible = false;
+                    }
+                  }
+
+                  if (zoomScale == 12) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.0001 && (p2.y - p1.y) > 0){
+                      glAttrFdacswxTemp.graphics[j].visible = false;
+                    }
+                  }
               }
             }
         })

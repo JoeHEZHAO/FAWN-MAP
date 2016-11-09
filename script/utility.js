@@ -181,9 +181,9 @@ require([
             };
 
             if (graphLayer.id == 'graphicsLayer4') {
-              // console.log(graphLayer);
               for(var i = 0; i < graphLayer.graphics.length; i++){
-                  if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10) {
+                  if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10)
+                  {
                     graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
                   }
               } 
@@ -200,17 +200,6 @@ require([
 
         })
       }
-      // ,
-      // mapDataFilter : function(graphLayer){
-      //   var i = 0;
-      //    while(graphLayer.graphics[i] != null){
-      //     console.log('123');
-      //     if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10) {
-      //       graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
-      //     }
-      //     i++;
-      //   }
-      // }
     }
 
   loadDataGenerateLayerFawn = {
@@ -220,22 +209,22 @@ require([
             for (var i = 0; i < data.stnsWxData.length ;i++)
             {
               graphLayer.add(addAttr(data.stnsWxData[i].lng, data.stnsWxData[i].lat, data.stnsWxData[i]));
-              // console.log("'" + data.stnsWxData[i].stnName + "'");
             };
 
-            if (graphLayer.id == 'graphicsLayer3') {
-              // console.log(graphLayer);
+            if (graphLayer.id == 'graphicsLayer3') 
+            {
               for(var i = 0; i < graphLayer.graphics.length; i++){
-                  if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) {
+                  if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) 
+                  {
                     graphLayer.graphics[i].attributes.temp10mF = 0;
                   }
               } 
             }
-            // console.log(stnName);
+
             function addAttr(lng,lat,json)
             {
               var p = new Point(lng,lat);
-                //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
+              //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
               var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
               var attr = json;
               var g = new Graphic(p,t,attr);
@@ -243,14 +232,6 @@ require([
             }
         })
       }
-      // ,
-      // mapDataFilter : function(graphLayer){
-      //   for(i = 0; i < graphLayer.graphics.length; i++){
-      //     if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) {
-      //       graphLayer.graphics[i].attributes.temp10mF = 0;
-      //     }
-      //   }
-      // }
   };
 
 
