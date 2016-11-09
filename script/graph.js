@@ -1,14 +1,6 @@
 var chart;
 $(document).ready(function() {
   var stdID_global;
-    // changeGraph = function(){
-    //   console.log(data);
-    // }
-  // changeGraph = function(){
-  //   var e = document.getElementById("selectBar");
-  //   console.log(e.options[e.selectedIndex].value);
-  //   getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F');
-  // }
     addBarChart = function(evt,TagName, stdID){
         stdID_global = stdID;
         // close other tag and open graph
@@ -19,7 +11,6 @@ $(document).ready(function() {
 
       changeGraphFAWN = function(){
         var e = document.getElementById("selectBar");
-        console.log(e.options[e.selectedIndex].value);
         getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F');
       }
 
@@ -107,7 +98,7 @@ $(document).ready(function() {
 
       changeGraphFadacswx = function(){
         var e = document.getElementById("selectBar");
-        console.log(e.options[e.selectedIndex].value);
+        // console.log(e.options[e.selectedIndex].value);
         getChart('graphRender', e.options[e.selectedIndex].value, e.options[e.selectedIndex].text, 'Temperature °F'); 
       }
 

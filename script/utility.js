@@ -181,7 +181,7 @@ require([
             };
 
             if (graphLayer.id == 'graphicsLayer4') {
-              console.log(graphLayer);
+              // console.log(graphLayer);
               for(var i = 0; i < graphLayer.graphics.length; i++){
                   if (graphLayer.graphics[i].attributes.dry_bulb_air_temp > 200 || graphLayer.graphics[i].attributes.dry_bulb_air_temp < -10) {
                     graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
@@ -224,7 +224,7 @@ require([
             };
 
             if (graphLayer.id == 'graphicsLayer3') {
-              console.log(graphLayer);
+              // console.log(graphLayer);
               for(var i = 0; i < graphLayer.graphics.length; i++){
                   if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) {
                     graphLayer.graphics[i].attributes.temp10mF = 0;
