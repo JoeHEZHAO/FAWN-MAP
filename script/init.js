@@ -496,6 +496,7 @@
               query("#TemperatureLayerFdacswx").style("display","block");
               query("#WindSpeedLayerFdacswx").style("display","block");
               glAttrFdacswxTemp.show();
+              glAttrFdacswxTemp.visible = true;
             }else{
               var b = 0;
               while(glAttrFdacswx.graphics[b] != null){
@@ -505,6 +506,7 @@
               query("#TemperatureLayerFdacswx").style("display","none");
               query("#WindSpeedLayerFdacswx").style("display","none");
               glAttrFdacswxTemp.hide();
+              glAttrFdacswxTemp.visible = false;
             } 
         })
 
@@ -536,6 +538,20 @@
                 }
             }
 
+            for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
+              var p1 = new Point();
+              p1 = glAttrFdacswxTemp.graphics[i].geometry;
+              for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
+                  var p2 = new Point();
+                  p2 = glAttrFdacswxTemp.graphics[j].geometry;  
+            
+                  if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
+                  {
+                    glAttrFdacswxTemp.graphics[j].visible = false;
+                  }
+              }
+            }
+
             glAttrFdacswxTemp.visible = GetWindSpeedFdacswx.checked;
             if (glAttrFdacswxTemp.visible == true) {
             // var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
@@ -555,79 +571,12 @@
             } 
         });   
 
-        // function for drag and a little modify
-        // function draggable(){
-        //   $(document).ready(function() {     
-        //       $(".esriPopupWrapper").draggable({
-        //           handle: ".titlePane",
-        //           start: function() {
-        //           // 
-        //           }
-        //       });
-        //       $('.pointer').remove();
-        //       $('.outerPointer').remove();
-        //   })
-        // }
-
-        function draggableUsingDojo(){
-            var handle = query(".titlePane", map.infoWindow.domNode)[0];
-            var dnd = new Moveable(map.infoWindow.domNode, {
-                handle: handle
-            });
-            on(dnd, 'FirstMove', function() {
-            }.bind(this));
-        }
-        draggableUsingDojo();
-
         // MAP zoom event
         connect.connect(map,"onZoomEnd",function(){
             var zoomScale = map.getZoom();
-            console.log(zoomScale);
-
-            // initializing
-            for(var k = 0; k < glAttrFdacswxTemp.graphics.length; k++){
-              glAttrFdacswxTemp.graphics[k].visible = true;
-            }
-
-            // calculating relative visible and invisible
-            for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
-              var p1 = new Point();
-              p1 = glAttrFdacswxTemp.graphics[i].geometry;
-
-              for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
-                  var p2 = new Point();
-                  p2 = glAttrFdacswxTemp.graphics[j].geometry;  
-
-                  if (zoomScale == 8) {
-                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0){
-                      glAttrFdacswxTemp.graphics[j].visible = false;
-                    }
-                  }
-                  
-                  if (zoomScale == 9) {
-                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.075 && (p2.y - p1.y) > 0){
-                      glAttrFdacswxTemp.graphics[j].visible = false;
-                    }
-                  }
-
-                  if (zoomScale == 10) {
-                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.045 && (p2.y - p1.y) > 0){
-                      glAttrFdacswxTemp.graphics[j].visible = false;
-                    }
-                  }
-
-                  if (zoomScale == 11) {
-                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.025 && (p2.y - p1.y) > 0){
-                      glAttrFdacswxTemp.graphics[j].visible = false;
-                    }
-                  }
-
-                  if (zoomScale == 12) {
-                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.0001 && (p2.y - p1.y) > 0){
-                      glAttrFdacswxTemp.graphics[j].visible = false;
-                    }
-                  }
-              }
+            if (glAttrFdacswxTemp.visible == true) {
+              console.log(glAttrFdacswxTemp.visible);
+              ZoomInOutScale(glAttrFdacswxTemp, zoomScale);
             }
         })
 
@@ -707,6 +656,78 @@
             gl_attr.infoTemplate = templateFawn;
             glAttrFdacswx.infoTemplate = templateFdacswx;
         })
+
+        // function for drag and a little modify
+        // function draggable(){
+        //   $(document).ready(function() {     
+        //       $(".esriPopupWrapper").draggable({
+        //           handle: ".titlePane",
+        //           start: function() {
+        //           // 
+        //           }
+        //       });
+        //       $('.pointer').remove();
+        //       $('.outerPointer').remove();
+        //   })
+        // }
+
+        function draggableUsingDojo(){
+            var handle = query(".titlePane", map.infoWindow.domNode)[0];
+            var dnd = new Moveable(map.infoWindow.domNode, {
+                handle: handle
+            });
+            on(dnd, 'FirstMove', function() {
+            }.bind(this));
+        }
+
+        draggableUsingDojo();
+
+        function ZoomInOutScale(layer, zoomScale){
+            for(var k = 0; k < layer.graphics.length; k++){
+              layer.graphics[k].visible = true;
+            }
+
+            // calculating relative visible and invisible
+            for(var i = 0; i < layer.graphics.length; i++){
+              var p1 = new Point();
+              p1 = layer.graphics[i].geometry;
+
+              for( var j = 0; j < layer.graphics.length; j++){ 
+                  var p2 = new Point();
+                  p2 = layer.graphics[j].geometry;  
+
+                  if (zoomScale == 8) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0){
+                      layer.graphics[j].visible = false;
+                    }
+                  }
+                  
+                  if (zoomScale == 9) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.075 && (p2.y - p1.y) > 0){
+                      layer.graphics[j].visible = false;
+                    }
+                  }
+
+                  if (zoomScale == 10) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.045 && (p2.y - p1.y) > 0){
+                      layer.graphics[j].visible = false;
+                    }
+                  }
+
+                  if (zoomScale == 11) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.025 && (p2.y - p1.y) > 0){
+                      layer.graphics[j].visible = false;
+                    }
+                  }
+
+                  if (zoomScale == 12) {
+                    if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.0001 && (p2.y - p1.y) > 0){
+                      layer.graphics[j].visible = false;
+                    }
+                  }
+              }
+            }
+        }
   });
 
 
