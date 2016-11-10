@@ -186,6 +186,14 @@ require([
                   {
                     graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
                   }
+
+                  if ( graphLayer.graphics[i].attributes.wind_speed != null && graphLayer.graphics[i].attributes.wind_speed.length > 4) {
+                    graphLayer.graphics[i].attributes.wind_speed = graphLayer.graphics[i].attributes.wind_speed.substring(0,4);
+                  }
+
+                  if ( graphLayer.graphics[i].attributes.dry_bulb_air_temp != null && graphLayer.graphics[i].attributes.dry_bulb_air_temp.length > 4) {
+                    graphLayer.graphics[i].attributes.dry_bulb_air_temp = graphLayer.graphics[i].attributes.dry_bulb_air_temp.substring(0,4);
+                  }
               } 
             }
    
@@ -213,18 +221,19 @@ require([
 
             if (graphLayer.id == 'graphicsLayer3') 
             {
-              for(var i = 0; i < graphLayer.graphics.length; i++){
+              for(var i = 0; i < graphLayer.graphics.length; i++){   
+
                   if (graphLayer.graphics[i].attributes.temp10mF > 200 || graphLayer.graphics[i].attributes.temp10mF < -10) 
                   {
                     graphLayer.graphics[i].attributes.temp10mF = 0;
                   }
+
               } 
             }
 
             function addAttr(lng,lat,json)
             {
               var p = new Point(lng,lat);
-              //var s = new SimpleMarkerSymbol().setSize(10).setColor("purple");
               var t = new TextSymbol(" ").setColor("red").setHaloSize(20);
               var attr = json;
               var g = new Graphic(p,t,attr);

@@ -188,6 +188,7 @@
     map.addLayer(gl_attr_temp);
     map.addLayer(glAttrFdacswxTemp);
     map.addLayer(featureLayer);
+    glAttrFdacswxTemp.visible = false;
 
     // mapDataFilter(glAttrFdacswxTemp);
 
@@ -198,7 +199,6 @@
 
         //fadacswx checkbox
         var GetTempFdacswx = dom.byId("GetTempFdacswx");
-        // var GetStationFdacswx = dom.byId("GetStationFdacswx");
         var GetWindSpeedFdacswx = dom.byId("GetWindSpeedFdacswx");
 
         //fawn overall control checkbox
@@ -228,10 +228,11 @@
             // }       
 
           gl_attr.visible = FawnControlBox.checked;
+          // console.log(gl_attr.visible);
           if (gl_attr.visible == true) {
-          var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
           var i = 0;;
             while(gl_attr.graphics[i] != null){
+              var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("purple");
               gl_attr.graphics[i].setSymbol(tempSymbol);
               i++;
             }
@@ -242,13 +243,13 @@
           }else{
             var b = 0;
             while(gl_attr.graphics[b] != null){
-              // gl_attr.graphics[b].setSymbol(null);
-              gl_attr.graphics[b].visible = false;
+              gl_attr.graphics[b].setSymbol(null);
+              // gl_attr.graphics[b].visible = false;
               b++;
             }
-            gl_attr_temp.hide();
             query("#TemperatureLayerFawn").style("display","none");
             query("#WindSpeedLayerFawn").style("display","none");
+            gl_attr_temp.hide();
             //document.getElementById('searchForFawn').style.display = 'none';
           }
           
@@ -297,7 +298,7 @@
 
         on(GetTempLyrToggle, "change", function(){
           map.removeLayer(pinpointLayer);
-          console.log(gl_attr_temp);
+          // console.log(gl_attr_temp);
           if (GetWindSpeedLyrToggle.checked == true) {
               GetWindSpeedLyrToggle.checked = false;
               var b = 0;
@@ -392,19 +393,22 @@
             }
 
             // initializing the visible when fire
-            for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
-              var p1 = new Point();
-              p1 = glAttrFdacswxTemp.graphics[i].geometry;
-              for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
-                  var p2 = new Point();
-                  p2 = glAttrFdacswxTemp.graphics[j].geometry;  
+            var zoomScale = map.getZoom();
+            ZoomInOutScale(glAttrFdacswxTemp, zoomScale);
+            // for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
+            //   var p1 = new Point();
+            //   p1 = glAttrFdacswxTemp.graphics[i].geometry;
+            //   for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
+            //       var p2 = new Point();
+            //       p2 = glAttrFdacswxTemp.graphics[j].geometry;  
             
-                  if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
-                  {
-                    glAttrFdacswxTemp.graphics[j].visible = false;
-                  }
-              }
-            }
+            //       if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
+            //       {
+            //         glAttrFdacswxTemp.graphics[j].visible = false;
+            //       }
+            //   }
+            // }
+
 
             glAttrFdacswxTemp.visible = GetTempFdacswx.checked;
             if (glAttrFdacswxTemp.visible == true) {
@@ -485,6 +489,11 @@
             //     b++;
             //   }
             //document.getElementById('searchForFawn').style.display = 'none';
+
+            // initizaling the visible points on map
+            var zoomScale = map.getZoom();
+            ZoomInOutScale(glAttrFdacswx, zoomScale);
+
             glAttrFdacswx.visible = FdacswxControlBox.checked;
             if (glAttrFdacswx.visible == true) {
             var tempSymbol = new SimpleMarkerSymbol().setSize(10).setColor("green");
@@ -538,19 +547,21 @@
                 }
             }
 
-            for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
-              var p1 = new Point();
-              p1 = glAttrFdacswxTemp.graphics[i].geometry;
-              for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
-                  var p2 = new Point();
-                  p2 = glAttrFdacswxTemp.graphics[j].geometry;  
+            var zoomScale = map.getZoom();
+            ZoomInOutScale(glAttrFdacswxTemp, zoomScale);
+            // for(var i = 0; i < glAttrFdacswxTemp.graphics.length; i++){
+            //   var p1 = new Point();
+            //   p1 = glAttrFdacswxTemp.graphics[i].geometry;
+            //   for( var j = 0; j < glAttrFdacswxTemp.graphics.length; j++){ 
+            //       var p2 = new Point();
+            //       p2 = glAttrFdacswxTemp.graphics[j].geometry;  
             
-                  if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
-                  {
-                    glAttrFdacswxTemp.graphics[j].visible = false;
-                  }
-              }
-            }
+            //       if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0)
+            //       {
+            //         glAttrFdacswxTemp.graphics[j].visible = false;
+            //       }
+            //   }
+            // }
 
             glAttrFdacswxTemp.visible = GetWindSpeedFdacswx.checked;
             if (glAttrFdacswxTemp.visible == true) {
@@ -574,10 +585,13 @@
         // MAP zoom event
         connect.connect(map,"onZoomEnd",function(){
             var zoomScale = map.getZoom();
-            if (glAttrFdacswxTemp.visible == true) {
-              console.log(glAttrFdacswxTemp.visible);
+            // console.log(glAttrFdacswxTemp.graphics[10].attributes.wind_speed.length);
+            // console.log(glAttrFdacswxTemp.graphics[10].attributes.wind_speed.substring(0,4));
+            if (GetWindSpeedFdacswx.checked == true || GetTempFdacswx.checked == true) {
+              // console.log("1");
               ZoomInOutScale(glAttrFdacswxTemp, zoomScale);
             }
+            ZoomInOutScale(glAttrFdacswx, zoomScale);
         })
 
         // MAP popup show event
@@ -631,7 +645,6 @@
                 document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
                 document.getElementsByClassName("esriPopupWrapper")[0].style.maxHeight = null;
                 query('.contentPane').style('max-height', 'none');
-
               },
               resize: function(e,ui){
                 var height_temp = $('.esriPopupWrapper').height();
@@ -685,6 +698,7 @@
         function ZoomInOutScale(layer, zoomScale){
             for(var k = 0; k < layer.graphics.length; k++){
               layer.graphics[k].visible = true;
+              // glAttrFdacswx.graphics[k].visible = true;
             }
 
             // calculating relative visible and invisible
@@ -699,30 +713,35 @@
                   if (zoomScale == 8) {
                     if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.15 && (p2.y - p1.y) > 0){
                       layer.graphics[j].visible = false;
+                      // glAttrFdacswx.graphics[j].visible = false;
                     }
                   }
                   
                   if (zoomScale == 9) {
                     if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.075 && (p2.y - p1.y) > 0){
                       layer.graphics[j].visible = false;
+                      // glAttrFdacswx.graphics[j].visible = false;
                     }
                   }
 
                   if (zoomScale == 10) {
                     if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.045 && (p2.y - p1.y) > 0){
                       layer.graphics[j].visible = false;
+                      // glAttrFdacswx.graphics[j].visible = false;
                     }
                   }
 
                   if (zoomScale == 11) {
                     if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.025 && (p2.y - p1.y) > 0){
                       layer.graphics[j].visible = false;
+                      // glAttrFdacswx.graphics[j].visible = false;
                     }
                   }
 
                   if (zoomScale == 12) {
                     if(Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)) < 0.0001 && (p2.y - p1.y) > 0){
                       layer.graphics[j].visible = false;
+                      // glAttrFdacswx.graphics[j].visible = false;
                     }
                   }
               }
