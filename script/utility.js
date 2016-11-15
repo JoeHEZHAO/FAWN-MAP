@@ -187,11 +187,13 @@ require([
                     graphLayer.graphics[i].attributes.dry_bulb_air_temp = 0;
                   }
 
-                  if ( graphLayer.graphics[i].attributes.wind_speed != null && graphLayer.graphics[i].attributes.wind_speed.length > 4) {
+                  if (graphLayer.graphics[i].attributes.wind_speed != null && graphLayer.graphics[i].attributes.wind_speed.length > 4) 
+                  {
                     graphLayer.graphics[i].attributes.wind_speed = graphLayer.graphics[i].attributes.wind_speed.substring(0,4);
                   }
 
-                  if ( graphLayer.graphics[i].attributes.dry_bulb_air_temp != null && graphLayer.graphics[i].attributes.dry_bulb_air_temp.length > 4) {
+                  if (graphLayer.graphics[i].attributes.dry_bulb_air_temp != null && graphLayer.graphics[i].attributes.dry_bulb_air_temp.length > 4) 
+                  {
                     graphLayer.graphics[i].attributes.dry_bulb_air_temp = graphLayer.graphics[i].attributes.dry_bulb_air_temp.substring(0,4);
                   }
               } 

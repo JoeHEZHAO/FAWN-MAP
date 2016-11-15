@@ -587,7 +587,8 @@
             var zoomScale = map.getZoom();
             // console.log(glAttrFdacswxTemp.graphics[10].attributes.wind_speed.length);
             // console.log(glAttrFdacswxTemp.graphics[10].attributes.wind_speed.substring(0,4));
-            if (GetWindSpeedFdacswx.checked == true || GetTempFdacswx.checked == true) {
+            if (GetWindSpeedFdacswx.checked == true || GetTempFdacswx.checked == true) 
+            {
               // console.log("1");
               ZoomInOutScale(glAttrFdacswxTemp, zoomScale);
             }
@@ -606,13 +607,24 @@
           })
 
           popup.maximize(); // make sure is anchor is at (25, 25) position;
-          popup.resize(width * 0.6 - 25, height * 0.6 - 25);
 
-          $('.esriPopupWrapper').css("min-height", height * 0.6 + "px"); // this line success for fix size
-          $('.esriPopupWrapper').css("max-height", height * 0.6 + "px"); 
-          $('.esriPopupWrapper').css("min-width", width * 0.6 + "px"); 
-          $('.esriPopupWrapper').css("max-width", width * 0.6 + "px"); 
+          // popup.resize(width * 0.8 - 25, height * 0.7 - 25);
+          // console.log("123");
+          var widthPop = width * 0.8;
+          var heightPop = height * 0.8;
 
+          $('.esriPopupWrapper').css("height", heightPop);
+          $('.esriPopupWrapper').css("width", widthPop);
+
+          // console.log(widthPop);
+          // console.log(heightPop);
+
+          // $('.esriPopupWrapper').css("min-height", height * 0.7 - 25 ); // this line success for fix size
+          // $('.esriPopupWrapper').css("max-height", height * 0.7 - 25 ); 
+          // $('.esriPopupWrapper').css("min-width", width * 0.8 - 25 ); 
+          // $('.esriPopupWrapper').css("max-width", width * 0.8 - 25); 
+
+          // wipe out unnecessary icons
           query(".restore").style("display","none");
           query('.zoomTo').style("display", "none");
           query('.sizer').style("width", "100%");
@@ -628,22 +640,28 @@
    
           // put popup in the middle
           query(".esriPopupWrapper").style({
-            left : ( width - (width * 0.6) )/ 2 - 25 + "px",
-            top : ( height - (height * 0.6) )/ 5 - 25 + "px",
+            left : ( width - (width * 0.8) )/ 2 - 25 + "px",
+            top : ( height - (height * 0.7) )/ 7 - 25 + "px",
           });
 
-          document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
-          document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = height * 0.6 + "px";
+          // document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
+          // document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = height * 0.6 + "px";
+
           document.getElementsByClassName("sizer")[2].style.display = "none"; 
           // successfully delete the third sizer div
 
           $(document).ready(function() {
             $(".esriPopupWrapper").resizable({
               start: function(e, ui) {
-                document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
-                document.getElementsByClassName("esriPopupWrapper")[0].style.maxWidth = null;
-                document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
-                document.getElementsByClassName("esriPopupWrapper")[0].style.maxHeight = null;
+                // var height_temp = $('.esriPopupWrapper').height();
+                // var width_temp = $('.esriPopupWrapper').width()
+                // if (chart != null) {
+                //   chart.setSize(width_temp - 22, height_temp - 170, doAnimation = true);
+                // }
+                // document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = null;
+                // document.getElementsByClassName("esriPopupWrapper")[0].style.maxWidth = null;
+                // document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = null;
+                // document.getElementsByClassName("esriPopupWrapper")[0].style.maxHeight = null;
                 query('.contentPane').style('max-height', 'none');
               },
               resize: function(e,ui){

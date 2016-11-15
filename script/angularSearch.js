@@ -64,7 +64,6 @@
                       map.addLayer(pinpointLayer);
                   })
               }
-   
           })
         }
         // submitFadacs() ends
