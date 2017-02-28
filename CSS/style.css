@@ -1,6 +1,9 @@
 
 html, body, {
-        height: 100%; width: 100%; margin: 0; padding: 20,20,20,20;
+        height: 100%; 
+        width: 100%; 
+/*        margin: 0; 
+        padding: 20,20,20,20;*/
       }
 
 #map_wrapper {
@@ -367,16 +370,18 @@ html, body, {
     width: auto;
     text-align: center;
     border-right: 1px solid black;
+    background-color: orange;
 }
 
 .tabs ul li a{
     display:block;
-    color: black;
+    color: blue;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     transition:0.3s;
     font-size: 17px;
+    font-weight: 700;
 }
 
 .tabs ul li a:hover{
@@ -686,5 +691,48 @@ background:rgba(255,255,255,0.2);
 .hideSearchForFadacs{
     display: none;
 }
+
+/* .squaredFour */
+.squaredFour {
+  width: 20px;
+  position: relative;
+  margin: 20px auto;
+  label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fcfff4;
+    background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 4px;
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+    &:after {
+      content: '';
+      width: 9px;
+      height: 5px;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      border: 3px solid #333;
+      border-top: none;
+      border-right: none;
+      background: transparent;
+      opacity: 0;
+      transform: rotate(-45deg);
+    }
+    &:hover::after {
+      opacity: 0.5;
+    }
+  }
+  input[type=checkbox] {
+    visibility: hidden;
+    &:checked + label:after {
+      opacity: 1;
+    }
+  }    
+}
+/* end .squaredFour */
 
 

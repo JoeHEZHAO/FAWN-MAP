@@ -31,7 +31,9 @@
         Map, Search, domConstruct, SimpleFillSymbol, InfoWindow, Popup, PopupTemplate, InfoTemplate, Point, SimpleMarkerSymbol,TextSymbol,Graphic,Color,SimpleRenderer,SimpleLineSymbol,FeatureLayer, GraphicsLayer, Moveable, dom,ready,query, on,domStyle, domClass, connect
       ) {
 
-      var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes', 'isFresh','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','relHum2mPct','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','etInch','bp2m','xpos','ypos','elevation_feet','lng','lat','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','fcstMinTempF','weeklyStartDate','weeklyEndDate','fcstStartTime','fcstEndTime', 'nws_office','freeze_keyword', 'radar_keyword'];
+      var lastestDataNameFawn = ['stnName', 'dateTimes','temp2mF', 'windSpeed10mMph','relHum2mPct','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','totalRad2mWm2','windDir10mDeg','dewPoint2mF'];
+
+      // var lastestDataNameFawn = ['stnName', 'stnID', 'dateTimes','temp2mF','temp60cmF','temp10mF','soilTemp10cmF', 'rainFall2mInch','totalRad2mWm2','windSpeed10mMph','windDir10mDeg','dewPoint2mF','bp2m','county','facility','wetBulbF','dailyMinTempF','dailyAvgTempF','dailyTotalRainInch','weeklyTotalRainInch','weeklyStartDate','weeklyEndDate'];
 
       var lastestDataNameFdacswx = ['station_id', 'date_time', 'dry_bulb_air_temp', 'wet_bulb_temp', 'humidity', 'wind_speed', 'wind_direction', 'rainfall', 'latitude', 'longitude', 'total_rain_inche_since_installed', 'start_date_of_total_rain', 'station_name', 'vendor_name', 'time_zone', 'solar_radiation', 'et', 'solar_radiation_field_name', 'minutes_old', 'hasET', 'hasSolarRadiation', 'hasRemote', 'hasSoilMoisture', 'standard_date_time', 'fresh', 'grower_name'];
 
@@ -50,9 +52,10 @@
           // sliderStyle: "large"
         });
 
+      // title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
         // PopupTemplate generate function
       var popupTemplateGenerateFawn = {
-          title : "<div class='title'><h1>StationName:  {stnName}</h1><h4 style='float:right; font:initial; width: 100%'>lng:{lng} ／ lat:{lat}</h4></div>",
+          title : "<div class='title'><h1>{stnName}</h1><h4 style='float:right; font:initial; width: 100%'>{dateTimes}</h4></div>",
           descriptionStart : "<ul class='tab'>" +
             "<li><a class='tablinks' onclick='openTag(event,&#39;current&#39;)'>Current</a></li>" +
             "<li><a class='tablinks' onclick='addBarChart(event, &#39;graph&#39;, {stnID})'>Graph</a></li>" +
@@ -83,7 +86,7 @@
           setContent : function(descripContent){
             // this.descriptionContent = descripContent;
               // console.log(descripContent);
-              for (var i = 0; i < descripContent.length; i++) {
+              for (var i = 5; i < descripContent.length; i++) {
                 this.descriptionContent = this.descriptionContent.concat("<div style='border-bottom: 1px dotted #e9e9e9'><span style='font-weight:700'>" +  descripContent[i] + ":</span><span style='float:right; color: #999'>{" + descripContent[i] + "}</span></div>");
               }
               // console.log(this.descriptionContent);
@@ -606,19 +609,17 @@
             height = $('#map').height();
           })
 
-          popup.maximize(); // make sure is anchor is at (25, 25) position;
-
+          // make sure is anchor is at (25, 25) position;
+          popup.maximize(); 
           // popup.resize(width * 0.8 - 25, height * 0.7 - 25);
-          // console.log("123");
+
+          //set new width and height to popup window
           var widthPop = width * 0.8;
           var heightPop = height * 0.8;
-
           $('.esriPopupWrapper').css("height", heightPop);
           $('.esriPopupWrapper').css("width", widthPop);
 
-          // console.log(widthPop);
-          // console.log(heightPop);
-
+          // no need to set up minwidth and minheight anymore
           // $('.esriPopupWrapper').css("min-height", height * 0.7 - 25 ); // this line success for fix size
           // $('.esriPopupWrapper').css("max-height", height * 0.7 - 25 ); 
           // $('.esriPopupWrapper').css("min-width", width * 0.8 - 25 ); 
@@ -629,10 +630,9 @@
           query('.zoomTo').style("display", "none");
           query('.sizer').style("width", "100%");
 
-          // // only problem here !!!!
+          // keep content and contentPane changing size with esriPopupWrapper when on fire
           $(document).ready(function() {
             heightPopup = $('.esriPopupWrapper').height();
-        
             document.getElementsByClassName("sizer content")[0].style.height = heightPopup - 20 + "px";
             query('.contentPane').style('max-height', ( heightPopup - 36 ) + "px");
             query(".contentPane").style("height", "100%");
@@ -647,8 +647,9 @@
           // document.getElementsByClassName("esriPopupWrapper")[0].style.minWidth = width * 0.6 + "px";
           // document.getElementsByClassName("esriPopupWrapper")[0].style.minHeight = height * 0.6 + "px";
 
-          document.getElementsByClassName("sizer")[2].style.display = "none"; 
           // successfully delete the third sizer div
+          document.getElementsByClassName("sizer")[2].style.display = "none"; 
+
 
           $(document).ready(function() {
             $(".esriPopupWrapper").resizable({

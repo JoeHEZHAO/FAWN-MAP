@@ -7,6 +7,7 @@
             GrowerName.push(value);
         }
     });
+    
     GrowerName.sort();//list sorting complete
 
     app.controller('myCtrl', function($scope) {

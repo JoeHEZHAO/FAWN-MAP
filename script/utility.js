@@ -85,42 +85,57 @@
               }else{
                   icon[i] = dir[i] + icon[i].replace(/ /g,"_") + ".png";
               }
-        }
-      }
+          }
+    }
       // console.log(icon);
+
+      var tempColor0;
+      var tempColor1;
+      var tempColor2;
+      
+      if (tempLabel[0] == 'High') {
+        tempColor0 = "<span style='display:block; text-align:center; color:red'>" + tempLabel[0] + ": " + temperature[0] + " &#8457</span>";
+      }else{
+        tempColor0 = "<span style='display:block; text-align:center; color:blue'>" +tempLabel[0] + ": " + temperature[0] + " &#8457</span>";
+      }
+
+      if (tempLabel[1] == 'High') {
+         tempColor1 = "<span style='display:block; text-align:center; color:red'>" + tempLabel[1] + ": " + temperature[1] + " &#8457</span>";
+      }else{
+         tempColor1 = "<span style='display:block; text-align:center; color:blue'>" + tempLabel[1] + ": " + temperature[1] + " &#8457</span>";
+      }
+
+      if (tempLabel[2] == 'High') {
+         tempColor2 = "<span style='display:block; text-align:center; color:red'>" + tempLabel[2] + ": " + temperature[2] + " &#8457</span>";
+      }else{
+         tempColor2 = "<span style='display:block; text-align:center; color:blue'>" + tempLabel[2] + ": " + temperature[2] + " &#8457</span>";
+      }
 
       document.getElementById("forcast").innerHTML =
       "<ul style='display:table; width: 100%; padding-left: 0px;'>"
 
         + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
-        + "<span style='display:block; text-align:center'>" + dateTime[0] + "</span>"
-        + "<span style='display:block; text-align:center'>" + tempLabel[0] + "</span>"
-        + "<span style='display:block; text-align:center'>" + temperature[0] + "</span>"
+        + "<span style='display:block; text-align:center'>" + dateTime[0] + "</span><br>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + "><br>"
         + "<span style='display:block; text-align:center'>" + weather[0] + "</span><br>"
-        // + "<span style='display:block'>" + iconLink[0] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
+        + tempColor0
         + "</li>"
 
         + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
-        + "<span style='display:block; text-align:center'>" + dateTime[1] + "</span>"
-        + "<span style='display:block; text-align:center'>" + tempLabel[1] + "</span>"
-        + "<span style='display:block; text-align:center'>" + temperature[1] + "</span>"
+        + "<span style='display:block; text-align:center'>" + dateTime[1] + "</span><br>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + "><br>"
         + "<span style='display:block; text-align:center'>" + weather[1] + "</span><br>"
-        // + "<span style='display:block'>" + iconLink[1] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px; height:60px' src=" + "'." + icon[0] + "'" + ">"
+        + tempColor1
         + "</li>"
 
         + "<li style='display:table-cell; width: 33%; padding: 20px 0px 20px 0px'>"
-        + "<span style='display:block; text-align:center'>" + dateTime[2] + "</span>"
-        + "<span style='display:block; text-align:center'>" + tempLabel[2] + "</span>"
-        + "<span style='display:block; text-align:center'>" + temperature[2] + "</span>"
+        + "<span style='display:block; text-align:center'>" + dateTime[2] + "</span><br>"
+        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px;height:60px' src=" + "'." + icon[0] + "'" + "><br>"
         + "<span style='display:block; text-align:center'>" + weather[2] + "</span><br>"
-        // + "<span style='display:block'>" + iconLink[2] + "</span>"
-        + "<img style='display: block;margin-left: auto;margin-right: auto; width:60px;height:60px' src=" + "'." + icon[0] + "'" + ">"
+        + tempColor2
         + "</li>"
 
       + "</ul>";
-        // window.open(url_forcast1 + lat + url_forcast2 + lng + url_forcast3);
     });
   }
 

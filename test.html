@@ -4,15 +4,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script src="example.js"></script>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
   </head>
   <body>
 
-<div class='container-fluid' ng-controller="TypeaheadCtrl">
+<!-- <div class='container-fluid' ng-controller="TypeaheadCtrl">
     <pre>Model: {{selected| json}}</pre>
     <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue">
-</div>
+</div> -->
+    <pre class="prettyprint">
+      import java.io.*;
+      import java.uil.*;
+
+      public class Test(){
+      
+      }
+    </pre>
 
 <script>
 angular.module('plunker', ['ui.bootstrap']);
