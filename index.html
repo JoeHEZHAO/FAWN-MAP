@@ -5,16 +5,34 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <title></title>
     <script src="script/jquery-1.8.1.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="./CSS/style.css">
-    <link rel="stylesheet" type="text/css" href="./CSS/esri/css/esri.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="script/kendo.all.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="script/jquery.cookie.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="./owl-carousel/owl.carousel.js"></script>
     <script type="text/javascript" src="https://js.arcgis.com/3.17/"></script>
-    <script type="text/javascript" src="./script/GetJson.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+    <!-- <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script> -->
+    <!-- <link rel="stylesheet" href="owl-carousel/owl.carousel.css"> -->
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <!-- Default Theme -->
+    <!-- <link rel="stylesheet" href="owl-carousel/owl.theme.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./CSS/style.css">
+    <link rel="stylesheet" type="text/css" href="./CSS/Stylesheet.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
+    <!-- <link rel="stylesheet" type="text/css" href="CSS/esri/css/esri.css"> -->
   </head>
   <body>
 
     <div id="map_wrapper">
       <div id="map_container">
-        <div class="topbar">
+        <div class="topbar_back">
+          <div class="topbar">
+
+          </div>
           <div class="menu">
               <div class="menu_btn"  onclick="myFunction(this)">
                 <div class="bar1"></div>
@@ -25,125 +43,214 @@
           </div>
         </div>
         <div id="myDropdown" class="dropdown-content">
-        <div class="tabs">
-      <ul>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'London')">London</a></li>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'Paris')">Paris</a></li>
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</a></li>
-      </ul>
+        <div class="tabs" ng-app="myApp" ng-controller="myCtrl">
+            <ul>
+              <li>
+                  <a href="#" class="tablinks" onclick="openMenu(event, 'FAWN')">FAWN</a>
+                  <!-- <span href="#" class="tablinks" onclick="openCity(event, 'Main')">Main</span> -->
+              </li>
+              <li>
+                <a href="#" class="tablinks" onclick="openMenu(event, 'Fdacswx')">Fdacswx</a>
+              </li>
+              <li>
+                <a href="#" class="tablinks" onclick="openMenu(event, 'NOAA')">NOAA</a>
+              </li>
+            </ul>
 
-      <div id="London" class="side_menu_tabcontent">
-        <h3>London</h3>
-        <p>London is the capital city of England.
+      <!-- checkboxes on side_menu_col start-->
 
-        London Listeni/ˈlʌndən/ is the capital and most populous city of England, Great Britain, and the United Kingdom.[3][4] On the River Thames in the south east of the island of Great Britain, London has been a major settlement for two millennia. It was founded by the Romans, who named it Londinium.[5] London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries. Since at least the 19th century, "London" has also referred to the metropolis around this core,[6] which now forms the county of Greater London[7][8][note 1] governed by the Mayor of London and the London Assembly,[9][note 2][10] historically split between Middlesex, Essex, Surrey, Kent, and Hertfordshire.[11][12][13] </p>
-      </div>
-      <div id="Paris" class="side_menu_tabcontent">
-        <h3>Paris</h3>
-        <p>Paris is the capital of France.
+      <div id="FAWN" class="side_menu_tabcontent">
 
-        Paris (French: [paʁi] ( listen)) is the capital and most populous city of France. Situated on the river Seine in northern metropolitan France, it is in the centre of the Île-de-France region, also known as the région parisienne, "Paris Region". The City of Paris largely retains its one and a half century old administrative boundaries, with an area of 105 km² (41 mi²) and as of 2014 a population of 2,241,346.[3][4] Together with its suburbs, the whole agglomeration has a population of 10,550,350 (Jan. 2012 census).[2] Paris' metropolitan area spans most of the Île-de-France region and has a population of 12,405,426 (Jan. 2013 census),[5] constituting one-fifth of the population of France.[6] The administrative region covers 12,012 km² (4,638 mi²), with approximately 12 million inhabitants as of 2014, and has its own regional council and president.[7]</p>
-      </div>
-      <div id="Tokyo" class="side_menu_tabcontent">
-        <h3>Tokyo</h3>
-        <p>Tokyo is the capital of Japan.
-
-        Tokyo (東京 Tōkyō?, "Eastern Capital") (Japanese: [toːkjoː] ( listen), English /ˈtoʊki.oʊ/), officially Tokyo Metropolis (東京都 Tōkyō-to),[4] is one of the 47 prefectures of Japan,[5] and is both the capital and most populous city of Japan. The Greater Tokyo Area is the most populous metropolitan area in the world.[6] It is the seat of the Emperor of Japan and the Japanese government. Tokyo is in the Kantō region on the southeastern side of the main island Honshu and includes the Izu Islands and Ogasawara Islands.[7] Formerly known as Edo, it has been the de facto seat of government since 1603 when Shogun Tokugawa Ieyasu made the city his headquarters. It officially became the capital after Emperor Meiji moved his seat to the city from the old capital of Kyoto in 1868; at that time Edo was renamed Tokyo. Tokyo Metropolis was formed in 1943 from the merger of the former Tokyo Prefecture (東京府 Tōkyō-fu) and the city of Tokyo (東京市 Tōkyō-shi).</p>
-      </div>
-
-
-        </div>
+        <div >
+          <input type="checkbox" name="openDropdownMenuFawn" id="openDropdownMenuFawn" unchecked>
+          <span>Fawn Weather Data Info</span>
+          <!-- <label for="squaredFour">Fawn Weather Data Info</label> -->
         </div>
 
-        <div class="map_and_panel" id="map_and_panel">
+        <!-- Temperature Layer checkbox begin -->
+
+          <div id="TemperatureLayerFawn" style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979; display: none;">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetTemp" value="Temperature Layer" unchecked>
+                <label for="GetTemp"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">Temperature Layer</div>
+          </div>
+
+        <!-- Temperature Layer checkbox end -->
+
+        <!-- WindSpeed Layer checkbox start -->
+
+          <div id="WindSpeedLayerFawn" style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979; display: none;">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetWindSpeed" value="WindSpeed Layer" unchecked>
+                <label for="GetWindSpeed"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">WindSpeed Layer</div>
+          </div>
+
+        <!-- WindSpeed Layer checkbox end -->
+
+        <div style="width: 100%;height: 20%; max-height: 70px; position: relative;background-color: grey;border: 1px solid #797979">
+            <input type="button" name="search" id="searchBarForFAWN" onclick="openSearchBar(this)">Search for Grower and Satation</input>
+        </div>
+
+        <!-- fawn search bar starts-->
+          <div id="searchForFawn" style="display:none;">
+            <br><label>Station:</label><br>
+            <select ng-model="SelectedstationName2" ng-options="value for value in fawnStationName" style="max-width: 150px"
+            style="overflow:hidden" >
+              <option value="">-- Station Name --</option>
+            </select>
+
+            <br/><br/>
+            <input type="button" ng-click="submitFawn(SelectedstationName2)" name="submit" value="submit"/>
+          </div>
+        <!-- fawn search bar ends -->
+
+        </div>
+
+      <div id="Fdacswx" class="side_menu_tabcontent">
+
+        <div>
+          <input type="checkbox" name="openDropdownMenuFdacswx" id="openDropdownMenuFdacswx" unchecked>
+          <span>Fdacswx Weather Data Info</span>
+        </div>
+
+        <!-- Temperature Layer checkbox begin -->
+
+          <div id="TemperatureLayerFdacswx" style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979; display: none;">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetTempFdacswx" value="Temperature Layer" unchecked>
+                <label for="GetTempFdacswx"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">Temperature Layer</div>
+          </div>
+
+        <!-- Temperature Layer checkbox end -->
+
+        <!-- WindSpeed Layer checkbox start -->
+          <div id="WindSpeedLayerFdacswx" style="width: 100%;height: 20%; max-height: 70px; position: relative; background-color: grey;border: 1px solid #797979; display: none;">
+              <div class="roundedOne">
+                <input type="checkbox" id="GetWindSpeedFdacswx" value="Temperature Layer" unchecked>
+                <label for="GetWindSpeedFdacswx"></label>
+              </div>
+              <div style="position: relative;display: inline-block;left: 30px; top:23px; color: rgb(221, 221, 221);">WindSpeed Layer</div>
+          </div>
+        <!-- WindSpeed Layer checkbox ends -->
+
+        <!-- Fadacswx search bar starts -->
+          <div style="width: 100%;height: 20%; max-height: 70px; position: relative;background-color: grey;border: 1px solid #797979">
+            
+                <input type="button" name="search" id="searchBarForFadacs" onclick="openSearchBar(this)">Search for Grower and Satation</input>
+       
+          </div>
+
+          <div id="searchForFadacs" style="display: none;">
+              <br><label>Grower:</label><br>
+              <select ng-model="selectedGrowerName" ng-options="y for y in growerNames" style="max-width: 150px" ng-change="onChanged(selectedGrowerName)"
+              style="overflow:hidden" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 500, 'blur': 0} }">
+                <option value="">-- Grower Name --</option>
+              </select>
+
+              <br><label>Station:</label><br>
+              <select ng-model="SelectedstationName1" ng-options="value for value in stationName" style="max-width: 150px"
+              style="overflow:hidden" >
+                <option value="">-- Station Name --</option>
+              </select>
+
+              <br/><br/>
+              <input type="button" ng-click="submitFadacs(selectedGrowerName, SelectedstationName1)" name="submit" value="submit"/>
+          </div>
+        <!-- Fadacswx search bar ends -->
+
+      </div>
+
+      <div id="NOAA" class="side_menu_tabcontent">
+        <ul>
+            <li>Activities</li>
+            <li>Webcams</li>
+            <li>Satellite</li>
+        </ul>
+      </div>
+
+      <div id="searchDropDown">
+        
+      </div>
+
+
+    </div>
+  </div>
+
+          <!-- start map and panel  -->
+      <div class="map_and_panel" id="map_and_panel">
+
+      <!-- angular search bar -->
+
+            <!-- start draggable window -->
+        <div id="draggable" class="ui-widget-content">
+            <div id="map_panel" class="map_panel">
+            </div>
+        </div>
+            <!-- end draggable window -->
+
           <div id="map" class="map"></div>
-          <div id="map_panel" class="map_panel">
-        	     <div style="position: absolute; height: 60px; top: 0px; width: 250px ">
-    			     <div class="roundedOne">
-      				  <input type="checkbox" id="GetTemp" value="Tempature Layer" unchecked>
-      				  <label for="GetTemp"></label>
-    			     </div>
-    			     <span style="position: absolute; left: 69px; top: 25px;">Tempature Layer</span>
-    		      </div>
-
-    		<div style="height: 60px; position: absolute; top: 60px; width: 250px">
-    			<div class="roundedOne">
-      				<input type="checkbox" id="GetStation" value="Station Layer" unchecked>
-      				<label for="GetStation"></label>
-      			</div>
-      			<span style="position: absolute; left: 69px; top: 25px;">Station Layer</span>
-    		</div>
-
-    		<div style="height: 60px; position: absolute; top: 120px; width:250px">
-     			<div class="roundedOne">
-      				<input type="checkbox" id="GetWindSpeed" value="WindSpeed Layer" unchecked>
-      				<label for="GetWindSpeed"></label>
-    			</div>
-    			<span style="position: absolute; left: 69px; top: 25px;">WindSpeed Layer</span>
-    	 	 </div>
-        </div>
       </div>
-
+          <!-- end map and panel -->
       </div>
     </div>
 <!--     <div id="map"></div> -->
-  <script type="text/javascript">
-    function openTag(evt, TagName){
-          var i, tablecontent, tablinks;
+      
+      <script type="text/javascript" src="./script/graph.js"></script>
+      <script type="text/javascript" src="./script/utility.js"></script>
+      <script type="text/javascript" src="./script/constant.js"></script>
+      <script type="text/javascript" src="./script/init.js"></script>
+      <script type="text/javascript" src="./script/angularSearch.js"></script>
 
-          tablecontent = document.getElementsByClassName("tabcontent");
-          for ( i = 0; i < tablecontent.length; i++) {
-            //console.log("asd");
-            tablecontent[i].style.display = "none";
+      <script type="text/javascript">
+        $(document).ready(function(){
+          coldp = function (grower, station){
+            var COLD_PROTECTION_URL = 'http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php';
+            $.cookie('grower', grower,{expires : 7, path : "/"});
+            $.cookie('station', station, {expires : 7, path : "/"});
+            $.cookie('source', 'fdacs', {expires : 7, path : "/"});
+            console.log($.cookie('grower'));
+            console.log($.cookie('station'));
+            window.open("http://fawn.ifas.ufl.edu/tools/coldp/cold_protection_2015.php");
           }
-          tablinks = document.getElementsByClassName("tablinks")
-          for ( i = 0; i < tablinks.length; i++) {
-            //console.log("asd");
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
+        })
+      </script>
 
-
-          document.getElementById(TagName).style.display = "block";
-          evt.currentTarget.className += "active";
-  }
-
-      function myFunction(x){
-          x.classList.toggle("change");
-          document.getElementById("myDropdown").classList.toggle("show")
-          document.getElementById("map").classList.toggle("map_change");
-          document.getElementById("map_panel").classList.toggle("panel_change");
-      }
-
-        // window.onclick = function(event){
-        //   if(!event.target.matches('.menu_btn')){
-        //   var dropdowns = document.getElementsByClassName('dropdown-content');
-        //   var i;
-        //   for(i=0;i<dropdowns.length;i++){
-        //     var openDropDown = dropdowns[i];
-        //   if(openDropDown.classList.contains("show")){
-        //     openDropDown.classList.remove("show");
-        //     }
-        //   }
-        // }
-        // }
-
-
-    function openCity(evt, cityName){
-      var i, tabcontent, tablinks;
-
-      tabcontent = document.getElementsByClassName("side_menu_tabcontent");
-      for(i=0; i < tabcontent.length;i++){
-        tabcontent[i].style.display="none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-     for(i=0;i<tablinks.length;i++){
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-
-      document.getElementById(cityName).style.display= "block";
-      evt.currentTarget.className += " active";
-    }
-  </script>
+      <!-- footer starts  -->
+      <div id="footer">
+        <div class="rightcontent">&copy; Copyright 2014, TERMINALFOUR Solutions Limited. - <a href="#">RSS Feed</a>
+            <br /><a href="#">Edit this page</a>
+        </div>
+            <a href="#">Contact Us</a> - <a href="#">Site Map</a>
+        <br /><a href="http://validator.w3.org/check?uri=referer" title="Validate">XHTML</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate">CSS</a>
+      </div>
+      <!-- footer ends -->
 
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

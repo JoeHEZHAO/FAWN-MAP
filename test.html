@@ -1,84 +1,36 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="plunker">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-    <title>Custom Info Window</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
-    <!-- <link rel="stylesheet" href="myModules/InfoWindow.css"> -->
-    <style>
-      html, body, #mapDiv { height: 100%; width: 100%; margin: 0; padding: 0; }
-
-    </style>
-    <script src="https://js.arcgis.com/3.17/"></script>
-    <script>
-
-    require([
-      "dojo/dom",
-      "dojo/dom-construct",
-      "esri/map",
-      "esri/dijit/InfoWindow",
-      "esri/layers/FeatureLayer",
-      "esri/InfoTemplate",
-      "dojo/string",
-      "dojo/domReady!"
-    ], function(
-       dom,
-       domConstruct,
-       Map,
-       InfoWindow,
-       FeatureLayer,
-       InfoTemplate,
-       string
-    ) {
-      //create the custom info window specifying any input options
-       var infoWindow = new  InfoWindow({
-          domNode: domConstruct.create("div", null, dom.byId("mapDiv"))
-       });
-
-      //create the map and specify the custom info window as the info window that will
-      //be used by the map
-
-      var map = new Map("mapDiv", {
-        center: [-122.41, 37.78],
-        zoom: 17,
-        basemap: "topo",
-        infoWindow: infoWindow
-      });
-
-      //define the info template that is used to display the popup content.
-      var template = new InfoTemplate();
-      template.setTitle("<b>${qAddress}</b>");
-      template.setContent("hello");
-      //template.setContent(getTextContent);
-
-      //create the feature layer (street trees of San Francisco)
-      var featureLayer = new FeatureLayer("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Street_Trees/FeatureServer/0",{
-        infoTemplate: template,
-        outFields: ["*"]
-      });
-      map.addLayer(featureLayer);
-
-      //resize the info window
-      map.infoWindow.resize(180, 75);
-
-
-      function getTextContent(graphic){
-        var attr = graphic.attributes.qSpecies.replace('"',"");
-        var names=attr.split("::");
-        var commName = string.trim(names[1].replace('"',""));
-        var hlink = names[0].split(" ");
-        var sciName = hlink[0] + "_" + hlink[1];
-        if(commName === ""){
-          commName = names[0];
-        }
-        return "<b>" + commName + "</b><br /><a target='_blank' href=https://en.wikipedia.org/wiki/" + sciName  +">Wikipedia Entry</a>";
-      }
-    });
-    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <script src="example.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
   </head>
   <body>
-    <div id="mapDiv"></div>
+
+<!-- <div class='container-fluid' ng-controller="TypeaheadCtrl">
+    <pre>Model: {{selected| json}}</pre>
+    <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue">
+</div> -->
+    <pre class="prettyprint">
+      import java.io.*;
+      import java.uil.*;
+
+      public class Test(){
+      
+      }
+    </pre>
+
+<script>
+angular.module('plunker', ['ui.bootstrap']);
+function TypeaheadCtrl($scope) {
+
+  $scope.selected = undefined;
+  $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+}
+
+</script>
   </body>
 </html>
